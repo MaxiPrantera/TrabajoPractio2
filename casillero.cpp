@@ -5,8 +5,8 @@
 /*
 Post: Inicializa un casillero con  una ficha nueva con el simbolo especificado
 */
-Casillero::Casillero(char simboloFicha){
-    this->contenidoCasillero = new Soldado(simboloFicha);
+Casillero::Casillero(){
+    this->casilleroVacio = true;
     this->turnosRestantesDesbloqueo = 0;
     this->casilleroAnulado = false;
 }
@@ -25,11 +25,7 @@ Post: : devuelve true si el casillero esta vacio
 */
 bool Casillero::estaCasilleroVacio()
 {
-    if(this->contenidoCasillero->getSimboloFicha() == SIMBOLO_FICHA_VACIA)
-    {
-        return true;
-    }
-    return false;
+    return this->casilleroVacio;
 }
 
 /* Post: devuelve true si el casillero esta anulado para colocar fichas*/
@@ -49,7 +45,6 @@ Post: vacia un casillero para que pueda colocarse otra ficha
 asignandole la ficha vacia
 */
 void Casillero::vaciarCasillero(){
-    this->contenidoCasillero->setSimboloFicha(SIMBOLO_FICHA_VACIA);
     this->turnosRestantesDesbloqueo = 0;
     this->casilleroAnulado = false;
 
@@ -59,11 +54,15 @@ void Casillero::vaciarCasillero(){
 PRE: el casillero existe
 Post: copia el contenido de un casillero a otro casillero
 */
-void Casillero::copiarCasillero(Casillero* dest){
-    dest->contenidoCasillero->setSimboloFicha(this->contenidoCasillero->getSimboloFicha());
-    this->contenidoCasillero->setSimboloFicha(SIMBOLO_FICHA_VACIA);
+void Casillero::moverJugadorEnCasillero(Casillero* dest){
+    dest->contenidoCasillero->insertarJugadorEnCasillero(this->obtenerContenidoCasillero());
+    dest->casilleroVacio = false;
+    ///falta  mover el puntero
+    this->casilleroVacio = true;
 }
-
+void Casillero::insertarJugadorEnCasillero(Jugador* jugador){
+    this->contenidoCasillero = jugador;
+}
 /*
 Pre: casillero fue creado anteriormete
 Post :retorna la cantidad de turnos restantes por los cuales el casillero esta bloqueado
@@ -99,21 +98,15 @@ void Casillero::bloquearFichaDelCasillero(){
  * POST:asigna una ficha en el contenido del casillero
  */
 
-void Casillero::setSimboloFichaDelCasillero(char simboloFicha) {
-    this->contenidoCasillero->setSimboloFicha(simboloFicha);
-}
-/*Pre : casillero creado anteriormete
- * POST:obtiene la ficha del casillero
- */
-
-char Casillero::obtenerSimboloFichaDelCasillero() {
-    return this->contenidoCasillero->getSimboloFicha();
+void Casillero::setJugadorEnCasillero(Jugador jugadorId) {
+    this->contenidoCasillero = new Jugador(jugadorId);
+    
 }
 
 /*
 Pre : casillero creado anteriormete
 Post: devuelve el contenido del casillero*/
-Ficha* Casillero::obtenerContenidoCasillero()
+Jugador* Casillero::obtenerContenidoCasillero()
 {
 	return this->contenidoCasillero;
 }
