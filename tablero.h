@@ -30,6 +30,7 @@ public:
     size_t getCantProfundidadTablero();
     bool existeLaCasilla(size_t m, size_t n, size_t l);
     Lista<Lista<Lista<Casillero*>*>*>* obtenerMatrizTablero();
+    //Lista<Lista<Lista<Casillero*>*>*>* Tablero::mostrarMatrizTablero();
 
 
 };
