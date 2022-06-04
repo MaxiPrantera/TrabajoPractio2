@@ -1,3 +1,5 @@
+//En una clase del cuatri pasado el profe explica la parte externa del tablero con un TDA de BatallaCampal
+
 #include "BatallaCampal.h"
 
 /*
