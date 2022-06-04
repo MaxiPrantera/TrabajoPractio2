@@ -107,13 +107,14 @@ bool Tablero::existeLaCasilla(size_t m, size_t n, size_t l) {
     return true;
 }
 
-Lista<Lista<Lista<Casillero*>*>*>* Tablero::mostrarMatrizTablero(){
+/*Lista<Lista<Lista<Casillero*>*>*>* Tablero::mostrarMatrizTablero(){
     turnoFinalizado = this->tirarCarta();
     while(turnoFinalizado){
         Casillero *... = obtenerMatrizTablero();
         
     }
 }
+*/
 
 /*
 Pre: existe el tablero
