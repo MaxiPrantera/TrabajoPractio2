@@ -1,15 +1,28 @@
 #include "casillero.h"
 #include <iostream>
-#define SIMBOLO_FICHA_VACIA ' '
+
 
 /*
 Post: Inicializa un casillero con  una ficha nueva con el simbolo especificado
 */
 Casillero::Casillero(){
-    this->casilleroVacio = true;
+    this->estado = vacio;
     this->turnosRestantesDesbloqueo = 0;
-    this->casilleroAnulado = false;
+
 }
+
+int Casillero::retornarX(){
+    return this->x;
+
+}
+int Casillero::retornarY(){
+    return this->y;
+}
+
+int Casillero::retornarY(){
+    return this->z;
+}
+
 /*
 Pre:Existe el casillero
 Post: elimina la memoria dinamica del casillero
@@ -25,7 +38,7 @@ Post: : devuelve true si el casillero esta vacio
 */
 bool Casillero::estaCasilleroVacio()
 {
-    return this->casilleroVacio;
+    return this->estado == vacio;
 }
 
 /* Post: devuelve true si el casillero esta anulado para colocar fichas*/
@@ -37,7 +50,7 @@ PRE: el casillero esta vacio al momento de anularse
 Post:  anula un casillero , entonces no podran colocarse fichas en el
 */
 void Casillero::anularCasillero(){
-    this->casilleroAnulado = true;
+    this->estado = anulado;
 }
 /*
 PRE: el casillero existe
@@ -45,24 +58,22 @@ Post: vacia un casillero para que pueda colocarse otra ficha
 asignandole la ficha vacia
 */
 void Casillero::vaciarCasillero(){
+    this->contenidoCasillero = NULL;
     this->turnosRestantesDesbloqueo = 0;
-    this->casilleroAnulado = false;
-
+    this->estado = vacio;
 }
+
 
 /*
 PRE: el casillero existe
 Post: copia el contenido de un casillero a otro casillero
 */
-void Casillero::moverJugadorEnCasillero(Casillero* dest){
-    dest->contenidoCasillero->insertarJugadorEnCasillero(this->obtenerContenidoCasillero());
+void Casillero::copiarCasillero(Casillero* dest){
+    dest->contenidoCasillero = this->contenidoCasillero;
+    this->contenidoCasillero = NULL;
     dest->casilleroVacio = false;
-    ///falta  mover el puntero
-    this->casilleroVacio = true;
 }
-void Casillero::insertarJugadorEnCasillero(Jugador* jugador){
-    this->contenidoCasillero = jugador;
-}
+
 /*
 Pre: casillero fue creado anteriormete
 Post :retorna la cantidad de turnos restantes por los cuales el casillero esta bloqueado
@@ -89,34 +100,26 @@ void Casillero::decrementarTurnosRestantesDesbloqueo(){
 /*
 PRE: el casillero fue creado anteriormente y posee una ficha en el
 Post : Bloquea la ficha del casillero
-*/
+
 void Casillero::bloquearFichaDelCasillero(){
     this->contenidoCasillero->bloquearFicha();
 }
+*/
 
-/*Pre : casillero creado anteriormete
- * POST:asigna una ficha en el contenido del casillero
- */
 
-void Casillero::setJugadorEnCasillero(Jugador jugadorId) {
-    this->contenidoCasillero = new Jugador(jugadorId);
-    
+void Casillero::setFicha(Ficha* ficha) {
+    this->contenidoCasillero = ficha;
 }
 
 /*
 Pre : casillero creado anteriormete
 Post: devuelve el contenido del casillero*/
-Jugador* Casillero::obtenerContenidoCasillero()
-{
+Ficha* Casillero::obtenerContenidoCasillero(){
 	return this->contenidoCasillero;
 }
 
 /*Pre : casillero creado anteriormete
  * POST:Desbloquea el casillero cambiando el estado de casilleroAnulado a false
  */
-void Casillero::desbloquearCasillero()
-{
-	this->casilleroAnulado=false;
-}
 
 
