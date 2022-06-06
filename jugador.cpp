@@ -4,7 +4,7 @@ using namespace std;
 /*
 POST: Crea un jugador con un nombre
 */
-Jugador::Jugador(string nombre)
+Jugador::Jugador(std::string nombre)
 {
 
 	this->nombreJugador = nombre;
@@ -17,7 +17,7 @@ Jugador::~Jugador()
 
 }
 /*POST: Setea el nombre del jugador*/
-void Jugador::setNombreJugador(string nombre)
+void Jugador::setNombreJugador(std::string nombre)
 {
 	this->nombreJugador = nombre;
 }
