@@ -27,7 +27,7 @@ private:
   
 
 public:
-    Casillero(int x, int y, int z);
+    Casillero(unsigned int x, unsigned int y, unsigned int z);
     virtual ~Casillero();
     int retornarX();
     int retornarY();
