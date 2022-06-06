@@ -21,9 +21,9 @@ private:
     size_t turnosRestantesDesbloqueo;
     bool casilleroAnulado;
     Ficha *contenidoCasillero;
-    int x;
-    int y;
-    int z;
+    unsigned int x;
+    unsigned int y;
+    unsigned int z;
   
 
 public:
