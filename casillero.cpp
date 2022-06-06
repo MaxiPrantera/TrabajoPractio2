@@ -19,7 +19,7 @@ int Casillero::retornarY(){
     return this->y;
 }
 
-int Casillero::retornarY(){
+int Casillero::retornarZ(){
     return this->z;
 }
 
