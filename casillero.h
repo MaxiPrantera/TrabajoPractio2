@@ -36,6 +36,7 @@ public:
     bool estaCasilleroAnulado();
 ///setear solo con la ficha que tiene el puntero a jugador
     void vaciarCasillero();
+    void setTerreno(Terreno terreno);
     void setTurnosRestantesDesbloqueo(size_t cantidadTurnos);
     size_t getTurnosRestantesDesbloqueo(); 
     void decrementarTurnosRestantesDesbloqueo();
