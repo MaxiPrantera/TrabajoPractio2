@@ -63,6 +63,13 @@ void Casillero::vaciarCasillero(){
     this->estado = vacio;
 }
 
+/*
+PRE: el casillero existe
+Post: setea un tipo de terreno al casillero
+*/
+void Casillero::setTerreno(Terreno terreno){
+    this->terreno = terreno;
+
 
 /*
 PRE: el casillero existe
