@@ -1,6 +1,7 @@
 #ifndef CASILLLERO_H
 #define CASILLLERO_H
 #include <iostream>
+#include "jugador.h"
 using namespace std;
 
 /*[TDA CASILLERO]
@@ -19,35 +20,28 @@ private:
     Terreno terreno;
     Estado estado;
     size_t turnosRestantesDesbloqueo;
-    bool casilleroAnulado;
     Ficha *contenidoCasillero;
-    int x;
-    int y;
-    int z;
+    unsigned int x;
+    unsigned int y;
+    unsigned int z;
   
 
 public:
-    Casillero(int x, int y, int z);
+    Casillero();
     virtual ~Casillero();
+    //USAMOS GET DE LISTA.H
     int retornarX();
     int retornarY();
     int retornarZ();
-    bool estaCasilleroVacio();
-    bool estaCasilleroAnulado();
-///setear solo con la ficha que tiene el puntero a jugador
+    //setear solo con la ficha que tiene el puntero a jugador
     void vaciarCasillero();
-    void setTurnosRestantesDesbloqueo(size_t cantidadTurnos);
-    size_t getTurnosRestantesDesbloqueo(); 
+    void setTurnosRestantesDesbloqueo(unsigned int cantidadTurnos);
+    unsigned int getTurnosRestantesDesbloqueo(); 
     void decrementarTurnosRestantesDesbloqueo();
     void bloquearFichaDelCasillero();
-
     void anularCasillero();
     void desbloquearCasillero();
-
     void copiarCasillero(Casillero* dest);
-    
-
-
     ///void bloquearFichaDelCasillero();
     void setFicha(Ficha* ficha);
     void anularCasillero();

@@ -5,34 +5,40 @@
 #define SIMBOLO_FICHA_VACIA ' '
 
 
-Tablero::Tablero(size_t cantFilas, size_t cantColumnas, size_t cantEnProfundidad) {
-    if ((cantFilas < 2) || (cantColumnas<2) || (cantEnProfundidad<2))
+Tablero::Tablero(unsigned int xMax, unsigned int yMax, unsigned int zMax) {
+    if ((xMax < 2) || (yMax < 2) || (zMax < 2))
     {
         string DimensionInvalida = "dimensiones de tablero incorrectas";
         throw DimensionInvalida;
     }
-    this->cantFilas=cantFilas;
-    this->cantColumnas=cantColumnas;
-    this->cantEnProfundidad=cantEnProfundidad; 
-    Lista<Lista <Lista<Casillero *>*>*> * filas  = new Lista<Lista <Lista<Casillero *>*>*>;
+    this->xMax=xMax;
+    this->yMax=yMax;
+    this->zMax=zMax; 
+    this->casilleros = new Lista<Lista <Lista<Casillero *>*>*>();
+    
+    //Lista<Lista <Lista<Casillero *>*>*> * filas  = new Lista<Lista <Lista<Casillero *>*>*>;
 
-    for(size_t i=0;  i<this->cantFilas; i++)
+    for(unsigned int x=0;  x<this->xMax; x++)
     {
-        Lista<Lista <Casillero *>*> *columnas = new Lista<Lista <Casillero *>*>;
-        for (size_t j=0; j<this->cantColumnas; j++)
+        
+        this->casilleros->agregar(new Lista<Lista <Casillero *>*>());
+        //Lista<Lista <Casillero *>*> *columnas = new Lista<Lista <Casillero *>*>;
+        for (unsigned int y=0; y<this->yMax; y++)
         {
-            Lista<Casillero *> * profundidad = new Lista<Casillero *>;
+            this->casilleros->get(x)->agregar(new Lista <Casillero*>());
+            //Lista<Casillero *> * profundidad = new Lista<Casillero *>;
 
-            for (size_t k = 0; k < this->cantEnProfundidad; k++)
+            for (unsigned int z = 0; z < this->zMax; z++)
             {
-                Casillero* nuevoCasillero = new Casillero(SIMBOLO_FICHA_VACIA);
-                profundidad->agregar(nuevoCasillero);
+                this->casilleros->get(x)->get(y)->agregar(new Casillero());
+                //Casillero* nuevoCasillero = new Casillero();
+                //profundidad->agregar(nuevoCasillero);
             }
-            columnas->agregar(profundidad);
+            //columnas->agregar(profundidad);
         }
-        filas->agregar(columnas);
+        //filas->agregar(columnas);
     }
-    this->casilleros = filas;
+    //this->casilleros = filas;
 }
 
 
@@ -41,26 +47,45 @@ Tablero::Tablero(size_t cantFilas, size_t cantColumnas, size_t cantEnProfundidad
 
 Tablero::~Tablero() {
 
-     Lista<Lista <Lista<Casillero *>*>*> * filas = this->casilleros;
+
+for(unsigned int x=0;  x<this->xMax; x++)
+{
+    for (unsigned int y=0; y<this->yMax; y++)
+    {
+        for (unsigned int z = 0; z < this->zMax; z++)
+        {
+            delete this->casilleros->get(x)->get(y)->get(z);
+        }
+        delete this->casilleros->get(x)->get(y);
+    }
+    delete this->casilleros->get(x);
+}
+
+delete this->casilleros;
+
+}
+
+/* DESTRUCTOR VIEJO
+     Lista<Lista<Lista<Casillero *>*>*> * filas = this->casilleros;
 
      while(filas->avanzarCursor())
      {
-        Lista<Lista <Casillero *>*> *columnas = this->casilleros->obtenerCursor();
+        Lista<Lista <Casillero *>*> *columnas = this->casilleros->getCursor();
         while(columnas->avanzarCursor())
         {
 
-            Lista<Casillero *> * profundidad = columnas->obtenerCursor();
+            Lista<Casillero *> * profundidad = columnas->getCursor();
             while(profundidad->avanzarCursor())
             {
-                delete profundidad->obtenerCursor();
+                delete profundidad->getCursor();
 
             }delete profundidad;
 
         }delete columnas;
 
      }delete filas;
-   
-}
+*/  
+
     
 /*
 Pre: existe el tablero y el casillero solicitado
@@ -72,14 +97,14 @@ Pre: existe el tablero y el casillero solicitado
 Post: devuelve el casillero ubicado en la posicion [fila][columna][profundidad]
 */
 
-Casillero * Tablero::getCasillero(size_t fila, size_t columna, size_t profundidad) 
+Casillero * Tablero::getCasillero(unsigned int x, unsigned int y, unsigned int z) 
 { 
-    if((fila <= 0) || (columna<= 0) || (profundidad <=0) || (fila>this->cantFilas) || (columna>this->cantColumnas) ||(profundidad>this->cantEnProfundidad))
+    if((x <= 0) || (y<= 0) || (z <=0) || (x>this->xMax) || (y>this->yMax) ||(z>this->zMax))
     {
         string CoordInvalidas = "coordenadas de casilleros invalidas";
         throw CoordInvalidas;
     }
-    return this->casilleros->obtener(fila)->obtener(columna)->obtener(profundidad);
+    return this->casilleros->get(x)->get(y)->get(z);
 }
 
 
@@ -87,8 +112,9 @@ Casillero * Tablero::getCasillero(size_t fila, size_t columna, size_t profundida
 Pre: existe el casillero establecido y esta en el rango del tablero
 Post:Establece la ficha del casillero ubicado en la posicion [fila][columna][profundidad] 
 con el simbolo 'simboloFicha'*/
-void Tablero::setCasilla(size_t fila, size_t columna, size_t profundidad, char simboloFicha) {
-    this->casilleros->obtener(fila)->obtener(columna)->obtener(profundidad)->setSimboloFichaDelCasillero(simboloFicha);
+void Tablero::setCasilla(unsigned int x, unsigned int y, unsigned int z, Ficha* simboloFicha) {
+    
+    this->casilleros->get(x)->get(y)->get(z)->setFicha(simboloFicha);
 
 }
 
@@ -97,9 +123,9 @@ Lista<Lista<Lista<Casillero*>*>*>* Tablero::obtenerMatrizTablero()
     return this->casilleros;
 }   
 
-bool Tablero::existeLaCasilla(size_t m, size_t n, size_t l) {
-    if(this->cantFilas < m ||this->cantColumnas < n ||this->cantEnProfundidad < l ||
-        m< 1 || n<1 || l<1){
+bool Tablero::existeLaCasilla(unsigned int x, unsigned int y, unsigned int z) {
+    if(this->xMax < x ||this->yMax < y ||this->zMax < z ||
+        x< 1 || y<1 || z<1){
         return false;
     }
     return true;
@@ -109,25 +135,25 @@ bool Tablero::existeLaCasilla(size_t m, size_t n, size_t l) {
 Pre: existe el tablero
 Post:Devuelve la cantidad de filas que posee el tablero
 */
-size_t Tablero::getCantFilasTablero()
+unsigned int Tablero::getCantFilasTablero()
 {
-    return this->cantFilas;
+    return this->xMax;
 }
 /*
 Pre: existe el tablero
 Post:Devuelve la cantidad de columnas que posee el tablero
 */
-size_t Tablero::getCantColumnasTablero()
+unsigned int Tablero::getCantColumnasTablero()
 {
-    return this->cantColumnas;
+    return this->yMax;
 }
 /*
 Pre: existe el tablero
 Post:Devuelve la profundidad que posee el tablero
 */
-size_t Tablero::getCantProfundidadTablero()
+unsigned int Tablero::getCantProfundidadTablero()
 {
-    return this->cantEnProfundidad;
+    return this->zMax;
 
 }
 
