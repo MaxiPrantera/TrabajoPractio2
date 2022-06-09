@@ -11,10 +11,16 @@ Casillero::Casillero(){
 
 }
 
+Estado Casillero::getEstado(){
+    return this->estado;
+}
+
 int Casillero::retornarX(){
     return this->x;
 
+
 }
+
 int Casillero::retornarY(){
     return this->y;
 }
