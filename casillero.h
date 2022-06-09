@@ -19,7 +19,6 @@ private:
     Terreno terreno;
     Estado estado;
     size_t turnosRestantesDesbloqueo;
-    bool casilleroAnulado;
     Ficha *contenidoCasillero;
     int x;
     int y;
@@ -32,8 +31,7 @@ public:
     int retornarX();
     int retornarY();
     int retornarZ();
-    bool estaCasilleroVacio();
-    bool estaCasilleroAnulado();
+    Estado getEstado();
 ///setear solo con la ficha que tiene el puntero a jugador
     void vaciarCasillero();
     void setTurnosRestantesDesbloqueo(size_t cantidadTurnos);
