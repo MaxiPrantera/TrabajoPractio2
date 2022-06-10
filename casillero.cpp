@@ -11,6 +11,11 @@ Casillero::Casillero(){
 
 }
 
+void Casillero::setEstado(Estado estado){
+    this->estado = estado;
+
+}
+
 Estado Casillero::getEstado(){
     return this->estado;
 }
