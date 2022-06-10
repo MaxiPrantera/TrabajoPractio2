@@ -13,8 +13,13 @@ class Jugador
 private:
 	string  nombreJugador;
 	size_t idJugador;
+	unsigned int cantidadFichas;
+	///Lista<Lista <Lista<Casillero *>*>*> * filas  = new Lista<Lista <Lista<Casillero *>*>*>; 
+	Lista<Ficha *>* listaFichas;
 public:
 	Jugador(string nombre);
+	void eliminarFicha(Ficha* ficha);
+	void agregarFicha(Ficha* ficha);
 	~Jugador();
 	string obtenerNombreJugador();
 	void setNombreJugador(string nombre);
