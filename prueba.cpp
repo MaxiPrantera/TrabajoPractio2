@@ -15,36 +15,32 @@ int main()
 	int respuesta;
 	cout << "Cuantos soldados tendra cada jugador?" << endl;
 	cin >> respuesta;
-	soldadosTotales =  respuesta * cantdidadJugadores;
-	Ficha soldados[soldadosTotales];
-	soldadoActual = 0
-	soldadosRestantes = respuesta;
-	int x,y;
-	while (soldadosTotales != 0){
-		for (int i = 0; i < cantidadJugadores; i++){
+	for(int j = 0; j < respuesta; j++){
+		for(int i = 0; i < cantidadJugadores; i++){
 			cout << "\nJugador "
-			     << jugadores[i]
+				 << jugadores[i]
 				 << " Te quedan: "
 				 << soldadosRestantes
 				 << " soldados"
 				 << endl;
 				 << "Elige una posicion en x: ";
 			cin >> x;
-			x--;
 			cout << "Elige una posicion en y: ";
 			cin >> y;
-			y--;
-			if (casillero.estado == vacio){
-				casillero.estado = ocupado;
-				soldado[soldadoActual](soldado, vivo, jugadores[i], casillero);
-			else{
-				casillero.ficha.eliminarFicha();
-				soldado[soldadoActual](soldado, muerto, jugadores[i], casillero);
+			casillero = tablero.getCasillero(x,y,1);
+			if (casillero.getEstado() == vacio){
+				listaJugador[i]->agregarFicha(soldado, vivo, listaJugador[i], casillero);
+				casillero.setEstado(ocupado);
 			}
-		soldadoActual++;
-		soldadosRestantes--;
+			else if (casillero.getEstado() == ocupado){
+				casillero.eliminarFicha()
+				listaJugador[i]->agregarFicha(soldado, muerto, listaJugador[i], casillero);
+				casillero.setEstado(inactivo);		
+			}
+			else{	
+			}
 		}
-
+	}
 	return 0;
 
 
