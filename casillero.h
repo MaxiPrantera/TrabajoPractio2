@@ -28,6 +28,7 @@ private:
 public:
     Casillero(unsigned int x, unsigned int y, unsigned int z);
     virtual ~Casillero();
+    void setEstado(Estado estado);
     int retornarX();
     int retornarY();
     int retornarZ();
