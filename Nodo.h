@@ -1,7 +1,7 @@
 #ifndef NODO_INCLUDED
 #define NODO_INCLUDED
 
-#include "constantes.h"
+#include "Constantes.h"
 
 template<class T> 
 class Nodo
@@ -10,18 +10,18 @@ private:
 	T dato;
 	Nodo<T>* siguiente;
 public:
-	Nodo(T valor);
+	Nodo(const T&);
 	bool haySiguiente();
 	Nodo<T>* getSiguiente();
-	void setSiguiente(Nodo<T>* nuevoSig);
-	T getValor();
-	void setValor(T nuevoValor);
+	void setSiguiente(Nodo<T>*);
+	T& getValor();
+	void setValor(const T&);
 	~Nodo();
 };
 
 
 template<class T>
-Nodo<T>::Nodo(T valor)
+Nodo<T>::Nodo(const T& valor)
 {
 	this->dato = valor;
 	this->siguiente = NULL;
@@ -46,13 +46,13 @@ void Nodo<T>::setSiguiente(Nodo<T>* nuevoSig)
 }
 
 template<class T>
-T Nodo<T>::getValor()
+T& Nodo<T>::getValor()
 {
 	return (this->dato);
 }
 
 template<class T>
-void Nodo<T>::setValor(T nuevoValor)
+void Nodo<T>::setValor(const T& nuevoValor)
 {
 	this->dato = nuevoValor;
 }

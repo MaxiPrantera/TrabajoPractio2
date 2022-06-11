@@ -1,8 +1,7 @@
 #ifndef LISTA_INCLUDED
 #define LISTA_INCLUDED
 
-#include "constantes.h"
-#include "nodo.h"
+#include "Nodo.h"
 
 template<class T> 
 class Lista
@@ -19,15 +18,15 @@ public:
 	Lista(const Lista<T>&);
 	bool vacia();
 	unsigned int getTamanio();
-	void agregar(T);
-	void agregar(T, unsigned int);
+	void agregar(const T&);
+	void agregar(const T&, unsigned int);
 	void agregar(const Lista<T>&);
-	T get(unsigned int);
-	void asignar(T, unsigned int);
+	T& get(unsigned int);
+	void asignar(const T&, unsigned int);
 	void remover(unsigned int);
 	void reiniciarCursor();
 	bool avanzarCursor();
-	T getCursor();
+	T& getCursor();
 	~Lista();
 };
 
@@ -82,7 +81,7 @@ unsigned int Lista<T>::getTamanio()
  * Post: Agrega un nodo al final de la lista.
  */
 template<class T>
-void Lista<T>::agregar(T elemento)
+void Lista<T>::agregar(const T& elemento)
 {
 	this->agregar(elemento, this->tamanio + 1);
 }
@@ -92,7 +91,7 @@ void Lista<T>::agregar(T elemento)
  * Post: Agrega un nodo en la posicion pasada por parametros.
  */
 template<class T>
-void Lista<T>::agregar(T elemento, unsigned int posicion)
+void Lista<T>::agregar(const T& elemento, unsigned int posicion)
 {
     //Valida la posición.
 	if((posicionValida(posicion)) || (posicion == this->tamanio + 1))
@@ -133,7 +132,7 @@ void Lista<T>::agregar(const Lista<T>& lista)
  * Post: Devuelve el Nodo en la posicion pasada por parametros.
  */
 template<class T>
-T Lista<T>::get(unsigned int posicion)
+T& Lista<T>::get(unsigned int posicion)
 {
 	if(not posicionValida(posicion))
     {
@@ -147,7 +146,7 @@ T Lista<T>::get(unsigned int posicion)
  * Post: Modifica el nodo en la posicion indicada por el valor pasado por parametros.
  */
 template<class T>
-void Lista<T>::asignar(T elemento, unsigned int posicion)
+void Lista<T>::asignar(const T& elemento, unsigned int posicion)
 {
 	if(posicionValida(posicion))
     {
@@ -217,7 +216,7 @@ bool Lista<T>::avanzarCursor()
  * Post: Devuelve el valor del nodo sobre el que esta posicionado el cursor.
  */
 template<class T>
-T Lista<T>::getCursor()
+T& Lista<T>::getCursor()
 {
 	if(this->cursor == NULL)
     {
@@ -255,6 +254,10 @@ Nodo<T>* Lista<T>::getNodo(unsigned int posicion)
         }
         return nodoActual;
     }
+	else
+	{
+		throw "Posicion Fuera del rango de la lista.";
+	}
 }
 
 /*
