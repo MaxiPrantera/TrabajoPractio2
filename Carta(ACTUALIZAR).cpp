@@ -1,4 +1,4 @@
-#include "Carta.h"
+#include "Carta(ACTUALIZAR).h"
 //DEBUG
 #include <iostream>
 

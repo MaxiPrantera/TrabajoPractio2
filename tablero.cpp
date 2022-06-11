@@ -2,6 +2,7 @@
 #include "Lista.h"
 #include "tablero.h"
 #include "casillero.h"
+#include "ficha.h"
 #define SIMBOLO_FICHA_VACIA ' '
 
 

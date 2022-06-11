@@ -7,7 +7,7 @@ using namespace std;
     .turnosRestantesDesbloqueo: es la cantidad de turnos antes de poder desbloquearse
     .casilleroAnulado: indica si  en ese casillero puede colocarse una ficha
 */
-enum Terreno {mar,aire,tierra};
+enum Terreno {agua,aire,tierra};
 enum Estado {vacio,ocupado,inactivo};
 ///enum Ficha {avion, barco, soldado};
 
@@ -20,37 +20,50 @@ private:
     Estado estado;
     size_t turnosRestantesDesbloqueo;
     Ficha *contenidoCasillero;
-    unsigned int x;
-    unsigned int y;
-    unsigned int z;
+    int x;
+    int y;
+    int z;
   
 
 public:
-    Casillero(unsigned int x, unsigned int y, unsigned int z);
+    Casillero(int x, int y, int z);
     virtual ~Casillero();
     void setEstado(Estado estado);
-    int retornarX();
-    int retornarY();
-    int retornarZ();
+<<<<<<< Updated upstream
+=======
+    void setTerreno(Terreno terreno);
+>>>>>>> Stashed changes
+    int getX();
+    int getY();
+    int getZ();
     Estado getEstado();
+<<<<<<< Updated upstream
 ///setear solo con la ficha que tiene el puntero a jugador
     void vaciarCasillero();
-    void setTerreno(Terreno terreno);
     void setTurnosRestantesDesbloqueo(size_t cantidadTurnos);
     size_t getTurnosRestantesDesbloqueo(); 
     void decrementarTurnosRestantesDesbloqueo();
-    void bloquearFichaDelCasillero();
-
+    Ficha* obtenerContenidoCasillero();
     void anularCasillero();
-    void desbloquearCasillero();
-
+    void setTerreno(Terreno tipoTerreno);
+    void eliminarContenidoCasillero();
     void copiarCasillero(Casillero* dest);
     
 
 
     ///void bloquearFichaDelCasillero();
+=======
+    Terreno getTerreno();
+///setear solo con la ficha que tiene el puntero a jugador
+    void setTurnosRestantesDesbloqueo(size_t cantidadTurnos);
+    size_t getTurnosRestantesDesbloqueo(); 
+    void decrementarTurnosRestantesDesbloqueo();
+    void copiarCasillero(Casillero* dest);
+    Ficha* obtenerContenidoCasillero();
+>>>>>>> Stashed changes
     void setFicha(Ficha* ficha);
-    void anularCasillero();
+    void eliminarContenidoCasillero();
+    void vaciarCasillero();
 };
 
-#endif 
+#endif

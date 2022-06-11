@@ -1,4 +1,5 @@
 #include "casillero.h"
+#include "ficha.h"
 #include <iostream>
 
 
@@ -19,18 +20,36 @@ void Casillero::setEstado(Estado estado){
 Estado Casillero::getEstado(){
     return this->estado;
 }
+<<<<<<< Updated upstream
 
-int Casillero::retornarX(){
+int Casillero::getX(){
     return this->x;
 
 
+=======
+
+void Casillero::setTerreno(Terreno terreno){
+    this->terreno = terreno;
 }
 
-int Casillero::retornarY(){
+Terreno Casillero::getTerreno(){
+    return this->terreno;
+}
+
+int Casillero::getX(){
+    return this->x;
+>>>>>>> Stashed changes
+}
+
+int Casillero::getY(){
     return this->y;
 }
 
-int Casillero::retornarZ(){
+<<<<<<< Updated upstream
+int Casillero::getY(){
+=======
+int Casillero::getZ(){
+>>>>>>> Stashed changes
     return this->z;
 }
 
@@ -44,6 +63,7 @@ Casillero::~Casillero()
 
 }
 
+<<<<<<< Updated upstream
 /*
 Post: : devuelve true si el casillero esta vacio
 */
@@ -68,19 +88,13 @@ PRE: el casillero existe
 Post: vacia un casillero para que pueda colocarse otra ficha
 asignandole la ficha vacia
 */
+=======
+>>>>>>> Stashed changes
 void Casillero::vaciarCasillero(){
     this->contenidoCasillero = NULL;
     this->turnosRestantesDesbloqueo = 0;
     this->estado = vacio;
 }
-
-/*
-PRE: el casillero existe
-Post: setea un tipo de terreno al casillero
-*/
-void Casillero::setTerreno(Terreno terreno){
-    this->terreno = terreno;
-
 
 /*
 PRE: el casillero existe
@@ -118,12 +132,14 @@ void Casillero::decrementarTurnosRestantesDesbloqueo(){
 /*
 PRE: el casillero fue creado anteriormente y posee una ficha en el
 Post : Bloquea la ficha del casillero
-
 void Casillero::bloquearFichaDelCasillero(){
     this->contenidoCasillero->bloquearFicha();
 }
 */
 
+void setTerreno(Terreno terreno){
+    this terreno->tipoTerreno;
+}
 
 void Casillero::setFicha(Ficha* ficha) {
     this->contenidoCasillero = ficha;
@@ -136,8 +152,11 @@ Ficha* Casillero::obtenerContenidoCasillero(){
 	return this->contenidoCasillero;
 }
 
-/*Pre : casillero creado anteriormete
- * POST:Desbloquea el casillero cambiando el estado de casilleroAnulado a false
- */
+void Casillero::eliminarContenidoCasillero(){
+    delete this->contenidoCasillero ;
+}
+<<<<<<< Updated upstream
+=======
 
+>>>>>>> Stashed changes
 

@@ -1,14 +1,25 @@
 #include "jugador.h"
+#include "ficha.h"
 
 using namespace std;
 /*
 POST: Crea un jugador con un nombre
 */
-Jugador::Jugador(std::string nombre)
+<<<<<<< Updated upstream
+Jugador::Jugador(string nombre, size_t id)
 {
-
+	Lista<Ficha *>* listaDeFichas= new Lista<Ficha *>*;
+	this->listaFichas = listaDeFichas;
+	Lista<Carta *>* listaDeCartas= new Lista<Carta *>*;
+	this->listaFichas = listaDeCartas;
+=======
+Jugador::Jugador(string nombre, int id)
+{
+	this->listaFichas = new Lista<Ficha *>();
+	this->listaCartas = new Lista<Carta *>();
+>>>>>>> Stashed changes
 	this->nombreJugador = nombre;
-	this->idJugador = 0;
+	this->idJugador = id ;
 }
 
 /**/
@@ -17,13 +28,13 @@ Jugador::~Jugador()
 
 }
 /*POST: Setea el nombre del jugador*/
-void Jugador::setNombreJugador(std::string nombre)
+void Jugador::setNombreJugador(string nombre)
 {
 	this->nombreJugador = nombre;
 }
 
 /*POST: Devuelve el nombre del jugador*/
-string Jugador::obtenerNombreJugador()
+string Jugador::getNombreJugador()
 {
 	return this->nombreJugador;
 }
@@ -31,11 +42,15 @@ string Jugador::obtenerNombreJugador()
 /*
 PRE: el jugador existe
 POST: devuelve la ID del jugador*/
-size_t Jugador:: obtenerIdJugador()
+size_t Jugador:: getIdJugador()
 {
 	return this->idJugador;
 }
-void Jugador::setearIdJugador(size_t id)
+void Jugador::setIdJugador(size_t id)
 {
 	this->idJugador = id;
+}
+
+void Jugador::agregarFicha(Ficha* ficha){
+	this->listaFichas->agregar(ficha);
 }

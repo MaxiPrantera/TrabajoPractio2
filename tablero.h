@@ -1,7 +1,8 @@
 #ifndef TABLERO_H
 #define TABLERO_H
-///#include "Lista.h"
+#include "Lista.h"
 #include "casillero.h"
+#include "ficha.h"
 
 using namespace std;
 
@@ -14,10 +15,17 @@ using namespace std;
 
 class Tablero {
 private:
+<<<<<<< Updated upstream
     Lista<Lista<Lista<Casillero*>*>*>* casilleros; //  
     size_t cantFilas;
     size_t cantColumnas;
     size_t cantEnProfundidad;
+=======
+    Lista<Lista<Lista<Casillero*>*>*>* casilleros; 
+    unsigned int xMax;
+    unsigned int yMax;
+    unsigned int zMax;
+>>>>>>> Stashed changes
 
 public:
     Tablero(size_t cantFilas, size_t cantColumnas, size_t cantEnProfundidad);
