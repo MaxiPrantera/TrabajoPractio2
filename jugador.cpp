@@ -4,11 +4,14 @@ using namespace std;
 /*
 POST: Crea un jugador con un nombre
 */
-Jugador::Jugador(string nombre)
+Jugador::Jugador(string nombre, size_t id)
 {
-
+	Lista<Ficha *>* listaDeFichas= new Lista<Ficha *>*;
+	this->listaFichas = listaDeFichas;
+	Lista<Carta *>* listaDeCartas= new Lista<Carta *>*;
+	this->listaFichas = listaDeCartas;
 	this->nombreJugador = nombre;
-	this->idJugador = 0;
+	this->idJugador = id ;
 }
 
 /**/
@@ -38,4 +41,8 @@ size_t Jugador:: obtenerIdJugador()
 void Jugador::setearIdJugador(size_t id)
 {
 	this->idJugador = id;
+}
+
+void Jugador::agregarFicha(Ficha* ficha){
+	this->listaFichas->agregar(ficha);
 }

@@ -16,9 +16,9 @@ private:
 	unsigned int cantidadFichas;
 	///Lista<Lista <Lista<Casillero *>*>*> * filas  = new Lista<Lista <Lista<Casillero *>*>*>; 
 	Lista<Ficha *>* listaFichas;
+	Lista<Carta *>* listaCartas;
 public:
-	Jugador(string nombre);
-	void eliminarFicha(Ficha* ficha);
+	Jugador(string nombre, size_t id);
 	void agregarFicha(Ficha* ficha);
 	~Jugador();
 	string obtenerNombreJugador();

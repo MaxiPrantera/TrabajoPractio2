@@ -20,17 +20,17 @@ Estado Casillero::getEstado(){
     return this->estado;
 }
 
-int Casillero::retornarX(){
+int Casillero::getX(){
     return this->x;
 
 
 }
 
-int Casillero::retornarY(){
+int Casillero::getY(){
     return this->y;
 }
 
-int Casillero::retornarY(){
+int Casillero::getY(){
     return this->z;
 }
 
@@ -117,6 +117,9 @@ void Casillero::bloquearFichaDelCasillero(){
 }
 */
 
+void setTerreno(Terreno terreno){
+    this terreno->tipoTerreno;
+}
 
 void Casillero::setFicha(Ficha* ficha) {
     this->contenidoCasillero = ficha;
@@ -129,8 +132,7 @@ Ficha* Casillero::obtenerContenidoCasillero(){
 	return this->contenidoCasillero;
 }
 
-/*Pre : casillero creado anteriormete
- * POST:Desbloquea el casillero cambiando el estado de casilleroAnulado a false
- */
-
+void Casillero::eliminarContenidoCasillero(){
+    delete this->contenidoCasillero ;
+}
 

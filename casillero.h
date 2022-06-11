@@ -29,20 +29,19 @@ public:
     Casillero(int x, int y, int z);
     virtual ~Casillero();
     void setEstado(Estado estado);
-    int retornarX();
-    int retornarY();
-    int retornarZ();
+    int getX();
+    int getY();
+    int getZ();
     Estado getEstado();
 ///setear solo con la ficha que tiene el puntero a jugador
     void vaciarCasillero();
     void setTurnosRestantesDesbloqueo(size_t cantidadTurnos);
     size_t getTurnosRestantesDesbloqueo(); 
     void decrementarTurnosRestantesDesbloqueo();
-    void bloquearFichaDelCasillero();
-
+    Ficha* obtenerContenidoCasillero();
     void anularCasillero();
-    void desbloquearCasillero();
-
+    void setTerreno(Terreno tipoTerreno);
+    void eliminarContenidoCasillero();
     void copiarCasillero(Casillero* dest);
     
 
