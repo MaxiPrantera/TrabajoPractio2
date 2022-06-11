@@ -40,21 +40,22 @@ void Ficha::setPosicion(Casillero * casillero){
 
 void Ficha::moverFicha(char direccion, Tablero tablero){
 	
-	int x = getUbicacionX;
-	int y = getUbicacionY;
-	Casillero casillero;
+	int x = getUbicacionX();
+	int y = getUbicacionY();
+	int z = getUbicacionZ();
+	Casillero* casillero;
 	
 	switch (direccion){
 		case IZQUIERDA:
 			x--;
-			casillero = tablero.getCasillero(x,y,1);
-			if (casillero.getEstado() == vacio){
+			casillero = tablero->getCasillero(x,y,z);
+			if (casillero->getEstado() == vacio){
 				setPosicion(casillero);
+				casillero->setEstado(ocupado);
 			}
-			else if (casillero.getEstado() == ocupado){
-				casillero.eliminarFicha();
+			else if (casillero->getEstado() == ocupado){
+				casillero->eliminarFicha();
 				eliminarFicha();
-				casillero.setEstado(inactivo);
 			}
 			else{
 				std::cout << "Casillero inactivo no puedes moverte ahi" <<endl;
@@ -63,14 +64,14 @@ void Ficha::moverFicha(char direccion, Tablero tablero){
 
 		case ARRIBA:
 			y--;
-			casillero = tablero.getCasillero(x,y,1);
-			if (casillero.getEstado() == vacio){
+			casillero = tablero->getCasillero(x,y,z);
+			if (casillero->getEstado() == vacio){
 				setPosicion(casillero);
+				casillero->setEstado(ocupado);
 			}
-			else if (casillero.getEstado() == ocupado){
-				casillero.eliminarFicha();
+			else if (casillero->getEstado() == ocupado){
+				casillero->eliminarFicha();
 				eliminarFicha();
-				casillero.setEstado(inactivo);
 			}
 			else{
 				std::cout << "Casillero inactivo no puedes moverte ahi" <<endl;
@@ -79,14 +80,14 @@ void Ficha::moverFicha(char direccion, Tablero tablero){
 
 		case DERECHA:
 			x++;
-			casillero = tablero.getCasillero(x,y,1);
-			if (casillero.getEstado() == vacio){
+			casillero = tablero->getCasillero(x,y,z);
+			if (casillero->getEstado() == vacio){
 				setPosicion(casillero);
+				casillero->setEstado(ocupado);
 			}
-			else if (casillero.getEstado() == ocupado){
-				casillero.eliminarFicha();
+			else if (casillero->getEstado() == ocupado){
+				casillero->eliminarFicha();
 				eliminarFicha();
-				casillero.setEstado(inactivo);
 			}
 			else{
 				std::cout << "Casillero inactivo no puedes moverte ahi" <<endl;
@@ -95,14 +96,14 @@ void Ficha::moverFicha(char direccion, Tablero tablero){
 
 		case ABAJO:
 			y++;
-			casillero = tablero.getCasillero(x,y,1);
-			if (casillero.getEstado() == vacio){
+			casillero = tablero->getCasillero(x,y,z);
+			if (casillero->getEstado() == vacio){
 				setPosicion(casillero);
+				casillero->setEstado(ocupado);
 			}
-			else if (casillero.getEstado() == ocupado){
-				casillero.eliminarFicha();
+			else if (casillero->getEstado() == ocupado){
+				casillero->eliminarFicha();
 				eliminarFicha();
-				casillero.setEstado(inactivo);
 			}
 			else{
 				std::cout << "Casillero inactivo no puedes moverte ahi" <<endl;
@@ -112,14 +113,14 @@ void Ficha::moverFicha(char direccion, Tablero tablero){
 		case DIAGONAL_IZQUERDA_ARRIBA:
 			x--;
 			y--;
-			casillero = tablero.getCasillero(x,y,1);
-			if (casillero.getEstado() == vacio){
+			casillero = tablero->getCasillero(x,y,z);
+			if (casillero->getEstado() == vacio){
 				setPosicion(casillero);
+				casillero->setEstado(ocupado);
 			}
-			else if (casillero.getEstado() == ocupado){
-				casillero.eliminarFicha();
+			else if (casillero->getEstado() == ocupado){
+				casillero->eliminarFicha();
 				eliminarFicha();
-				casillero.setEstado(inactivo);
 			}
 			else{
 				std::cout << "Casillero inactivo no puedes moverte ahi" <<endl;
@@ -129,14 +130,14 @@ void Ficha::moverFicha(char direccion, Tablero tablero){
 		case DIAGONAL_DERECHA_ARRIBA:
 			x++;
 			y--;
-			casillero = tablero.getCasillero(x,y,1);
-			if (casillero.getEstado() == vacio){
+			casillero = tablero->getCasillero(x,y,z);
+			if (casillero->getEstado() == vacio){
 				setPosicion(casillero);
+				casillero->setEstado(ocupado);
 			}
-			else if (casillero.getEstado() == ocupado){
-				casillero.eliminarFicha();
+			else if (casillero->getEstado() == ocupado){
+				casillero->eliminarFicha();
 				eliminarFicha();
-				casillero.setEstado(inactivo);
 			}
 			else{
 				std::cout << "Casillero inactivo no puedes moverte ahi" <<endl;
@@ -146,14 +147,14 @@ void Ficha::moverFicha(char direccion, Tablero tablero){
 		case DIAGONAL_IZQUERDA_ABAJO:
 			x--;
 			y++;
-			casillero = tablero.getCasillero(x,y,1);
-			if (casillero.getEstado() == vacio){
+			casillero = tablero->getCasillero(x,y,z);
+			if (casillero->getEstado() == vacio){
 				setPosicion(casillero);
+				casillero->setEstado(ocupado);
 			}
-			else if (casillero.getEstado() == ocupado){
-				casillero.eliminarFicha();
+			else if (casillero->getEstado() == ocupado){
+				casillero->eliminarFicha();
 				eliminarFicha();
-				casillero.setEstado(inactivo);
 			}
 			else{
 				std::cout << "Casillero inactivo no puedes moverte ahi" <<endl;
@@ -163,14 +164,14 @@ void Ficha::moverFicha(char direccion, Tablero tablero){
 		case DIAGONAL_DERECHA_ABAJO:
 			x++;
 			y++;
-			casillero = tablero.getCasillero(x,y,1);
-			if (casillero.getEstado() == vacio){
+			casillero = tablero->getCasillero(x,y,z);
+			if (casillero->getEstado() == vacio){
 				setPosicion(casillero);
+				casillero->setEstado(ocupado);
 			}
-			else if (casillero.getEstado() == ocupado){
-				casillero.eliminarFicha();
+			else if (casillero->getEstado() == ocupado){
+				casillero->eliminarFicha();
 				eliminarFicha();
-				casillero.setEstado(inactivo);
 			}
 			else{
 				std::cout << "Casillero inactivo no puedes moverte ahi" <<endl;
@@ -179,6 +180,7 @@ void Ficha::moverFicha(char direccion, Tablero tablero){
 	}
 }
 
+/*
 void Ficha::revivirSoldado(){
 	setEstado(vivo);
 }
@@ -186,9 +188,7 @@ void Ficha::revivirSoldado(){
 void Ficha::eliminarFicha(){
 	setEstado(muerto);
 }
-
-
-
+*/ 
 
 
 

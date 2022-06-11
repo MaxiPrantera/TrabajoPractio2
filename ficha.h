@@ -14,7 +14,7 @@ private:
 	EstadoFicha estado;
 	Ficha tipo;
 	Jugador* duenio;
-	Casillero* posicion;
+	Cashillero* posicion;
 public:
 	
 	/*
@@ -43,16 +43,21 @@ public:
 	
 	/*
 		PRE: Tiene que existir la instancia de ficha
-		POST: Devuelve la ubicacion en x de la ficha
+		POST: Devuelve la ubicacion en "x" de la ficha
 	*/
 	int getUbicacionX();
 	
 	/*
 		PRE: Tiene que existir la instancia de ficha
-		POST: Devuelve la ubicacion en y de la ficha
+		POST: Devuelve la ubicacion en "y" de la ficha
 	*/
 	int getUbicacionY();
 	
+	/*
+		PRE: Tiene que existir la instancia de ficha
+		POST: Devuelve la ubicacion en "z" de la ficha
+	*/
+	int getUbicacionZ();
 	/*
 		PRE: Tiene que existir la instancia de ficha
 		POST: Cambia el estado de la ficha
@@ -70,7 +75,7 @@ public:
 		POST: Se mueve la ficha una unidad en la direccion indicacda
 		
 	*/
-	void moverFicha(char, Tablero);
+	void moverFicha(char, Tablero*);
 	
 	/*
 		PRE: La ficha tiene que ser un soldado, debe existir y debe estar muerto
