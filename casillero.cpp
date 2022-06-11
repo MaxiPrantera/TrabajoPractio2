@@ -20,13 +20,6 @@ void Casillero::setEstado(Estado estado){
 Estado Casillero::getEstado(){
     return this->estado;
 }
-<<<<<<< Updated upstream
-
-int Casillero::getX(){
-    return this->x;
-
-
-=======
 
 void Casillero::setTerreno(Terreno terreno){
     this->terreno = terreno;
@@ -38,18 +31,13 @@ Terreno Casillero::getTerreno(){
 
 int Casillero::getX(){
     return this->x;
->>>>>>> Stashed changes
 }
 
 int Casillero::getY(){
     return this->y;
 }
 
-<<<<<<< Updated upstream
-int Casillero::getY(){
-=======
 int Casillero::getZ(){
->>>>>>> Stashed changes
     return this->z;
 }
 
@@ -63,33 +51,6 @@ Casillero::~Casillero()
 
 }
 
-<<<<<<< Updated upstream
-/*
-Post: : devuelve true si el casillero esta vacio
-*/
-bool Casillero::estaCasilleroVacio()
-{
-    return this->estado == vacio;
-}
-
-/* Post: devuelve true si el casillero esta anulado para colocar fichas*/
-bool Casillero::estaCasilleroAnulado(){
-    return this->casilleroAnulado;
-}
-/*
-PRE: el casillero esta vacio al momento de anularse
-Post:  anula un casillero , entonces no podran colocarse fichas en el
-*/
-void Casillero::anularCasillero(){
-    this->estado = anulado;
-}
-/*
-PRE: el casillero existe
-Post: vacia un casillero para que pueda colocarse otra ficha
-asignandole la ficha vacia
-*/
-=======
->>>>>>> Stashed changes
 void Casillero::vaciarCasillero(){
     this->contenidoCasillero = NULL;
     this->turnosRestantesDesbloqueo = 0;
@@ -103,14 +64,13 @@ Post: copia el contenido de un casillero a otro casillero
 void Casillero::copiarCasillero(Casillero* dest){
     dest->contenidoCasillero = this->contenidoCasillero;
     this->contenidoCasillero = NULL;
-    dest->casilleroVacio = false;
 }
 
 /*
 Pre: casillero fue creado anteriormete
 Post :retorna la cantidad de turnos restantes por los cuales el casillero esta bloqueado
 */
-size_t Casillero::getTurnosRestantesDesbloqueo(){
+unsigned int Casillero::getTurnosRestantesDesbloqueo(){
     return this->turnosRestantesDesbloqueo;
 }
 
@@ -119,7 +79,7 @@ Pre : casillero creado anteriormete
 Post : setea la cantidad de turnos restantes por los cuales el casillero esta bajo efectos de una carta
 */
 
-void Casillero::setTurnosRestantesDesbloqueo(size_t cantidadTurnos){
+void Casillero::setTurnosRestantesDesbloqueo(unsigned int cantidadTurnos){
     this->turnosRestantesDesbloqueo = cantidadTurnos;
 
 }
@@ -137,10 +97,6 @@ void Casillero::bloquearFichaDelCasillero(){
 }
 */
 
-void setTerreno(Terreno terreno){
-    this terreno->tipoTerreno;
-}
-
 void Casillero::setFicha(Ficha* ficha) {
     this->contenidoCasillero = ficha;
 }
@@ -155,8 +111,4 @@ Ficha* Casillero::obtenerContenidoCasillero(){
 void Casillero::eliminarContenidoCasillero(){
     delete this->contenidoCasillero ;
 }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 

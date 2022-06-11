@@ -14,28 +14,19 @@ class Jugador
 {
 private:
 	string  nombreJugador;
-	size_t idJugador;
+	unsigned int idJugador;
 	unsigned int cantidadFichas;
-<<<<<<< Updated upstream
-	///Lista<Lista <Lista<Casillero *>*>*> * filas  = new Lista<Lista <Lista<Casillero *>*>*>; 
-	Lista<Ficha *>* listaFichas;
-	Lista<Carta *>* listaCartas;
-public:
-	Jugador(string nombre, size_t id);
-	void agregarFicha(Ficha* ficha);
-=======
 	Lista<Ficha *>* listaFichas;
 	Lista<Carta *>* listaCartas;
 public:
 	Jugador(string nombre, int id);
->>>>>>> Stashed changes
 	~Jugador();
 	void agregarFicha(Ficha* ficha);
 	string getNombreJugador();
 	unsigned int getFichas();
 	void setNombreJugador(string nombre);
-	void setIdJugador(size_t id);
-	size_t getIdJugador();
+	void setIdJugador(unsigned int id);
+	unsigned int getIdJugador();
 };
 
 #endif

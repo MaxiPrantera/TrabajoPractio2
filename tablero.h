@@ -15,28 +15,21 @@ using namespace std;
 
 class Tablero {
 private:
-<<<<<<< Updated upstream
-    Lista<Lista<Lista<Casillero*>*>*>* casilleros; //  
-    size_t cantFilas;
-    size_t cantColumnas;
-    size_t cantEnProfundidad;
-=======
     Lista<Lista<Lista<Casillero*>*>*>* casilleros; 
     unsigned int xMax;
     unsigned int yMax;
     unsigned int zMax;
->>>>>>> Stashed changes
 
 public:
-    Tablero(size_t cantFilas, size_t cantColumnas, size_t cantEnProfundidad);
+    Tablero(unsigned int cantFilas, unsigned int cantColumnas, unsigned int cantEnProfundidad);
     Tablero();
     virtual ~Tablero();
-    Casillero *getCasillero(size_t filaIntroducida, size_t columnaIntroducida, size_t profundidadIntroducida);
-    void setCasilla(size_t cantFilas, size_t cantColumnas, size_t cantEnProfundidad, char simboloFicha); 
-    size_t getCantFilasTablero();
-    size_t getCantColumnasTablero();
-    size_t getCantProfundidadTablero();
-    bool existeLaCasilla(size_t m, size_t n, size_t l);
+    Casillero *getCasillero(unsigned int filaIntroducida, unsigned int columnaIntroducida, unsigned int profundidadIntroducida);
+    void setCasilla(unsigned int x, unsigned int y, unsigned int z, Ficha* simboloFicha); 
+    unsigned int getCantFilasTablero();
+    unsigned int getCantColumnasTablero();
+    unsigned int getCantProfundidadTablero();
+    bool existeLaCasilla(unsigned int m, unsigned int n, unsigned int l);
     Lista<Lista<Lista<Casillero*>*>*>* obtenerMatrizTablero();
 
 

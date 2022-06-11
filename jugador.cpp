@@ -5,19 +5,10 @@ using namespace std;
 /*
 POST: Crea un jugador con un nombre
 */
-<<<<<<< Updated upstream
-Jugador::Jugador(string nombre, size_t id)
-{
-	Lista<Ficha *>* listaDeFichas= new Lista<Ficha *>*;
-	this->listaFichas = listaDeFichas;
-	Lista<Carta *>* listaDeCartas= new Lista<Carta *>*;
-	this->listaFichas = listaDeCartas;
-=======
 Jugador::Jugador(string nombre, int id)
 {
 	this->listaFichas = new Lista<Ficha *>();
 	this->listaCartas = new Lista<Carta *>();
->>>>>>> Stashed changes
 	this->nombreJugador = nombre;
 	this->idJugador = id ;
 }
@@ -42,11 +33,11 @@ string Jugador::getNombreJugador()
 /*
 PRE: el jugador existe
 POST: devuelve la ID del jugador*/
-size_t Jugador:: getIdJugador()
+unsigned int Jugador:: getIdJugador()
 {
 	return this->idJugador;
 }
-void Jugador::setIdJugador(size_t id)
+void Jugador::setIdJugador(unsigned int id)
 {
 	this->idJugador = id;
 }

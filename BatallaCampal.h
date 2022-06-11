@@ -1,11 +1,13 @@
 #ifndef BATALLACAMPAL_INCLUDED
 #define BATALLACAMPAL_INCLUDED
 #include "tablero.h"
+#include "Lista.h"
 
 class BatallaCampal{
 
 private:
     Tablero* tablero;
+    Lista<Jugador>* listaJugadores;
 
 public:
     /*
@@ -35,6 +37,7 @@ public:
 
     void iniciarEscenarioTres(unsigned int xMax, unsigned int yMax, unsigned int zMax);
 
+    Lista<Jugador>* getListaJugadores();
     /*
     * pre: Batalla campal inicializado
     * post: Elimina Batalla Campal

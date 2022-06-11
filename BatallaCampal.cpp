@@ -1,10 +1,13 @@
 //En una clase del cuatri pasado el profe explica la parte externa del tablero con un TDA de BatallaCampal
 #include "tablero.h"
 #include "BatallaCampal.h"
+#include "Lista.h"
+#include "jugador.h"
 
 
 BatallaCampal::BatallaCampal(){ 
-    Tablero* tablero = new Tablero(10, 10, 5);
+    this->tablero = new Tablero(10, 10, 5);
+    this->listaJugadores = new Lista<Jugador>();
 }
 
 BatallaCampal::~BatallaCampal(){ 
@@ -82,4 +85,8 @@ void BatallaCampal::iniciarEscenarioTres(unsigned int xmax, unsigned int ymax, u
             }   
         }
     }
+}
+
+Lista<Jugador>* BatallaCampal::getListaJugadores(){
+    return listaJugadores;
 }
