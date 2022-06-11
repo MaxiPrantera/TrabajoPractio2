@@ -37,6 +37,18 @@ public:
 
     void iniciarEscenarioTres(unsigned int xMax, unsigned int yMax, unsigned int zMax);
 
+    /*
+     * Pre: El mazo debe estar vacío
+     * Post: Agrega las cartas de manera random al mazo.
+     */
+    void inicializarMazo(Cola<Carta>*);
+
+    /*
+     * Pre: ---
+     * Post: Devuelve las coordenadas validas seleccionadas por el usuario del tablero.
+     */
+    void elegirCoordenadas(unsigned int*, unsigned int*, unsigned int*, std::string);
+
     Lista<Jugador>* getListaJugadores();
     /*
     * pre: Batalla campal inicializado

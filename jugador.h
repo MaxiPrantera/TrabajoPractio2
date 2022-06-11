@@ -1,8 +1,11 @@
 #ifndef JUGADOR_H
 #define JUGADOR_H
 #include "ficha.h"
-#include "Carta(ACTUALIZAR).h"
+#include "Carta.h"
 #include <string>
+#include "Lista.h"
+#include "Cola.h"
+#include "Carta.h"
 
 /* [TDA JUGADOR] :
 	.nombreJugador : Es el nombre del jugador
@@ -17,7 +20,7 @@ private:
 	unsigned int idJugador;
 	unsigned int cantidadFichas;
 	Lista<Ficha *>* listaFichas;
-	Lista<Carta *>* listaCartas;
+	Lista<Carta>* listaCartas;
 public:
 	Jugador(string nombre, int id);
 	~Jugador();
@@ -27,6 +30,11 @@ public:
 	void setNombreJugador(string nombre);
 	void setIdJugador(unsigned int id);
 	unsigned int getIdJugador();
+	void robarCarta(Cola<Carta>* mazo);
+	//DEBUG
+	unsigned int getCantidadCartas();
+	string getNombreCarta(unsigned int);
+	void tirarCarta(unsigned int);
 };
 
 #endif

@@ -90,3 +90,38 @@ void BatallaCampal::iniciarEscenarioTres(unsigned int xmax, unsigned int ymax, u
 Lista<Jugador>* BatallaCampal::getListaJugadores(){
     return listaJugadores;
 }
+
+void BatallaCampal::inicializarMazo(Cola<Carta>* mazo)
+{
+    //Se puede mejorar asegurando siempre que haya misma cantidad de cartas por tipo.
+    for(unsigned int carta = 0; carta < CANTIDAD_CARTAS_MAZO; carta++)
+    {
+        switch (rand()%6)
+        {
+        case 0:
+            mazo->acolar(Carta(MISIL));
+            break;
+        case 1:
+            mazo->acolar(Carta(AVION));
+            break;
+        case 2:
+            mazo->acolar(Carta(BARCO));
+            break;
+        case 3:
+            mazo->acolar(Carta(MOLOTOV));
+            break;
+        case 4:
+            mazo->acolar(Carta(ESCUDO));
+            break;
+        case 5:
+            mazo->acolar(Carta(REVIVIR));
+            break;
+        default:
+            break;
+        }
+
+        //DEBUG
+        printf(mazo->getUltimo().getNombre().c_str());
+        printf("\n");
+    }
+}

@@ -8,7 +8,7 @@ POST: Crea un jugador con un nombre
 Jugador::Jugador(string nombre, int id)
 {
 	this->listaFichas = new Lista<Ficha *>();
-	this->listaCartas = new Lista<Carta *>();
+	this->listaCartas = new Lista<Carta>();
 	this->nombreJugador = nombre;
 	this->idJugador = id ;
 }
@@ -44,4 +44,13 @@ void Jugador::setIdJugador(unsigned int id)
 
 void Jugador::agregarFicha(Ficha* ficha){
 	this->listaFichas->agregar(ficha);
+}
+
+/*
+ * Pre: ---
+ * Post: El jugador roba una carta para ser utilizada en alguno de sus turnos.
+ */
+void Jugador::robarCarta(Cola<Carta>* mazo)
+{
+	this->listaCartas->agregar(mazo->desacolar());
 }
