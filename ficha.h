@@ -1,3 +1,4 @@
+
 #ifndef FICHA_H_
 #define FICHA_H_
 
@@ -11,22 +12,22 @@ class Ficha
 {
 private:
 	EstadoFicha estado;
-	TipoFicha tipo;
+	Ficha tipo;
 	Jugador* duenio;
-	Casillero* posicion;
+	Cashillero* posicion;
 public:
 	
 	/*
 		PRE: - 
 		POST: Crea la instancia de ficha
 	*/
-	Ficha(TipoFicha tipo, EstadoFicha estado, Jugador* jugador, Casillero* casillero);
+	Ficha(Ficha, EstadoFicha, Jugador*, Casillero*);
 	
 	/*
 		PRE: Tiene que existir una ficha
 		POST: Copia la instancia de ficha
 	*/
-	Ficha(const Ficha& ficha);
+	Ficha(const Ficha&);
 	
 	/*
 		PRE: Tiene que existir una ficha
@@ -42,34 +43,39 @@ public:
 	
 	/*
 		PRE: Tiene que existir la instancia de ficha
-		POST: Devuelve la ubicacion en x de la ficha
+		POST: Devuelve la ubicacion en "x" de la ficha
 	*/
 	int getUbicacionX();
 	
 	/*
 		PRE: Tiene que existir la instancia de ficha
-		POST: Devuelve la ubicacion en y de la ficha
+		POST: Devuelve la ubicacion en "y" de la ficha
 	*/
 	int getUbicacionY();
 	
 	/*
 		PRE: Tiene que existir la instancia de ficha
+		POST: Devuelve la ubicacion en "z" de la ficha
+	*/
+	int getUbicacionZ();
+	/*
+		PRE: Tiene que existir la instancia de ficha
 		POST: Cambia el estado de la ficha
 	*/
-	void setEstado(EstadoFicha estado);
+	void setEstado(EstadoFicha);
 	
 	/*
 		PRE: Tiene que existir la instancia de ficha y se le debe pasar un casillero valido
 		POST: Cambia la posicion de la ficha al casillero indicado
 	*/
-	void setPosicion(Casillero* casillero);
+	void setPosicion(Casillero*);
 	
 	/*
 		PRE: Se le pasa la direccion en la que quiere mover la ficha
 		POST: Se mueve la ficha una unidad en la direccion indicacda
 		
 	*/
-	void moverFicha(char direccion, Tablero* tablero);
+	void moverFicha(char, Tablero*);
 	
 	/*
 		PRE: La ficha tiene que ser un soldado, debe existir y debe estar muerto
