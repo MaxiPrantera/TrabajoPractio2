@@ -1,17 +1,20 @@
 //En una clase del cuatri pasado el profe explica la parte externa del tablero con un TDA de BatallaCampal
-#include "tablero.h"
 #include "BatallaCampal.h"
 #include "Lista.h"
+#include "Cola.h"
+#include "tablero.h"
 #include "jugador.h"
 
 
 BatallaCampal::BatallaCampal(){ 
     this->tablero = new Tablero(10, 10, 5);
     this->listaJugadores = new Lista<Jugador>();
+    this->mazo = new Cola<Carta>();
 }
 
 BatallaCampal::~BatallaCampal(){ 
 
+/*
 for(unsigned int x = 1;  x < this->tablero->getCantFilasTablero(); x++)
 {
     for (unsigned int y = 1; y < this->tablero->getCantColumnasTablero(); y++)
@@ -24,9 +27,11 @@ for(unsigned int x = 1;  x < this->tablero->getCantFilasTablero(); x++)
     }
     //delete this->casilleros->get(x);
 }
+*/
 
-//delete this->casilleros;
-
+    delete this->tablero;
+    delete this->listaJugadores;
+    delete this->mazo;
 }
 
 void BatallaCampal::iniciarEscenarioUno(unsigned int xmax, unsigned int ymax, unsigned int zmax){ //para decir que es tierra y que es agua
@@ -88,10 +93,10 @@ void BatallaCampal::iniciarEscenarioTres(unsigned int xmax, unsigned int ymax, u
 }
 
 Lista<Jugador>* BatallaCampal::getListaJugadores(){
-    return listaJugadores;
+    return this->listaJugadores;
 }
 
-void BatallaCampal::inicializarMazo(Cola<Carta>* mazo)
+void BatallaCampal::inicializarMazo()
 {
     //Se puede mejorar asegurando siempre que haya misma cantidad de cartas por tipo.
     for(unsigned int carta = 0; carta < CANTIDAD_CARTAS_MAZO; carta++)
@@ -99,29 +104,30 @@ void BatallaCampal::inicializarMazo(Cola<Carta>* mazo)
         switch (rand()%6)
         {
         case 0:
-            mazo->acolar(Carta(MISIL));
+            this->mazo->acolar(Carta(MISIL));
             break;
         case 1:
-            mazo->acolar(Carta(AVION));
+            this->mazo->acolar(Carta(AVION));
             break;
         case 2:
-            mazo->acolar(Carta(BARCO));
+            this->mazo->acolar(Carta(BARCO));
             break;
         case 3:
-            mazo->acolar(Carta(MOLOTOV));
+            this->mazo->acolar(Carta(MOLOTOV));
             break;
         case 4:
-            mazo->acolar(Carta(ESCUDO));
+            this->mazo->acolar(Carta(ESCUDO));
             break;
         case 5:
-            mazo->acolar(Carta(REVIVIR));
+            this->mazo->acolar(Carta(REVIVIR));
             break;
         default:
             break;
         }
-
-        //DEBUG
-        printf(mazo->getUltimo().getNombre().c_str());
-        printf("\n");
     }
+}
+
+void elegirCoordenadas(unsigned int* x, unsigned int* y, unsigned int* z, std::string msj, bool esPiso)
+{
+
 }
