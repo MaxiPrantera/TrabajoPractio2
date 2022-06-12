@@ -100,12 +100,10 @@ int main()
     if (batallaCampal->getCantidadFichasJugador(jugadorActual) != 0){
       cout << batallaCampal->getNombreJugador(jugadorActual) << " te toca" << endl;
 
-      //logica de agarrar carta, a debatir. usar jugadorRobaCarta
-      /*
-      if (turno !=0 && getListaJugadores->get(i)->getCantCartas() < 5){
-        getListaJugadores->get(i)->agarrarCarta();	
-      }
-      */
+      //Inicia el turno robando carta.
+      cout << batallaCampal->getNombreJugador(jugadorActual) << " roobaste la carta "
+           << batallaCampal->getCartaARobar().getNombre() << endl;
+      batallaCampal->jugadorRobaCarta(jugadorActual);
       
       //(2) Logica de Movimiento:
       //Preguntar por numero de ficha directo, si es cero, quiere decir que no mueve
@@ -161,8 +159,8 @@ int main()
           inputValido = true;
           if (respuestaUsuario != 0)
           {
-            cout << "Utilizaste tu carta " << batallaCampal->getListaJugadores()->get(jugador).getNombreCarta(respuestaUsuario) << endl;
-            batallaCampal->getListaJugadores()->get(jugador).tirarCarta(respuestaUsuario);
+            cout << "Utilizaste tu carta " << batallaCampal->getCartaJugador(jugadorActual, respuestaUsuario) << endl;
+            batallaCampal->jugadorTiraCarta(jugador, carta);
           }
         }
         else

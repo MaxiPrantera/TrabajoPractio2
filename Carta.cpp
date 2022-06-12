@@ -1,6 +1,8 @@
 #include "Carta.h"
 #include "tablero.h"
 #include "jugador.h"
+#include "ficha.h"
+#include "BatallaCampal.h"
 //DEBUG
 #include <iostream>
 
@@ -71,52 +73,70 @@ string Carta::tipoAString(TipoDeCarta tipo)
 }
 
 
-void Carta::tirarCarta(Tablero* tablero, Jugador* jugador)
+void Carta::tirarCarta(BatallaCampal* batallaCampal, unsigned int jugador)
 {
     switch(this->tipo)
     {
         case MISIL:
-            tirarMisil(tablero);
+            tirarMisil(batallaCampal);
         case AVION:
-            ponerAvion(tablero, jugador);
+            ponerAvion(batallaCampal, jugador);
         case BARCO:
-            ponerBarco(tablero, jugador);
+            ponerBarco(batallaCampal, jugador);
         case MOLOTOV:
-            tirarMolotov(tablero);
+            tirarMolotov(batallaCampal);
         case ESCUDO:
-            ponerEscudo(jugador);
+            ponerEscudo(batallaCampal, jugador);
         case REVIVIR:
-            revivir(jugador);
+            revivir(batallaCampal, jugador);
     }
 }
 
-void Carta::tirarMisil(Tablero* tablero)
+void Carta::tirarMisil(BatallaCampal* batallaCampal)
 {
-    string mensaje = "tirar el misil";
-    unsigned int x, y, z;
-    //Pide las coordenadas con el mensaje.
-    //Hacer tres for anidados desde la respectiva coordenada menos uno hasta la misma mas uno
-    //Dentro de los for anidados con el tablero pide el casillero en las coordenadas.
-    //El casillero tendra una funcion "caeTiro()" la ejecuta.
-    //A todo esto tener en cuenta que el casillero que pidio este en rango valido pero si esta en el
-    // borde algunos vecinos no existiran, en esos casos el getCasillero de tablero me deberia 
-    // devolver false y con eso yo ya se que no ejecuto el tiro ahi pero no constituye un error.
+    unsigned int* posX;
+    unsigned int* posY;
+    unsigned int* posZ;
+    batallaCampal->elegirCoordenadas(posX, posY, posZ, "tirar el misil", false);
+    
+    for(int x = *posX - 1; x <= *posX + 1; x++)
+    {
+        for(int y = *posY - 1; y <= *posY; y++)
+        {
+            for(int z = *posZ - 1; z <= *posZ; z++)
+            {
+                batallaCampal->disparar(x, y, z);
+            }
+        }
+    }
 }
 
-void Carta::ponerAvion(Tablero* tablero, Jugador* jugador)
+void Carta::ponerAvion(BatallaCampal* batallaCampal, unsigned int jugador)
 {
-    string mensaje = "poner el avion";
-    unsigned int x, y, z;
-    //Pide las coordenadas con el mensaje.
-    //Pedir el casillero en las coordenadas al tablero.
-    //Si el casillero no es tipo aire o esta inhabilitado volver a pedir.
-    //Agregarle a la lista de fichas del jugador una ficha tipo avion en el casillero indicado.
-    // decirle a tomio que se encargue del constructor y que en el mismo si se puso en un casillero
-    // con otra ficha ya ahi, matarlas a las dos y hacer lo que tenga que hacer, sugerencia para eso
-    // matarlas con pegar tiro.
+    bool casilleroValido = false;
+    unsigned int* posX;
+    unsigned int* posY;
+    unsigned int* posZ;
+    Ficha* avion;
+
+    do
+    {
+        batallaCampal->elegirCoordenadas(posX, posY, posZ, "poner el avion", false);
+        if(batallaCampal->getCasillero(*posX, *posY, *posZ)->getEstado() == inactivo || batallaCampal->getCasillero(*posX, *posY, *posZ)->getTerreno() != aire )
+        {
+            cout << "El casillero no pued tener un avion o porque esta inactivo o porque no esta en el aire" << endl;
+        }
+        else
+        {
+            casilleroValido = true;
+        }
+    }while (!casilleroValido);
+
+    avion = new Ficha(AVION, batallaCampal->getJugador(jugador), batallaCampal->getCasillero(*posX, *posY, *posZ));
+    batallaCampal->jugadorAgregarFicha(avion, jugador);
 }
 
-void Carta::ponerBarco(Tablero* tablero, Jugador* jugador)
+void Carta::ponerBarco(BatallaCampal* batallaCampal, unsigned int jugador)
 {
     string mensaje = "poner el barco";
     unsigned int x, y, z;
@@ -124,7 +144,7 @@ void Carta::ponerBarco(Tablero* tablero, Jugador* jugador)
     // podria tener un bool cuando solo quiero pedir piso y que siempre devuelva 0 en la z.
 }
 
-void Carta::tirarMolotov(Tablero* tablero)
+void Carta::tirarMolotov(BatallaCampal* batallaCampal)
 {
     string mensaje = "tirar la molotov";
     unsigned int x, y, z;
@@ -134,7 +154,7 @@ void Carta::tirarMolotov(Tablero* tablero)
     //Revisar como es el estado quemado del casillero con mija con el tema de los turnos y eso.
 }
 
-void Carta::ponerEscudo(Jugador* jugador)
+void Carta::ponerEscudo(BatallaCampal* batallaCampal, unsigned int jugador)
 {
     //Hacer elegir a la ficha, hacer funcion analoga a pedir coordenada pero para fichas???
     //Si la ficha esta muerta volver a pedir.
@@ -142,7 +162,7 @@ void Carta::ponerEscudo(Jugador* jugador)
     // en vez de matarlo poner esa variable en false y ya la siguiente si moriria.
 }
 
-void Carta::revivir(Jugador* jugador)
+void Carta::revivir(BatallaCampal* batallaCampal, unsigned int jugador)
 {
     //Hacer elegir a la ficha, hacer funcion analoga a pedir coordenada pero para fichas???
     //Si la ficha esta viva volver a pedir.

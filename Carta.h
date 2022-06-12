@@ -5,6 +5,7 @@
     #include <string>
     #include "tablero.h"
     #include "jugador.h"
+    #include "BatallaCampal.h"
 
     class Carta
     {
@@ -22,37 +23,37 @@
 		 * Pre: ---.
 		 * Post: Tira un misil a un casillero el cual lo inhabilita y a todos los vecinos (3x3x3).
 		 */
-		void tirarMisil(Tablero*);
+		void tirarMisil(BatallaCampal*);
 
         /*
 		 * Pre: ---.
 		 * Post: Posiciona una ficha tipo avion en un casillero indicado.
 		 */
-		void ponerAvion(Tablero*, Jugador*);
+		void ponerAvion(BatallaCampal*, unsigned int);
 
         /*
 		 * Pre: ---.
 		 * Post: Posiciona una ficha tipo barco en un casillero valido indicado.
 		 */
-		void ponerBarco(Tablero*, Jugador*);
+		void ponerBarco(BatallaCampal*, unsigned int);
 
         /*
 		 * Pre: ---.
 		 * Post: Tira una molotov a un casillero el cual lo inhabilita y a todos los vecinos en horizontal por 3 turnos.
 		 */
-		void tirarMolotov(Tablero*);
+		void tirarMolotov(BatallaCampal*);
 
         /*
 		 * Pre: ---.
 		 * Post: Le pone un escudo a una ficha y la protege del siguiente ataque directo (Misil o disparo).
 		 */
-		void ponerEscudo(Jugador*);
+		void ponerEscudo(BatallaCampal*, unsigned int);
 
         /*
 		 * Pre: ---.
 		 * Post: Revive a la ficha indicada y habilita su casillero en el que murio.
 		 */
-		void revivir(Jugador*);
+		void revivir(BatallaCampal*, unsigned int);
     public:
         /*
 		 * Pre: ---
@@ -94,7 +95,7 @@
          * Pre: ---
          * Post: Tira la carta y hace la accion correspondiente.
         */
-        void tirarCarta(Tablero*, Jugador*);
+        void tirarCarta(BatallaCampal*, unsigned int);
 
         /*
          * Pre: Igualar dos variables del tipo carta.

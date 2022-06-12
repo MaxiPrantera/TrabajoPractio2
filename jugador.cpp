@@ -65,3 +65,12 @@ void Jugador::robarCarta(Cola<Carta>* mazo)
 {
 	this->listaCartas->agregar(mazo->desacolar());
 }
+
+/*
+ * Pre: ---
+ * Post: El jugador roba una carta para ser utilizada en alguno de sus turnos.
+ */
+void Jugador::tirarCarta(BatallaCampal* batallaCampal, unsigned int jugador, unsigned int carta)
+{
+	this->listaCartas->get(carta).tirarCarta(batallaCampal, jugador);
+}

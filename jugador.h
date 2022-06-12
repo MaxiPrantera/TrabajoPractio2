@@ -33,7 +33,7 @@ public:
 	void robarCarta(Cola<Carta>* mazo);
 	unsigned int getCantidadCartas();
 	string getNombreCarta(unsigned int);
-	void tirarCarta(unsigned int);
+	void tirarCarta(BatallaCampal* batallaCampal, unsigned int jugador, unsigned int carta);
 };
 
 #endif
