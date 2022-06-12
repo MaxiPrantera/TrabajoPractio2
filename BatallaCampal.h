@@ -45,6 +45,12 @@ public:
     Casillero* getCasillero(unsigned int, unsigned int, unsigned int);
 
     /*
+     * Pre: ---
+     * Post: Devuelve el tablero.
+     */
+    Tablero* getTablero();
+
+    /*
      * Pre: El mazo debe estar vacío
      * Post: Agrega las cartas de manera random al mazo.
      */
