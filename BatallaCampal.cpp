@@ -204,3 +204,41 @@ bool BatallaCampal::verificarGanador(Jugador* jugadorGanador){
     
     return cantidadDeJugadores == 1;
 }
+
+Jugador* BatallaCampal::getJugador(unsigned int jugador){
+	return this->listaJugadores->get(jugador);
+}
+
+unsigned int BatallaCampal::getCantidadFichasJugador(unsigned int){
+	return getJugador(jugador)->getFichas;
+}
+
+Ficha* BatallaCampal::getFicha(unsigned int jugador,unsigned int ficha){
+	return getJugador(jugador)->getListaFichas()->get(ficha);
+}
+
+void BatallaCampal::jugadorAgregarFicha(unsigned int jugador,Ficha* ficha){
+	 getJugador(jugador)->agregarFicha(ficha);
+}
+
+void BatallaCampal::jugadorMueveFicha(Jugador* jugador){
+	int respuesta;
+    std::cout << "Que ficha quiere mover?(Responda 0 si no quiere mover nada)";
+    
+    for(int ficha = 1; ficha < (getCantidadFichasJugador(jugador) + 1); ficha++){
+        if (getFicha(jugador, ficha)->getEstado() == vivo){
+        	std::cout << ficha << "." << getFicha(jugador, ficha)->getUbicacionX()
+             	 	  << "/";
+             		  << getFicha(jugador, ficha)->getUbicacionY()
+             	 	  << "/";
+             		  << getFicha(jugador, ficha)->getUbicacionZ()
+             	 	  << endl;
+    	}
+	}
+    std::cin >> respuesta;
+    char direccion;
+    std::cout << "w = arriba, a = izquierda, s = abajo, d = derecha\n"
+         	  << "q = diagonal izquierda arriba, e diagonal derecha arriba, z = diagonal abajo izquierda, c = diagonal abajo derecha\n";
+    std::cin >> direccion;
+    getFicha(jugador,respuesta)->moverFicha(direccion);	
+}

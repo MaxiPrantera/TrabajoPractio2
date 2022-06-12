@@ -91,6 +91,12 @@ public:
      * Post: Devuelve el puntero a jugador indicado.
      */
     Jugador* getJugador(unsigned int);
+       
+    /*
+	 * Pre: El numero de la ficha debe ser valido (Dentro del rango).
+	 * Post: Devuelve el puntero a ficha indicado.
+  	 */
+	Ficha* getFicha(unsigned int);
 
     /*
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
