@@ -112,3 +112,14 @@ void Casillero::eliminarContenidoCasillero(){
     delete this->contenidoCasillero ;
 }
 
+string Casillero::terrenoAString(){
+
+    switch(this->terreno){
+    case TIERRA:
+        return "tierra";
+    case AGUA:
+        return "agua";
+    case TIERRA_AGUA:
+        return "tierra_agua";
+    }
+}
