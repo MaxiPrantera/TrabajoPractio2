@@ -12,16 +12,16 @@ class Ficha
 {
 private:
 	EstadoFicha estado;
-	Ficha tipo;
+	TipoFicha tipoFicha;
 	Jugador* duenio;
-	Cashillero* posicion;
+	Casillero* posicion;
 public:
 	
 	/*
 		PRE: - 
 		POST: Crea la instancia de ficha
 	*/
-	Ficha(Ficha, EstadoFicha, Jugador*, Casillero*);
+	Ficha(TipoFicha, EstadoFicha, Jugador*, Casillero*);
 	
 	/*
 		PRE: Tiene que existir una ficha

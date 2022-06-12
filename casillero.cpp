@@ -104,7 +104,7 @@ void Casillero::setFicha(Ficha* ficha) {
 /*
 Pre : casillero creado anteriormete
 Post: devuelve el contenido del casillero*/
-Ficha* Casillero::obtenerContenidoCasillero(){
+Ficha* Casillero::getContenidoCasillero(){
 	return this->contenidoCasillero;
 }
 

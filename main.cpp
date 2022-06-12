@@ -37,6 +37,20 @@ int main()
    * Instancia el tablero con todos los casilleros vacios y con el piso y cielo.
    */
 
+  switch(rand()%4){
+    case 0:
+      batallaCampal->iniciarEscenarioUno(20, 20, 5);
+      break;
+    case 1:
+      batallaCampal->iniciarEscenarioDos(20, 20, 5);
+      break;
+    case 2:
+      batallaCampal->iniciarEscenarioTres(20, 20, 5);
+      break;
+    default:
+      break;
+  }
+
   //Inicializacion de Soldados:
   cout << "Recluta a tus tropas y posicionalas estrategicamente" << endl;
 	cout << "Cuantos soldados tendra cada jugador?" << endl;
@@ -45,7 +59,7 @@ int main()
 	unsigned int* y;
 	unsigned int* z;
 
-	for(unsigned int soldado = 0; soldado < respuestaUsuario; soldado++){
+	for(unsigned int soldados = 0; soldados < respuestaUsuario; soldados++){
 		for(unsigned int jugador = 0; jugador < batallaCampal->getCantidadJugadores(); jugador++){
 			cout << "\nJugador " << batallaCampal->getNombreJugador(jugador);
       batallaCampal->elegirCoordenadas(x, y, z, "posicionar el soldado", true);
@@ -127,13 +141,14 @@ int main()
       //(1) Logica de disparos:
       //Pedir coordenadas
       //Ejecutar "jugadorDispara" de batallaCampal.
-      /*
+      int x, y, z;
       cout << "Eliga una posicion en x y z para disparar" << endl;
         cin >> x;
         cin >> y;
         cin >> z;
-        getListaJugadores->get(i)->disparar(x,y,z);¨
-      */
+        batallaCampal->jugadorDispara(x, y, z);
+      
+
 
       //(3) Logica de tirar carta:
       inputValido = false;

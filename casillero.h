@@ -17,7 +17,6 @@ class Casillero{
 
 private:
 
-    Jugador *contenidoCasillero;
     Terreno terreno;
     Estado estado;
     unsigned int turnosRestantesDesbloqueo;
@@ -42,7 +41,7 @@ public:
     unsigned int getTurnosRestantesDesbloqueo(); 
     void decrementarTurnosRestantesDesbloqueo();
     void copiarCasillero(Casillero* dest);
-    Ficha* obtenerContenidoCasillero();
+    Ficha* getContenidoCasillero();
     void setFicha(Ficha* ficha);
     void eliminarContenidoCasillero();
     void vaciarCasillero();

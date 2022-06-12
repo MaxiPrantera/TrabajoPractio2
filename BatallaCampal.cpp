@@ -127,7 +127,15 @@ void BatallaCampal::inicializarMazo()
     }
 }
 
-void elegirCoordenadas(unsigned int* x, unsigned int* y, unsigned int* z, std::string msj, bool esPiso)
+void BatallaCampal::elegirCoordenadas(unsigned int* x, unsigned int* y, unsigned int* z, std::string msj, bool esPiso)
 {
 
+}
+
+void BatallaCampal::jugadorDispara(unsigned int x, unsigned int y, unsigned int z)
+{
+    this->tablero->getCasillero(x, y, z)->setEstado(inactivo);
+    if(this->tablero->getCasillero(x, y, z)->getEstado() == ocupado){
+        this->tablero->getCasillero(x, y, z)->eliminarContenidoCasillero();
+    }
 }

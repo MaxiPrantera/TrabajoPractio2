@@ -126,7 +126,7 @@ public:
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
      * Post: El jugador indicado dispara.
      */
-    void jugadorDispara(unsigned int, unsigned int, unsigned int, unsigned int);
+    void jugadorDispara(unsigned int x, unsigned int y, unsigned int z);
 
     /*
      * Pre: ---

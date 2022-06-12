@@ -10,7 +10,7 @@ Jugador::Jugador(string nombre, int id)
 	this->listaFichas = new Lista<Ficha *>();
 	this->listaCartas = new Lista<Carta>();
 	this->nombreJugador = nombre;
-	this->idJugador = id ;
+	this->idJugador = id;
 }
 
 /**/
