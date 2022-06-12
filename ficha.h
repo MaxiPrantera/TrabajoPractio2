@@ -12,16 +12,16 @@ class Ficha
 {
 private:
 	EstadoFicha estado;
-	TipoFicha tipoFicha;
+	FichaTipo tipo;
 	Jugador* duenio;
-	Casillero* posicion;
+	Cashillero* posicion;
 public:
 	
 	/*
 		PRE: - 
 		POST: Crea la instancia de ficha
 	*/
-	Ficha(TipoFicha, EstadoFicha, Jugador*, Casillero*);
+	Ficha(Ficha, Jugador*, Casillero*);
 	
 	/*
 		PRE: Tiene que existir una ficha
@@ -89,7 +89,12 @@ public:
 		
 	*/
 	void eliminarFicha();
-
+	
+	/*
+		PRE: La ficha debe existir
+		POST: Devuleve el tipo de ficha
+	*/
+	TipoFicha getTipoFicha();
 };
 
 

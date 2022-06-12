@@ -1,15 +1,20 @@
 #include "constantes.h"
 #include "ficha.h"
 
-Ficha::Ficha(TipoFicha tipo, EstadoFicha estado, Jugador * jugador, Casillero * casillero){
-	this->tipoFicha = tipo;
-	this->estado = estado;
+Ficha::Ficha(FichaTipo tipo, Jugador * jugador, Casillero * casillero){
+	this->tipo = tipo;
 	this->duenio = jugador;
+	this->estado = viva;
 	this->posicion = casillero;
+	if (this->posicion->getEstado() == ocupado){
+		casillero->vaciarCasillero();
+		eliminarFicha();
+	}
+	else if (this->posicion->getEstado()
 }
 
 Ficha::Ficha(const Ficha& ficha){
-	this->tipoFicha = ficha.tipoFicha;
+	this->tipo = ficha.tipo;
 	this->estado = ficha.estado;
 	this->duenio = ficha.duenio;
 	this->posicion = ficha.posicion;
@@ -24,15 +29,15 @@ EstadoFicha Ficha::getEstado(){
 }
 
 int Ficha::getUbicacionX(){
-	return this->posicion->getX();
+	return this->posicion->retornarX();
 }
 
 int Ficha::getUbicacionY(){
-	return this->posicion->getY();
+	return this->posicion->retornarY();
 }
 
 int Ficha::getUbicacionZ(){
-	return this->posicion->getZ();
+	return this->posicion->retornarZ();
 }
 
 void Ficha::setEstado(EstadoFicha estado){
@@ -43,7 +48,7 @@ void Ficha::setPosicion(Casillero * casillero){
 	this->posicion = casillero;
 }
 
-void Ficha::moverFicha(char direccion, Tablero* tablero){
+void Ficha::moverFicha(char direccion, Tablero * tablero){
 	
 	int x = getUbicacionX();
 	int y = getUbicacionY();
@@ -94,7 +99,9 @@ void Ficha::moverFicha(char direccion, Tablero* tablero){
 	}
 	else if (casillero->getEstado() == ocupado){
 		casillero->eliminarFicha();
+		casillero->setEstado(inactivo);
 		eliminarFicha();
+		
 	}
 	else{
 		std::cout << "Casillero inactivo no puedes moverte ahi" <<endl;
@@ -104,10 +111,15 @@ void Ficha::moverFicha(char direccion, Tablero* tablero){
 
 void Ficha::revivirSoldado(){
 	setEstado(vivo);
+	this->posicion->setEstado(ocupado);
 }
 
 void Ficha::eliminarFicha(){
 	setEstado(muerto);
+}
+
+FichaTipo Ficha::getTipoFicha(){
+	return this->tipo;
 }
 
 
