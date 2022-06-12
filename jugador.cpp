@@ -10,7 +10,18 @@ Jugador::Jugador(string nombre, int id)
 	this->listaFichas = new Lista<Ficha *>();
 	this->listaCartas = new Lista<Carta>();
 	this->nombreJugador = nombre;
-	this->idJugador = id;
+	this->idJugador = id ;
+}
+
+unsigned int Jugador::getFichas(){
+	unsigned int contadorFichas = 0;
+	this->listaFichas->reiniciarCursor();
+	while(this->listaFicha->avanzarCursor()){
+		if(this->listaFichas->obtenerCursos()->getTipoFicha() == Soldado && this->listaFichas->obtenerCursos()->getEstado() == VIVA){
+			contadorFichas++;
+		}
+	}
+	return contadorFichas;
 }
 
 /**/

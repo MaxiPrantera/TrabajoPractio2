@@ -50,13 +50,6 @@ Casillero::~Casillero()
 {
 
 }
-
-void Casillero::vaciarCasillero(){
-    this->contenidoCasillero = NULL;
-    this->turnosRestantesDesbloqueo = 0;
-    this->estado = vacio;
-}
-
 /*
 PRE: el casillero existe
 Post: copia el contenido de un casillero a otro casillero
@@ -104,22 +97,13 @@ void Casillero::setFicha(Ficha* ficha) {
 /*
 Pre : casillero creado anteriormete
 Post: devuelve el contenido del casillero*/
-Ficha* Casillero::getContenidoCasillero(){
+Ficha* Casillero::obtenerContenidoCasillero(){
 	return this->contenidoCasillero;
 }
 
-void Casillero::eliminarContenidoCasillero(){
-    delete this->contenidoCasillero ;
+void Casillero::eliminarFicha(){
+    this->contenidoCasillero->setEstado(MUERTA);
+    this->turnosRestantesDesbloqueo = 0;
+    this->estado = inactiva;
 }
 
-string Casillero::terrenoAString(){
-
-    switch(this->terreno){
-    case TIERRA:
-        return "tierra";
-    case AGUA:
-        return "agua";
-    case TIERRA_AGUA:
-        return "tierra_agua";
-    }
-}

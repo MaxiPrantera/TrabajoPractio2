@@ -17,6 +17,7 @@ class Casillero{
 
 private:
 
+    Jugador *contenidoCasillero;
     Terreno terreno;
     Estado estado;
     unsigned int turnosRestantesDesbloqueo;
@@ -36,15 +37,13 @@ public:
     int getZ();
     Estado getEstado();
     Terreno getTerreno();
-///setear solo con la ficha que tiene el puntero a jugador
     void setTurnosRestantesDesbloqueo(unsigned int cantidadTurnos);
     unsigned int getTurnosRestantesDesbloqueo(); 
     void decrementarTurnosRestantesDesbloqueo();
     void copiarCasillero(Casillero* dest);
-    Ficha* getContenidoCasillero();
+    Ficha* obtenerContenidoCasillero();
     void setFicha(Ficha* ficha);
-    void eliminarContenidoCasillero();
-    void vaciarCasillero();
+    void eliminarFicha();
 };
 
 #endif
