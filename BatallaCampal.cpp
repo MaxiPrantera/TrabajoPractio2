@@ -136,6 +136,6 @@ void BatallaCampal::jugadorDispara(unsigned int x, unsigned int y, unsigned int 
 {
     this->tablero->getCasillero(x, y, z)->setEstado(inactivo);
     if(this->tablero->getCasillero(x, y, z)->getEstado() == ocupado){
-        this->tablero->getCasillero(x, y, z)->eliminarContenidoCasillero();
+        this->tablero->getCasillero(x, y, z)->eliminarFicha();
     }
 }

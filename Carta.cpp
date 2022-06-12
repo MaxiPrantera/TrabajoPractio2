@@ -117,7 +117,7 @@ void Carta::ponerAvion(BatallaCampal* batallaCampal, unsigned int jugador)
     unsigned int* posX;
     unsigned int* posY;
     unsigned int* posZ;
-    Ficha* avion;
+    Ficha* nuevoAvion;
 
     do
     {
@@ -132,8 +132,8 @@ void Carta::ponerAvion(BatallaCampal* batallaCampal, unsigned int jugador)
         }
     }while (!casilleroValido);
 
-    avion = new Ficha(AVION, batallaCampal->getJugador(jugador), batallaCampal->getCasillero(*posX, *posY, *posZ));
-    batallaCampal->jugadorAgregarFicha(avion, jugador);
+    nuevoAvion = new Ficha(avion, batallaCampal->getJugador(jugador), batallaCampal->getCasillero(*posX, *posY, *posZ));
+    batallaCampal->jugadorAgregarFicha(nuevoAvion, jugador);
 }
 
 void Carta::ponerBarco(BatallaCampal* batallaCampal, unsigned int jugador)

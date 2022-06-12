@@ -102,8 +102,8 @@ Ficha* Casillero::obtenerContenidoCasillero(){
 }
 
 void Casillero::eliminarFicha(){
-    this->contenidoCasillero->setEstado(MUERTA);
+    this->contenidoCasillero->setEstado(muerta);
     this->turnosRestantesDesbloqueo = 0;
-    this->estado = inactiva;
+    this->estado = inactivo;
 }
 

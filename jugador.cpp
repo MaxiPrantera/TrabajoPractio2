@@ -16,8 +16,8 @@ Jugador::Jugador(string nombre, int id)
 unsigned int Jugador::getFichas(){
 	unsigned int contadorFichas = 0;
 	this->listaFichas->reiniciarCursor();
-	while(this->listaFicha->avanzarCursor()){
-		if(this->listaFichas->obtenerCursos()->getTipoFicha() == Soldado && this->listaFichas->obtenerCursos()->getEstado() == VIVA){
+	while(this->listaFichas->avanzarCursor()){
+		if(this->listaFichas->getCursor()->getTipoFicha() == soldado && this->listaFichas->getCursor()->getEstado() == viva){
 			contadorFichas++;
 		}
 	}

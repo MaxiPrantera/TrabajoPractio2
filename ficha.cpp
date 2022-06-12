@@ -1,16 +1,15 @@
 #include "constantes.h"
 #include "ficha.h"
 
-Ficha::Ficha(FichaTipo tipo, Jugador * jugador, Casillero * casillero){
+Ficha::Ficha(TipoFicha tipo, Jugador * jugador, Casillero * casillero){
 	this->tipo = tipo;
 	this->duenio = jugador;
 	this->estado = viva;
 	this->posicion = casillero;
 	if (this->posicion->getEstado() == ocupado){
-		casillero->vaciarCasillero();
+		casillero->eliminarFicha();
 		eliminarFicha();
 	}
-	else if (this->posicion->getEstado()
 }
 
 Ficha::Ficha(const Ficha& ficha){
@@ -29,15 +28,15 @@ EstadoFicha Ficha::getEstado(){
 }
 
 int Ficha::getUbicacionX(){
-	return this->posicion->retornarX();
+	return this->posicion->getX();
 }
 
 int Ficha::getUbicacionY(){
-	return this->posicion->retornarY();
+	return this->posicion->getY();
 }
 
 int Ficha::getUbicacionZ(){
-	return this->posicion->retornarZ();
+	return this->posicion->getZ();
 }
 
 void Ficha::setEstado(EstadoFicha estado){
@@ -110,15 +109,15 @@ void Ficha::moverFicha(char direccion, Tablero * tablero){
 
 
 void Ficha::revivirSoldado(){
-	setEstado(vivo);
+	setEstado(viva);
 	this->posicion->setEstado(ocupado);
 }
 
 void Ficha::eliminarFicha(){
-	setEstado(muerto);
+	setEstado(muerta);
 }
 
-FichaTipo Ficha::getTipoFicha(){
+TipoFicha Ficha::getTipoFicha(){
 	return this->tipo;
 }
 

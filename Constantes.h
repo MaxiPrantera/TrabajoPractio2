@@ -18,8 +18,8 @@
     #define DIAGONAL_DERECHA_ABAJO 'c'
 
     enum EstadoFicha{
-        vivo,
-        muerto,
+        viva,
+        muerta
     };
 
     enum TipoFicha{
