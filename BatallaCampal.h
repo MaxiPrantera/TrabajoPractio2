@@ -106,15 +106,27 @@ public:
 
     /*
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
+     * Post: Devuelve la carta del jugador indicado.
+     */
+    std::string getCartaJugador(unsigned int, unsigned int);
+
+    /*
+     * Pre: El numero de jugador debe ser valido (Dentro del rango).
      * Post: El jugador indicado agrega una ficha.
      */
-    void jugadorAgregarFicha(Ficha*);
+    void jugadorAgregarFicha(Ficha*, unsigned int);
 
     /*
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
      * Post: El indicado jugador roba una carta.
      */
     void jugadorRobaCarta(unsigned int);
+
+    /*
+     * Pre: El numero de jugador debe ser valido (Dentro del rango).
+     * Post: El jugador indicado tira una carta.
+     */
+    void jugadorTiraCarta(unsigned int, unsigned int);
 
     /*
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
@@ -126,13 +138,19 @@ public:
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
      * Post: El jugador indicado dispara.
      */
-    void jugadorDispara(unsigned int, unsigned int, unsigned int, unsigned int);
+    void jugadorDispara(unsigned int, unsigned int, unsigned int);
 
     /*
      * Pre: ---
      * Post: Devuelve el mazo.
      */
     Cola<Carta>* getMazo();
+
+    /*
+     * Pre: ---
+     * Post: Devuelve la carta a robar.
+     */
+    Carta& getCartaARobar();
 
     /*
     * pre: Batalla campal inicializado

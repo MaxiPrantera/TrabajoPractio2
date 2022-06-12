@@ -127,9 +127,67 @@ void BatallaCampal::inicializarMazo()
     }
 }
 
-void elegirCoordenadas(unsigned int* x, unsigned int* y, unsigned int* z, std::string msj, bool esPiso)
+void BatallaCampal::elegirCoordenadas(unsigned int* x, unsigned int* y, unsigned int* z, std::string msj, bool esPiso)
 {
+    bool xValida = false, yValida = false, zValida = false;
+    cout << "Eliga las coordenadas para " << msj << endl;
 
+    if(esPiso)
+    {
+        *z = 1;
+        zValida = true;
+    }
+
+    do
+    {
+        if(!xValida) 
+        {
+            cout << "Ingrese la coordenada x: " << endl;
+            cin >> *x;
+            if (*x < 1 || *x > this->tablero->getCantProfundidadTablero())
+            {
+                cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
+            }
+            else
+            {
+                xValida = true;
+            }
+        }
+        else if (!yValida)
+        {
+            cout << "Ingrese la coordenada y: " << endl;
+            cin >> *y;
+            if (*y < 1 || *y > this->tablero->getCantColumnasTablero())
+            {
+                cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
+            }
+            else
+            {
+                yValida = true;
+            }
+        }
+        else if(!zValida)
+        {
+            cout << "Ingrese la coordenada z: " << endl;
+            cin >> *z;
+            if (*z < 1 || *z > this->tablero->getCantFilasTablero())
+            {
+                cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
+            }
+            else
+            {
+                zValida = true;
+            }
+        }        
+    }while(!xValida || !yValida || !zValida);
+}
+
+void BatallaCampal::jugadorDispara(unsigned int x, unsigned int y, unsigned int z)
+{
+    this->tablero->getCasillero(x, y, z)->setEstado(inactivo);
+    if(this->tablero->getCasillero(x, y, z)->getEstado() == ocupado){
+        this->tablero->getCasillero(x, y, z)->eliminarFicha();
+    }
 }
 
 bool BatallaCampal::hayGanador(Jugador* jugadorGanador){

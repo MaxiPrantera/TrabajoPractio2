@@ -41,11 +41,19 @@ int main()
 
   //Inicializacion de Tablero:
   cout << "Se arma el campo de batalla" << endl;
-  /*
-   * Pregunta las dimensiones
-   * Valida que las dimensiones sean coherentes (Ej, si hay tres jugadores no puede ser 3x3x3 y demas giladas) **Opcional
-   * Instancia el tablero con todos los casilleros vacios y con el piso y cielo.
-   */
+  switch(rand()%4){
+    case 0:
+      batallaCampal->iniciarEscenarioUno(20, 20, 5);
+      break;
+    case 1:
+      batallaCampal->iniciarEscenarioDos(20, 20, 5);
+      break;
+    case 2:
+      batallaCampal->iniciarEscenarioTres(20, 20, 5);
+      break;
+    default:
+      break;
+  }
 
   //Inicializacion de Soldados:
   cout << "Recluta a tus tropas y posicionalas estrategicamente" << endl;
@@ -97,12 +105,10 @@ int main()
     if (batallaCampal->getCantidadFichasJugador(jugadorActual) != 0){
       cout << batallaCampal->getNombreJugador(jugadorActual) << " te toca" << endl;
 
-      //logica de agarrar carta, a debatir. usar jugadorRobaCarta
-      /*
-      if (turno !=0 && getListaJugadores->get(i)->getCantCartas() < 5){
-        getListaJugadores->get(i)->agarrarCarta();	
-      }
-      */
+      //Inicia el turno robando carta.
+      cout << batallaCampal->getNombreJugador(jugadorActual) << " roobaste la carta "
+           << batallaCampal->getCartaARobar().getNombre() << endl;
+      batallaCampal->jugadorRobaCarta(jugadorActual);
       
       //(2) Logica de Movimiento:
       //Preguntar por numero de ficha directo, si es cero, quiere decir que no mueve
@@ -136,15 +142,12 @@ int main()
       */
 
       //(1) Logica de disparos:
-      //Pedir coordenadas
-      //Ejecutar "jugadorDispara" de batallaCampal.
-      /*
+      int x, y, z;
       cout << "Eliga una posicion en x y z para disparar" << endl;
-        cin >> x;
-        cin >> y;
-        cin >> z;
-        getListaJugadores->get(i)->disparar(x,y,z);¨
-      */
+      cin >> x;
+      cin >> y;
+      cin >> z;
+      batallaCampal->jugadorDispara(x, y, z);
 
       //(3) Logica de tirar carta:
       inputValido = false;
@@ -157,8 +160,8 @@ int main()
           inputValido = true;
           if (respuestaUsuario != 0)
           {
-            cout << "Utilizaste tu carta " << batallaCampal->getListaJugadores()->get(jugador).getNombreCarta(respuestaUsuario) << endl;
-            batallaCampal->getListaJugadores()->get(jugador).tirarCarta(respuestaUsuario);
+            cout << "Utilizaste tu carta " << batallaCampal->getCartaJugador(jugadorActual, respuestaUsuario) << endl;
+            batallaCampal->jugadorTiraCarta(jugador, respuestaUsuario);
           }
         }
         else
