@@ -64,7 +64,7 @@ int main()
 	unsigned int* z;
 
 	for(unsigned int soldados = 0; soldados < respuestaUsuario; soldados++){
-		for(unsigned int jugador = 0; jugador < batallaCampal->getCantidadJugadores(); jugador++){
+		for(unsigned int jugador = 1; jugador <= batallaCampal->getCantidadJugadores(); jugador++){
 			cout << "\nJugador " << batallaCampal->getNombreJugador(jugador);
       		batallaCampal->elegirCoordenadas(x, y, z, "posicionar el soldado", true);
 			Casillero* casillero = batallaCampal->getCasillero(*x,*y,*z);
@@ -73,7 +73,7 @@ int main()
 				Casillero* casillero = batallaCampal->getCasillero(*x,*y,*z);
 			}
 			Ficha* ficha = new Ficha(soldado, batallaCampal->getJugador(jugador), casillero);
-			batallaCampal->jugadorAgregarFicha(jugador,ficha);
+			batallaCampal->jugadorAgregarFicha(ficha, jugador);
 		}
 	}
   
