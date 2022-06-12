@@ -45,12 +45,6 @@ public:
     Casillero* getCasillero(unsigned int, unsigned int, unsigned int);
 
     /*
-     * Pre: ---
-     * Post: Devuelve el tablero.
-     */
-    Tablero* getTablero();
-
-    /*
      * Pre: El mazo debe estar vacío
      * Post: Agrega las cartas de manera random al mazo.
      */
@@ -70,9 +64,9 @@ public:
 
     /*
      * Pre: ---
-     * Post: Dispara a una posicion del tablero.
+     * Post: Indica si un jugador gano el juego y lo devuelve.
      */
-    bool disparar(unsigned int, unsigned int, unsigned int);
+    bool verificarGanador(Jugador* jugadorGanador);
 
     /*
      * Pre: ---
@@ -112,27 +106,15 @@ public:
 
     /*
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
-     * Post: Devuelve la carta del jugador indicado.
-     */
-    std::string getCartaJugador(unsigned int, unsigned int);
-
-    /*
-     * Pre: El numero de jugador debe ser valido (Dentro del rango).
      * Post: El jugador indicado agrega una ficha.
      */
-    void jugadorAgregarFicha(Ficha*, unsigned int);
+    void jugadorAgregarFicha(Ficha*);
 
     /*
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
      * Post: El indicado jugador roba una carta.
      */
     void jugadorRobaCarta(unsigned int);
-
-    /*
-     * Pre: El numero de jugador debe ser valido (Dentro del rango).
-     * Post: El jugador indicado tira una carta.
-     */
-    void jugadorTiraCarta(unsigned int, unsigned int);
 
     /*
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
@@ -144,19 +126,13 @@ public:
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
      * Post: El jugador indicado dispara.
      */
-    void jugadorDispara(unsigned int x, unsigned int y, unsigned int z);
+    void jugadorDispara(unsigned int, unsigned int, unsigned int, unsigned int);
 
     /*
      * Pre: ---
      * Post: Devuelve el mazo.
      */
     Cola<Carta>* getMazo();
-
-    /*
-     * Pre: ---
-     * Post: Devuelve la carta a robar.
-     */
-    Carta& getCartaARobar();
 
     /*
     * pre: Batalla campal inicializado

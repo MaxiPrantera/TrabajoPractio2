@@ -15,8 +15,18 @@ int main()
   bool inputValido;
   int respuestaUsuario;
   unsigned int jugador;
-  
+  int catidadDeJugadores;
   cout << "Bienvenidos a Batalla Campal V2.0!!!" << endl;
+  
+  cout << "Ingresar cantidad de jugadores" << endl;
+  cin >> cantidadDeJugadores;
+  string nombreJugador;
+  for(int jugadorId = 0; jugadorId < cantidadDeJugadores;jugadorId++){
+    cout << "ingresar nombre del jugador" << endl;
+    cin>>nombreJugador;
+    Jugador* inicializarJugador = new Jugador(nombreJugador);
+    batallaCampal->getListaJugadores()->agregar(inicializarJugador);
+  }
 
   //Inicializacion de jugadores:
   cout << "Tu Nombre???" << endl;
@@ -37,39 +47,27 @@ int main()
    * Instancia el tablero con todos los casilleros vacios y con el piso y cielo.
    */
 
-  switch(rand()%4){
-    case 0:
-      batallaCampal->iniciarEscenarioUno(20, 20, 5);
-      break;
-    case 1:
-      batallaCampal->iniciarEscenarioDos(20, 20, 5);
-      break;
-    case 2:
-      batallaCampal->iniciarEscenarioTres(20, 20, 5);
-      break;
-    default:
-      break;
-  }
-
   //Inicializacion de Soldados:
-    cout << "Recluta a tus tropas y posicionalas estrategicamente" << endl;
+  cout << "Recluta a tus tropas y posicionalas estrategicamente" << endl;
 	cout << "Cuantos soldados tendra cada jugador?" << endl;
 	cin >> respuestaUsuario;
 	unsigned int* x;
 	unsigned int* y;
 	unsigned int* z;
 
-	for(unsigned int soldados = 0; soldados < respuestaUsuario; soldados++){
-		for(unsigned int jugador = 1; jugador <= batallaCampal->getCantidadJugadores(); jugador++){
+	for(unsigned int soldado = 0; soldado < respuestaUsuario; soldado++){
+		for(unsigned int jugador = 0; jugador < batallaCampal->getCantidadJugadores(); jugador++){
 			cout << "\nJugador " << batallaCampal->getNombreJugador(jugador);
-      		batallaCampal->elegirCoordenadas(x, y, z, "posicionar el soldado", true);
+      batallaCampal->elegirCoordenadas(x, y, z, "posicionar el soldado", true);
 			Casillero* casillero = batallaCampal->getCasillero(*x,*y,*z);
-			while (casillero->getEstado() == inactivo){
-				batallaCampal->elegirCoordenadas(x, y, z, "posicionar el soldado", true);
-				Casillero* casillero = batallaCampal->getCasillero(*x,*y,*z);
+			if (casillero->getEstado() == vacio){
+				Ficha* ficha = new Ficha(soldado, vivo, batallaCampal->getJugador(jugador), casillero);
+				batallaCampal->jugadorAgregarFicha(ficha);
 			}
-			Ficha* ficha = new Ficha(soldado, batallaCampal->getJugador(jugador), casillero);
-			batallaCampal->jugadorAgregarFicha(ficha, jugador);
+			else if (casillero->getEstado() == ocupado){
+				Ficha* ficha = new Ficha(soldado, muerto, batallaCampal->getJugador(jugador), casillero);
+				batallaCampal->jugadorAgregarFicha(ficha);
+			}
 		}
 	}
   
@@ -89,7 +87,8 @@ int main()
   cout << "Que comienze el juego!!!" << endl;
 	int turno = 1;
   unsigned int jugadorActual = 1;
-	while (!batallaCampal->verificarGanador()){
+  Jugador* jugadorGanador = NULL;
+	while (!batallaCampal->verificarGanador(jugadorGanador)){
 		if (jugadorActual > batallaCampal->getCantidadJugadores())
     {
       jugadorActual = 0;
@@ -98,10 +97,12 @@ int main()
     if (batallaCampal->getCantidadFichasJugador(jugadorActual) != 0){
       cout << batallaCampal->getNombreJugador(jugadorActual) << " te toca" << endl;
 
-      //Inicia el turno robando carta.
-      cout << batallaCampal->getNombreJugador(jugadorActual) << " roobaste la carta "
-           << batallaCampal->getCartaARobar().getNombre() << endl;
-      batallaCampal->jugadorRobaCarta(jugadorActual);
+      //logica de agarrar carta, a debatir. usar jugadorRobaCarta
+      /*
+      if (turno !=0 && getListaJugadores->get(i)->getCantCartas() < 5){
+        getListaJugadores->get(i)->agarrarCarta();	
+      }
+      */
       
       //(2) Logica de Movimiento:
       //Preguntar por numero de ficha directo, si es cero, quiere decir que no mueve
@@ -137,14 +138,13 @@ int main()
       //(1) Logica de disparos:
       //Pedir coordenadas
       //Ejecutar "jugadorDispara" de batallaCampal.
-      int x, y, z;
+      /*
       cout << "Eliga una posicion en x y z para disparar" << endl;
         cin >> x;
         cin >> y;
         cin >> z;
-        batallaCampal->jugadorDispara(x, y, z);
-      
-
+        getListaJugadores->get(i)->disparar(x,y,z);¨
+      */
 
       //(3) Logica de tirar carta:
       inputValido = false;
@@ -157,8 +157,8 @@ int main()
           inputValido = true;
           if (respuestaUsuario != 0)
           {
-            cout << "Utilizaste tu carta " << batallaCampal->getCartaJugador(jugadorActual, respuestaUsuario) << endl;
-            batallaCampal->jugadorTiraCarta(jugador, respuestaUsuario);
+            cout << "Utilizaste tu carta " << batallaCampal->getListaJugadores()->get(jugador).getNombreCarta(respuestaUsuario) << endl;
+            batallaCampal->getListaJugadores()->get(jugador).tirarCarta(respuestaUsuario);
           }
         }
         else

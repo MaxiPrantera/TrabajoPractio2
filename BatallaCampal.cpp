@@ -127,15 +127,22 @@ void BatallaCampal::inicializarMazo()
     }
 }
 
-void BatallaCampal::elegirCoordenadas(unsigned int* x, unsigned int* y, unsigned int* z, std::string msj, bool esPiso)
+void elegirCoordenadas(unsigned int* x, unsigned int* y, unsigned int* z, std::string msj, bool esPiso)
 {
 
 }
 
-void BatallaCampal::jugadorDispara(unsigned int x, unsigned int y, unsigned int z)
-{
-    this->tablero->getCasillero(x, y, z)->setEstado(inactivo);
-    if(this->tablero->getCasillero(x, y, z)->getEstado() == ocupado){
-        this->tablero->getCasillero(x, y, z)->eliminarFicha();
+bool BatallaCampal::hayGanador(Jugador* jugadorGanador){
+    int cantidadDeJugadores = 0;
+    this->listaJugadores->iniciarCursor();
+    while(this->listaJugadores->avanzarCursor()){
+        if(this->listaJugadores->getCursor()->getFichas() > 0){
+            cantidadDeJugadores++;
+        }
+        if(cantidadDeJugadores == 1){
+            jugadorGanador = this->listaJugadores->getCursor();
+        }
     }
+    
+    return cantidadDeJugadores == 1;
 }
