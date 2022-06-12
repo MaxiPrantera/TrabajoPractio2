@@ -23,6 +23,11 @@ unsigned int Jugador::getFichas(){
 	return contadorFichas;
 }
 
+Ficha* Jugador::getFichaAux(unsigned int ficha)
+{
+	return this->listaFichas->get(ficha);
+}
+
 /**/
 Jugador::~Jugador()
 {

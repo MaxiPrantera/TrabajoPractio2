@@ -27,6 +27,7 @@ public:
 	void agregarFicha(Ficha* ficha);
 	string getNombreJugador();
 	unsigned int getFichas();
+	Ficha* getFichaAux(unsigned int);
 	void setNombreJugador(string nombre);
 	void setIdJugador(unsigned int id);
 	unsigned int getIdJugador();

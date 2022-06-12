@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Bitmap::Bitamp(){
+Bitmap::Bitmap(){
     Lista<BMP*>* listaBitmap = new Lista<BMP*>();
     this->listaBitmap = listaBitmap;
 }

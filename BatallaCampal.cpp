@@ -206,31 +206,31 @@ bool BatallaCampal::verificarGanador(Jugador* jugadorGanador){
 }
 
 Jugador* BatallaCampal::getJugador(unsigned int jugador){
-	return this->listaJugadores->get(jugador);
+	return &this->listaJugadores->get(jugador);
 }
 
-unsigned int BatallaCampal::getCantidadFichasJugador(unsigned int){
-	return getJugador(jugador)->getFichas;
+unsigned int BatallaCampal::getCantidadFichasJugador(unsigned int jugador){
+	return getJugador(jugador)->getFichas();
 }
 
 Ficha* BatallaCampal::getFicha(unsigned int jugador,unsigned int ficha){
-	return getJugador(jugador)->getListaFichas()->get(ficha);
+	return getJugador(jugador)->getFichaAux(ficha);
 }
 
-void BatallaCampal::jugadorAgregarFicha(unsigned int jugador,Ficha* ficha){
+void BatallaCampal::jugadorAgregarFicha(Ficha* ficha, unsigned int jugador){
 	 getJugador(jugador)->agregarFicha(ficha);
 }
 
-void BatallaCampal::jugadorMueveFicha(Jugador* jugador){
+void BatallaCampal::jugadorMueveFicha(unsigned int jugador){
 	int respuesta;
     std::cout << "Que ficha quiere mover?(Responda 0 si no quiere mover nada)";
     
     for(int ficha = 1; ficha < (getCantidadFichasJugador(jugador) + 1); ficha++){
-        if (getFicha(jugador, ficha)->getEstado() == vivo){
+        if (getFicha(jugador, ficha)->getEstado() == viva){
         	std::cout << ficha << "." << getFicha(jugador, ficha)->getUbicacionX()
-             	 	  << "/";
+             	 	  << "/"
              		  << getFicha(jugador, ficha)->getUbicacionY()
-             	 	  << "/";
+             	 	  << "/"
              		  << getFicha(jugador, ficha)->getUbicacionZ()
              	 	  << endl;
     	}
@@ -240,5 +240,5 @@ void BatallaCampal::jugadorMueveFicha(Jugador* jugador){
     std::cout << "w = arriba, a = izquierda, s = abajo, d = derecha\n"
          	  << "q = diagonal izquierda arriba, e diagonal derecha arriba, z = diagonal abajo izquierda, c = diagonal abajo derecha\n";
     std::cin >> direccion;
-    getFicha(jugador,respuesta)->moverFicha(direccion);	
+    getFicha(jugador,respuesta)->moverFicha(direccion, this->tablero);	
 }

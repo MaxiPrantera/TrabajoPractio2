@@ -113,31 +113,8 @@ int main()
       //preguntar la direccion
       //en cada caso validar minimamente
       //ejecutar funcion en batalla campal "jugadorMueveFicha" con los datos obtenidos.
-      /*
-      char respuestaMover;
-      cout << "Quiere mover una ficha?" << endl;
-      cin >> respuestaMover;
-      if (respuesta == 's'){
-        int respuestaFicha;
-        cout << "Que ficha quiere mover?";
-        for(int j = 1; j < (getListaJugadores->get(i)->getFichas() + 1); j++){
-          if (getListaJugadores->get(i)->getListaFichas()->get(j)->getEstado() == vivo){
-            cout << j << "." << getListaJugadores->get(i)->getListaFichas()->get(j)->getUbicacionX()
-                      << "/";
-                              << getListaJugadores->get(i)->getListaFichas()->get(j)->getUbicacionY()
-                              << "/";
-                      << getListaJugadores->get(i)->getListaFichas()->get(j)->getUbicacionZ()
-                      << endl;
-          cin > respuestaFicha;
-          char direccion;
-          cout << "w = arriba, a = izquierda, s = abajo, d = derecha\n"
-                  << "q = diagonal izquierda arriba, e diagonal derecha arriba, z = diagonal abajo izquierda, c = diagonal abajo derecha\n";
-              cin > direccion;
-              getListaJugadores->get(i)->getListaFichas()->get(respuestaFicha)->moverFicha(direccion);
-          }
-        }
-      }
-      */
+      batallaCampal->jugadorMueveFicha(jugadorActual);
+      
 
       //(1) Logica de disparos:
       int x, y, z;
@@ -182,8 +159,7 @@ int main()
   * A esta altura ya salio del loop principal con lo que tenemos ganador
   * Muestra por pantalla el nombre del ganador
   * Ejecuta Delete de las variables correspondientes
-  * termina la ejecucion, aprobamos el TP, nos vamos a tomar una birrita para festejar :)
   */
-
+  cout << "fin del juego." << endl;
   return 0;
 }

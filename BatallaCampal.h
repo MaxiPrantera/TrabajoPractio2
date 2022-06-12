@@ -96,7 +96,7 @@ public:
 	 * Pre: El numero de la ficha debe ser valido (Dentro del rango).
 	 * Post: Devuelve el puntero a ficha indicado.
   	 */
-	Ficha* getFicha(unsigned int);
+	Ficha* getFicha(unsigned int, unsigned int);
 
     /*
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
@@ -138,7 +138,7 @@ public:
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
      * Post: El jugador indicado mueve una ficha.
      */
-    void jugadorMueveFicha(unsigned int, unsigned int, char);
+    void jugadorMueveFicha(unsigned int);
 
     /*
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
