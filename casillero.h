@@ -45,8 +45,8 @@ public:
     void desbloquearCasillero();
 
     void copiarCasillero(Casillero* dest);
-    
-
+   
+    std::string terrenoAString();
 
     ///void bloquearFichaDelCasillero();
     void setFicha(Ficha* ficha);
