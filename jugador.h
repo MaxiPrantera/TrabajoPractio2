@@ -31,7 +31,6 @@ public:
 	void setIdJugador(unsigned int id);
 	unsigned int getIdJugador();
 	void robarCarta(Cola<Carta>* mazo);
-	//DEBUG
 	unsigned int getCantidadCartas();
 	string getNombreCarta(unsigned int);
 	void tirarCarta(unsigned int);
