@@ -105,7 +105,7 @@ void Carta::tirarMisil(BatallaCampal* batallaCampal)
         {
             for(int z = *posZ - 1; z <= *posZ; z++)
             {
-                batallaCampal->disparar(x, y, z);
+                batallaCampal->jugadorDispara(x, y, z);
             }
         }
     }

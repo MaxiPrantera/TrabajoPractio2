@@ -66,12 +66,6 @@ public:
      * Pre: ---
      * Post: Indica si un jugador gano el juego y lo devuelve.
      */
-    bool verificarGanador();
-
-    /*
-     * Pre: ---
-     * Post: Indica si un jugador gano el juego y lo devuelve.
-     */
     bool verificarGanador(Jugador* jugadorGanador);
 
     /*

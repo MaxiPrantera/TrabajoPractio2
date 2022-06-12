@@ -5,12 +5,11 @@ using namespace std;
 /*
 POST: Crea un jugador con un nombre
 */
-Jugador::Jugador(string nombre, int id)
+Jugador::Jugador(string nombre)
 {
 	this->listaFichas = new Lista<Ficha *>();
 	this->listaCartas = new Lista<Carta>();
 	this->nombreJugador = nombre;
-	this->idJugador = id ;
 }
 
 unsigned int Jugador::getFichas(){

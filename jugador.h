@@ -22,7 +22,7 @@ private:
 	Lista<Ficha *>* listaFichas;
 	Lista<Carta>* listaCartas;
 public:
-	Jugador(string nombre, int id);
+	Jugador(string nombre);
 	~Jugador();
 	void agregarFicha(Ficha* ficha);
 	string getNombreJugador();

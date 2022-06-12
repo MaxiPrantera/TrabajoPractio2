@@ -190,15 +190,15 @@ void BatallaCampal::jugadorDispara(unsigned int x, unsigned int y, unsigned int 
     }
 }
 
-bool BatallaCampal::hayGanador(Jugador* jugadorGanador){
+bool BatallaCampal::verificarGanador(Jugador* jugadorGanador){
     int cantidadDeJugadores = 0;
-    this->listaJugadores->iniciarCursor();
+    this->listaJugadores->reiniciarCursor();
     while(this->listaJugadores->avanzarCursor()){
-        if(this->listaJugadores->getCursor()->getFichas() > 0){
+        if(this->listaJugadores->getCursor().getFichas() > 0){
             cantidadDeJugadores++;
         }
         if(cantidadDeJugadores == 1){
-            jugadorGanador = this->listaJugadores->getCursor();
+            jugadorGanador = &this->listaJugadores->getCursor();
         }
     }
     

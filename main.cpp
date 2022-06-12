@@ -15,7 +15,7 @@ int main()
   bool inputValido;
   int respuestaUsuario;
   unsigned int jugador;
-  int catidadDeJugadores;
+  int cantidadDeJugadores;
   cout << "Bienvenidos a Batalla Campal V2.0!!!" << endl;
   
   cout << "Ingresar cantidad de jugadores" << endl;
@@ -25,7 +25,7 @@ int main()
     cout << "ingresar nombre del jugador" << endl;
     cin>>nombreJugador;
     Jugador* inicializarJugador = new Jugador(nombreJugador);
-    batallaCampal->getListaJugadores()->agregar(inicializarJugador);
+    batallaCampal->getListaJugadores()->agregar(*inicializarJugador);
   }
 
   //Inicializacion de jugadores:
