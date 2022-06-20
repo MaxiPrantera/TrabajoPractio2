@@ -1,7 +1,6 @@
 #ifndef COLA_INCLUDED
 #define COLA_INCLUDED
 
-#include "Carta.h"
 #include "Nodo.h"
 
 template<class T>
@@ -129,7 +128,7 @@ unsigned int Cola<T>::getTamanio()
  */
 template<class T>
 T& Cola<T>::getFrente()
-{return this->frente->getValor;}
+{return this->frente->getValor();}
 
 /*
  * PRE: ---

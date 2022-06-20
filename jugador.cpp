@@ -2,13 +2,24 @@
 #include "ficha.h"
 
 using namespace std;
+
+/*
+POST: Crea un jugador con atributos por default.
+*/
+Jugador::Jugador()
+{
+	this->listaFichas = new Lista<Ficha *>();
+	this->cartas = new Lista<Carta>();
+	this->nombreJugador = "";
+}
+
 /*
 POST: Crea un jugador con un nombre
 */
 Jugador::Jugador(string nombre)
 {
 	this->listaFichas = new Lista<Ficha *>();
-	this->listaCartas = new Lista<Carta>();
+	this->cartas = new Lista<Carta>();
 	this->nombreJugador = nombre;
 }
 
@@ -50,11 +61,11 @@ PRE: el jugador existe
 POST: devuelve la ID del jugador*/
 unsigned int Jugador:: getIdJugador()
 {
-	return this->idJugador;
+//	return this->idJugador;
 }
 void Jugador::setIdJugador(unsigned int id)
 {
-	this->idJugador = id;
+//	this->idJugador = id;
 }
 
 void Jugador::agregarFicha(Ficha* ficha){
@@ -67,14 +78,14 @@ void Jugador::agregarFicha(Ficha* ficha){
  */
 void Jugador::robarCarta(Cola<Carta>* mazo)
 {
-	this->listaCartas->agregar(mazo->desacolar());
+	this->cartas->agregar(mazo->desacolar());
 }
 
 /*
  * Pre: ---
  * Post: El jugador roba una carta para ser utilizada en alguno de sus turnos.
  */
-void Jugador::tirarCarta(BatallaCampal* batallaCampal, unsigned int jugador, unsigned int carta)
+void Jugador::tirarCarta(unsigned int carta, Tablero* tablero)
 {
-	this->listaCartas->get(carta).tirarCarta(batallaCampal, jugador);
+	this->cartas->get(carta).tirarCarta(tablero);
 }

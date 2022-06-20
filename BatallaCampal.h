@@ -1,21 +1,123 @@
 #ifndef BATALLACAMPAL_INCLUDED
 #define BATALLACAMPAL_INCLUDED
-#include "tablero.h"
+
 #include "Lista.h"
 #include "Cola.h"
+#include "casillero.h"
+#include "tablero.h"
+#include "Carta.h"
+#include "jugador.h"
 
 class BatallaCampal{
 
 private:
-    Tablero* tablero;
-    Lista<Jugador>* listaJugadores;
+    Lista<Jugador>* jugadores;
     Cola<Carta>* mazo;
+
+    //Debatible
+    Tablero* tablero;
 public:
     /*
-    * pre:
-    * post: 
-    */
+     * pre:
+     * post:
+     */
     BatallaCampal();
+
+    /*
+    * pre: Batalla campal inicializado
+    * post: Elimina Batalla Campal
+    */
+    virtual ~BatallaCampal();
+
+
+    //=======Jugador=======
+    /*
+	 * Pre: ---
+	 * Post: Devuelve la lista de jugadores.
+	 */
+	Lista<Jugador>* getJugadores();
+
+	/*
+	 * Pre: ---
+	 * Post: Devuelve la cantidad de jugadores.
+	 */
+	unsigned int getCantidadJugadores();
+
+	/*
+	 * Pre: El numero de jugador debe ser valido (Dentro del rango).
+	 * Post: Devuelve el nombre del jugador indicado.
+	 */
+	std::string getNombreJugador(unsigned int);
+
+	/*
+	 * Pre: El numero de jugador debe ser valido (Dentro del rango).
+	 * Post: Devuelve el puntero a jugador indicado.
+	 */
+	Jugador* getJugador(unsigned int);
+
+	/*
+	 * Pre: El numero de jugador debe ser valido (Dentro del rango).
+	 * Post: Devuelve la cantidad de cartas del jugador indicado.
+	 */
+	unsigned int getCantidadCartasJugador(unsigned int);
+
+	/*
+	 * Pre: El numero de jugador debe ser valido (Dentro del rango).
+	 * Post: Devuelve la cantidad de fichas del jugador indicado.
+	 */
+	unsigned int getCantidadFichasJugador(unsigned int);
+
+    /*
+     * Pre: El numero de jugador debe ser valido (Dentro del rango).
+     * Post: Devuelve la carta del jugador indicado.
+     */
+    std::string getCartaJugador(unsigned int, unsigned int);
+
+    /*
+     * Pre: El numero de jugador debe ser valido (Dentro del rango).
+     * Post: El jugador indicado agrega una ficha.
+     */
+    void jugadorAgregarFicha(Ficha*, unsigned int);
+
+    /*
+     * Pre: El numero de jugador debe ser valido (Dentro del rango).
+     * Post: El indicado jugador roba una carta.
+     */
+    void jugadorRobarCarta(unsigned int);
+
+    /*
+     * Pre: El numero de jugador debe ser valido (Dentro del rango).
+     * Post: El jugador indicado tira una carta.
+     */
+    void jugadorTirarCarta(unsigned int, unsigned int);
+
+    /*
+     * Pre: El numero de jugador debe ser valido (Dentro del rango).
+     * Post: El jugador indicado mueve una ficha.
+     */
+    void jugadorMoverFicha(unsigned int);
+
+
+    //=======Mazo=======
+    /*
+	 * Pre: El mazo debe estar vacío
+	 * Post: Agrega las cartas de manera random al mazo.
+	 */
+	void inicializarMazo();
+
+	/*
+	 * Pre: ---
+	 * Post: Devuelve el mazo.
+	 */
+	Cola<Carta>* getMazo();
+
+	/*
+	 * Pre: ---
+	 * Post: Devuelve la carta a robar.
+	 */
+	Carta& getCartaARobar();
+
+
 
     /*
     * pre: x, y, z deben estar en rango
@@ -51,46 +153,10 @@ public:
     Tablero* getTablero();
 
     /*
-     * Pre: El mazo debe estar vacío
-     * Post: Agrega las cartas de manera random al mazo.
-     */
-    void inicializarMazo();
-
-    /*
-     * Pre: ---
-     * Post: Devuelve las coordenadas validas seleccionadas por el usuario del tablero.
-     */
-    void elegirCoordenadas(unsigned int*, unsigned int*, unsigned int*, std::string, bool);
-
-    /*
      * Pre: ---
      * Post: Indica si un jugador gano el juego y lo devuelve.
      */
     bool verificarGanador(Jugador* jugadorGanador);
-
-    /*
-     * Pre: ---
-     * Post: Devuelve la lista de jugadores.
-     */
-    Lista<Jugador>* getListaJugadores();
-
-    /*
-     * Pre: ---
-     * Post: Devuelve la cantidad de jugadores.
-     */
-    unsigned int getCantidadJugadores();
-
-    /*
-     * Pre: El numero de jugador debe ser valido (Dentro del rango).
-     * Post: Devuelve el nombre del jugador indicado.
-     */
-    std::string getNombreJugador(unsigned int);
-
-    /*
-     * Pre: El numero de jugador debe ser valido (Dentro del rango).
-     * Post: Devuelve el puntero a jugador indicado.
-     */
-    Jugador* getJugador(unsigned int);
        
     /*
 	 * Pre: El numero de la ficha debe ser valido (Dentro del rango).
@@ -100,68 +166,8 @@ public:
 
     /*
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
-     * Post: Devuelve la cantidad de cartas del jugador indicado.
-     */
-    unsigned int getCantidadCartasJugador(unsigned int);
-
-    /*
-     * Pre: El numero de jugador debe ser valido (Dentro del rango).
-     * Post: Devuelve la cantidad de fichas del jugador indicado.
-     */
-    unsigned int getCantidadFichasJugador(unsigned int);
-
-    /*
-     * Pre: El numero de jugador debe ser valido (Dentro del rango).
-     * Post: Devuelve la carta del jugador indicado.
-     */
-    std::string getCartaJugador(unsigned int, unsigned int);
-
-    /*
-     * Pre: El numero de jugador debe ser valido (Dentro del rango).
-     * Post: El jugador indicado agrega una ficha.
-     */
-    void jugadorAgregarFicha(Ficha*, unsigned int);
-
-    /*
-     * Pre: El numero de jugador debe ser valido (Dentro del rango).
-     * Post: El indicado jugador roba una carta.
-     */
-    void jugadorRobaCarta(unsigned int);
-
-    /*
-     * Pre: El numero de jugador debe ser valido (Dentro del rango).
-     * Post: El jugador indicado tira una carta.
-     */
-    void jugadorTiraCarta(unsigned int, unsigned int);
-
-    /*
-     * Pre: El numero de jugador debe ser valido (Dentro del rango).
-     * Post: El jugador indicado mueve una ficha.
-     */
-    void jugadorMueveFicha(unsigned int);
-
-    /*
-     * Pre: El numero de jugador debe ser valido (Dentro del rango).
      * Post: El jugador indicado dispara.
      */
     void jugadorDispara(unsigned int, unsigned int, unsigned int);
-
-    /*
-     * Pre: ---
-     * Post: Devuelve el mazo.
-     */
-    Cola<Carta>* getMazo();
-
-    /*
-     * Pre: ---
-     * Post: Devuelve la carta a robar.
-     */
-    Carta& getCartaARobar();
-
-    /*
-    * pre: Batalla campal inicializado
-    * post: Elimina Batalla Campal
-    */
-    virtual ~BatallaCampal();
 };
 #endif

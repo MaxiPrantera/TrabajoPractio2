@@ -1,4 +1,5 @@
 //En una clase del cuatri pasado el profe explica la parte externa del tablero con un TDA de BatallaCampal
+#include <cstdlib>
 #include "BatallaCampal.h"
 #include "Lista.h"
 #include "Cola.h"
@@ -7,13 +8,12 @@
 
 
 BatallaCampal::BatallaCampal(){ 
+    this->jugadores = new Lista<Jugador>();
     this->tablero = new Tablero(10, 10, 5);
-    this->listaJugadores = new Lista<Jugador>();
     this->mazo = new Cola<Carta>();
 }
 
 BatallaCampal::~BatallaCampal(){ 
-
 /*
 for(unsigned int x = 1;  x < this->tablero->getCantFilasTablero(); x++)
 {
@@ -30,9 +30,113 @@ for(unsigned int x = 1;  x < this->tablero->getCantFilasTablero(); x++)
 */
 
     delete this->tablero;
-    delete this->listaJugadores;
+    delete this->jugadores;
     delete this->mazo;
 }
+
+
+//=======Jugador=======
+Lista<Jugador>* BatallaCampal::getJugadores()
+{return this->jugadores;}
+
+unsigned int BatallaCampal::getCantidadJugadores()
+{return this->jugadores->getTamanio();}
+
+std::string BatallaCampal::getNombreJugador(unsigned int jugador)
+{return "hola";}
+
+Jugador* BatallaCampal::getJugador(unsigned int jugador)
+{return &this->jugadores->get(jugador);}
+
+unsigned int BatallaCampal::getCantidadCartasJugador(unsigned int jugador)
+{/*return this->listaJugadores->get(jugador).getCantidadCartas();*/}
+
+//Cambiar nombre de funcion getFichas por getCantidadFichas o algo asi y adentro simplemente retornar el getTamanio.
+unsigned int BatallaCampal::getCantidadFichasJugador(unsigned int jugador)
+{return getJugador(jugador)->getFichas();}
+
+std::string BatallaCampal::getCartaJugador(unsigned int jugador, unsigned int carta)
+{/*return getJugador(jugador)->getNombreCarta(carta);*/}
+
+void BatallaCampal::jugadorAgregarFicha(Ficha* ficha, unsigned int jugador){
+	 getJugador(jugador)->agregarFicha(ficha);
+}
+
+void BatallaCampal::jugadorRobarCarta(unsigned int jugador)
+{
+
+}
+
+void BatallaCampal::jugadorTirarCarta(unsigned int jugador, unsigned int carta)
+{
+
+}
+
+void BatallaCampal::jugadorMoverFicha(unsigned int jugador){
+	int respuesta;
+    std::cout << "Que ficha quiere mover?(Responda 0 si no quiere mover nada)";
+
+    for(unsigned int ficha = 1; ficha < (getCantidadFichasJugador(jugador) + 1); ficha++){
+        if (getFicha(jugador, ficha)->getEstado() == viva){
+        	std::cout << ficha << "." << getFicha(jugador, ficha)->getUbicacionX()
+             	 	  << "/"
+             		  << getFicha(jugador, ficha)->getUbicacionY()
+             	 	  << "/"
+             		  << getFicha(jugador, ficha)->getUbicacionZ()
+             	 	  << endl;
+    	}
+	}
+    std::cin >> respuesta;
+    char direccion;
+    std::cout << "w = arriba, a = izquierda, s = abajo, d = derecha\n"
+         	  << "q = diagonal izquierda arriba, e diagonal derecha arriba, z = diagonal abajo izquierda, c = diagonal abajo derecha\n";
+    std::cin >> direccion;
+//    getFicha(jugador,respuesta)->moverFicha(direccion, this->tablero);
+}
+
+
+//=======Mazo=======
+void BatallaCampal::inicializarMazo()
+{
+    //Se puede mejorar asegurando siempre que haya misma cantidad de cartas por tipo.
+    for(unsigned int carta = 0; carta < CANTIDAD_CARTAS_MAZO; carta++)
+    {
+        switch (rand()%6)
+        {
+        case 0:
+            this->mazo->acolar(Carta(MISIL));
+            break;
+        case 1:
+            this->mazo->acolar(Carta(AVION));
+            break;
+        case 2:
+            this->mazo->acolar(Carta(BARCO));
+            break;
+        case 3:
+            this->mazo->acolar(Carta(MOLOTOV));
+            break;
+        case 4:
+            this->mazo->acolar(Carta(ESCUDO));
+            break;
+        case 5:
+            this->mazo->acolar(Carta(REVIVIR));
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+Cola<Carta>* BatallaCampal::getMazo()
+{return this->mazo;}
+
+Carta& BatallaCampal::getCartaARobar()
+{return this->mazo->getFrente();}
+
+
+//======Tablero======
+Tablero* BatallaCampal::getTablero()
+{return this->tablero;}
 
 void BatallaCampal::iniciarEscenarioUno(unsigned int xmax, unsigned int ymax, unsigned int zmax){ //para decir que es tierra y que es agua
     this->tablero = new Tablero(xmax, ymax, zmax);
@@ -92,96 +196,6 @@ void BatallaCampal::iniciarEscenarioTres(unsigned int xmax, unsigned int ymax, u
     }
 }
 
-Lista<Jugador>* BatallaCampal::getListaJugadores(){
-    return this->listaJugadores;
-}
-
-void BatallaCampal::inicializarMazo()
-{
-    //Se puede mejorar asegurando siempre que haya misma cantidad de cartas por tipo.
-    for(unsigned int carta = 0; carta < CANTIDAD_CARTAS_MAZO; carta++)
-    {
-        switch (rand()%6)
-        {
-        case 0:
-            this->mazo->acolar(Carta(MISIL));
-            break;
-        case 1:
-            this->mazo->acolar(Carta(AVION));
-            break;
-        case 2:
-            this->mazo->acolar(Carta(BARCO));
-            break;
-        case 3:
-            this->mazo->acolar(Carta(MOLOTOV));
-            break;
-        case 4:
-            this->mazo->acolar(Carta(ESCUDO));
-            break;
-        case 5:
-            this->mazo->acolar(Carta(REVIVIR));
-            break;
-        default:
-            break;
-        }
-    }
-}
-
-void BatallaCampal::elegirCoordenadas(unsigned int* x, unsigned int* y, unsigned int* z, std::string msj, bool esPiso)
-{
-    bool xValida = false, yValida = false, zValida = false;
-    cout << "Eliga las coordenadas para " << msj << endl;
-
-    if(esPiso)
-    {
-        *z = 1;
-        zValida = true;
-    }
-
-    do
-    {
-        if(!xValida) 
-        {
-            cout << "Ingrese la coordenada x: " << endl;
-            cin >> *x;
-            if (*x < 1 || *x > this->tablero->getCantProfundidadTablero())
-            {
-                cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
-            }
-            else
-            {
-                xValida = true;
-            }
-        }
-        else if (!yValida)
-        {
-            cout << "Ingrese la coordenada y: " << endl;
-            cin >> *y;
-            if (*y < 1 || *y > this->tablero->getCantColumnasTablero())
-            {
-                cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
-            }
-            else
-            {
-                yValida = true;
-            }
-        }
-        else if(!zValida)
-        {
-            cout << "Ingrese la coordenada z: " << endl;
-            cin >> *z;
-            if (*z < 1 || *z > this->tablero->getCantFilasTablero())
-            {
-                cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
-            }
-            else
-            {
-                zValida = true;
-            }
-        }        
-    }while(!xValida || !yValida || !zValida);
-}
-
 void BatallaCampal::jugadorDispara(unsigned int x, unsigned int y, unsigned int z)
 {
     this->tablero->getCasillero(x, y, z)->setEstado(inactivo);
@@ -192,53 +206,24 @@ void BatallaCampal::jugadorDispara(unsigned int x, unsigned int y, unsigned int 
 
 bool BatallaCampal::verificarGanador(Jugador* jugadorGanador){
     int cantidadDeJugadores = 0;
-    this->listaJugadores->reiniciarCursor();
-    while(this->listaJugadores->avanzarCursor()){
-        if(this->listaJugadores->getCursor().getFichas() > 0){
+    this->jugadores->reiniciarCursor();
+    while(this->jugadores->avanzarCursor()){
+        if(this->jugadores->getCursor().getFichas() > 0){
             cantidadDeJugadores++;
         }
         if(cantidadDeJugadores == 1){
-            jugadorGanador = &this->listaJugadores->getCursor();
+            jugadorGanador = &this->jugadores->getCursor();
         }
     }
     
     return cantidadDeJugadores == 1;
 }
 
-Jugador* BatallaCampal::getJugador(unsigned int jugador){
-	return &this->listaJugadores->get(jugador);
-}
-
-unsigned int BatallaCampal::getCantidadFichasJugador(unsigned int jugador){
-	return getJugador(jugador)->getFichas();
-}
-
 Ficha* BatallaCampal::getFicha(unsigned int jugador,unsigned int ficha){
 	return getJugador(jugador)->getFichaAux(ficha);
 }
 
-void BatallaCampal::jugadorAgregarFicha(Ficha* ficha, unsigned int jugador){
-	 getJugador(jugador)->agregarFicha(ficha);
-}
-
-void BatallaCampal::jugadorMueveFicha(unsigned int jugador){
-	int respuesta;
-    std::cout << "Que ficha quiere mover?(Responda 0 si no quiere mover nada)";
-    
-    for(int ficha = 1; ficha < (getCantidadFichasJugador(jugador) + 1); ficha++){
-        if (getFicha(jugador, ficha)->getEstado() == viva){
-        	std::cout << ficha << "." << getFicha(jugador, ficha)->getUbicacionX()
-             	 	  << "/"
-             		  << getFicha(jugador, ficha)->getUbicacionY()
-             	 	  << "/"
-             		  << getFicha(jugador, ficha)->getUbicacionZ()
-             	 	  << endl;
-    	}
-	}
-    std::cin >> respuesta;
-    char direccion;
-    std::cout << "w = arriba, a = izquierda, s = abajo, d = derecha\n"
-         	  << "q = diagonal izquierda arriba, e diagonal derecha arriba, z = diagonal abajo izquierda, c = diagonal abajo derecha\n";
-    std::cin >> direccion;
-    getFicha(jugador,respuesta)->moverFicha(direccion, this->tablero);	
+Casillero* BatallaCampal::getCasillero(unsigned int x, unsigned int y, unsigned int z)
+{
+	return 0;
 }

@@ -28,7 +28,7 @@
         soldado
     };
 
-    enum TipoDeCarta
+    enum TipoCarta
     {
         MISIL,
         AVION,
@@ -38,22 +38,24 @@
         REVIVIR
     };
 
+    enum Terreno
+	{
+		agua,
+		aire,
+		tierra
+	};
+
+	enum EstadoCasillero
+	{
+		vacio,
+		ocupado,
+		inactivo
+	};
+
+
 
     //Esta cantidad debe ser multiplo de 6, asi siempre hay misma cantidad de cada tipo???
     const unsigned int CANTIDAD_CARTAS_MAZO = 30;
     const unsigned int CANTIDAD_CARTAS_INICIALES = 3;
-
-    /*enum Terreno
-    {
-        mar,
-        aire,
-        tierra
-    };
-    enum Estado
-    {
-        vacio,
-        ocupado,
-        inactivo
-    };*/
 
 #endif // CONSTANTES_INCLUDED

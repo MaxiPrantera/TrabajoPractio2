@@ -1,59 +1,58 @@
 #ifndef CARTA_INCLUDED
 #define CARTA_INCLUDED
 
-    #include "Constantes.h"
     #include <string>
+    #include "Constantes.h"
     #include "tablero.h"
-    #include "jugador.h"
-    #include "BatallaCampal.h"
 
     class Carta
     {
     private:
-        TipoDeCarta tipo;
+        TipoCarta tipo;
         std::string Nombre;
+        //Jugador* duenio;
 
         /*
 		 * Pre: Pasar por parametros una variable TipoDeCarta.
 		 * Post: Devuelve el tipo de carta respresentado en un string.
 		 */
-		std::string tipoAString(TipoDeCarta);
+		std::string tipoAString(TipoCarta);
 
         /*
 		 * Pre: ---.
 		 * Post: Tira un misil a un casillero el cual lo inhabilita y a todos los vecinos (3x3x3).
 		 */
-		void tirarMisil(BatallaCampal*);
+		void tirarMisil(Tablero*);
 
         /*
 		 * Pre: ---.
 		 * Post: Posiciona una ficha tipo avion en un casillero indicado.
 		 */
-		void ponerAvion(BatallaCampal*, unsigned int);
+		void ponerAvion(Tablero*);
 
         /*
 		 * Pre: ---.
 		 * Post: Posiciona una ficha tipo barco en un casillero valido indicado.
 		 */
-		void ponerBarco(BatallaCampal*, unsigned int);
+		void ponerBarco(Tablero*);
 
         /*
 		 * Pre: ---.
 		 * Post: Tira una molotov a un casillero el cual lo inhabilita y a todos los vecinos en horizontal por 3 turnos.
 		 */
-		void tirarMolotov(BatallaCampal*);
+		void tirarMolotov(Tablero*);
 
         /*
 		 * Pre: ---.
 		 * Post: Le pone un escudo a una ficha y la protege del siguiente ataque directo (Misil o disparo).
 		 */
-		void ponerEscudo(BatallaCampal*, unsigned int);
+		void ponerEscudo(Tablero*);
 
         /*
 		 * Pre: ---.
 		 * Post: Revive a la ficha indicada y habilita su casillero en el que murio.
 		 */
-		void revivir(BatallaCampal*, unsigned int);
+		void revivir(Tablero*);
     public:
         /*
 		 * Pre: ---
@@ -65,7 +64,7 @@
          * Pre: Indicar el tipo de carta a ser instanciada.
          * Post: Instancia una carta del tipo indicado por parametros.
         */
-        Carta(TipoDeCarta);
+        Carta(TipoCarta);
         
         /*
          * Pre: Pasar por parametros una instancia de carta existente.
@@ -83,7 +82,7 @@
          * Pre: ---
          * Post: Devuelve el tipo de carta.
         */
-        TipoDeCarta getTipo();
+        TipoCarta getTipo();
 
         /*
          * Pre: ---
@@ -95,7 +94,7 @@
          * Pre: ---
          * Post: Tira la carta y hace la accion correspondiente.
         */
-        void tirarCarta(BatallaCampal*, unsigned int);
+        void tirarCarta(Tablero*);
 
         /*
          * Pre: Igualar dos variables del tipo carta.

@@ -20,7 +20,7 @@ public:
 	unsigned int getTamanio();
 	void agregar(const T&);
 	void agregar(const T&, unsigned int);
-	void agregar(const Lista<T>&);
+	void agregar(Lista<T>*);
 	T& get(unsigned int);
 	void asignar(const T&, unsigned int);
 	void remover(unsigned int);
@@ -38,9 +38,9 @@ public:
 template<class T> 
 Lista<T>::Lista()
 {
-	this->primero = NULL;
+	this->primero = 0;
 	this->tamanio = 0;
-	this->cursor = NULL;
+	this->cursor = 0;
 }
 
 /*
@@ -50,9 +50,9 @@ Lista<T>::Lista()
 template<class T> 
 Lista<T>::Lista(const Lista<T>& lista)
 {
-	this->primero = NULL;
+	this->primero = 0;
 	this->tamanio = 0;
-	this->cursor = NULL;
+	this->cursor = 0;
 	this->agregar(lista);
 }
 
@@ -118,12 +118,12 @@ void Lista<T>::agregar(const T& elemento, unsigned int posicion)
  * Post: Agrega la lista pasada por parametros al final de esta lista.
  */
 template<class T>
-void Lista<T>::agregar(const Lista<T>& lista)
+void Lista<T>::agregar(Lista<T>* lista)
 {
-	lista.reiniciarCursor();
-	while(lista.avanzarCursor())
+	lista->reiniciarCursor();
+	while(lista->avanzarCursor())
     {
-		this->agregar(lista.getCursor());
+		this->agregar(lista->getCursor());
 	}
 }
 
@@ -188,7 +188,7 @@ void Lista<T>::remover(unsigned int posicion)
 template<class T>
 void Lista<T>::reiniciarCursor()
 {
-	this->cursor = NULL;
+	this->cursor = 0;
 }
 
 /*
@@ -200,7 +200,7 @@ void Lista<T>::reiniciarCursor()
 template<class T>
 bool Lista<T>::avanzarCursor()
 {
-	if(this->cursor == NULL)
+	if(this->cursor == 0)
     {
 		this->cursor = this->primero;
 	} 
@@ -208,7 +208,7 @@ bool Lista<T>::avanzarCursor()
     {
 		this->cursor = this->cursor->getSiguiente();
 	}
-	return (this->cursor != NULL);
+	return (this->cursor != 0);
 }
 
 /*
@@ -218,9 +218,9 @@ bool Lista<T>::avanzarCursor()
 template<class T>
 T& Lista<T>::getCursor()
 {
-	if(this->cursor == NULL)
+	if(this->cursor == 0)
     {
-		throw "CURSOR ESTA NULL";
+		throw "CURSOR ESTA 0";
 	}
 	return (this->cursor->getValor());
 }

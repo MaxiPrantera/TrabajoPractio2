@@ -112,11 +112,11 @@ Casillero * Tablero::getCasillero(unsigned int x, unsigned int y, unsigned int z
 Pre: existe el casillero establecido y esta en el rango del tablero
 Post:Establece la ficha del casillero ubicado en la posicion [fila][columna][profundidad] 
 con el simbolo 'simboloFicha'*/
-void Tablero::setCasilla(unsigned int x, unsigned int y, unsigned int z, Ficha* simboloFicha) {
-    
-    this->casilleros->get(x)->get(y)->get(z)->setFicha(simboloFicha);
-
-}
+//void Tablero::setCasilla(unsigned int x, unsigned int y, unsigned int z, Ficha* simboloFicha) {
+//
+//    this->casilleros->get(x)->get(y)->get(z)->setFicha(simboloFicha);
+//
+//}
 
 Lista<Lista<Lista<Casillero*>*>*>* Tablero::obtenerMatrizTablero()
 {
@@ -155,6 +155,65 @@ unsigned int Tablero::getCantProfundidadTablero()
 {
     return this->zMax;
 
+}
+
+/*
+ * Pre: ---
+ * Post: Devuelve un casillero con coordenadas validas seleccionadas por el usuario.
+ */
+Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso)
+{
+//    bool xValida = false, yValida = false, zValida = false;
+//    cout << "Eliga las coordenadas para " << msj << endl;
+//
+//    if(esPiso)
+//    {
+//        *z = 1;
+//        zValida = true;
+//    }
+//
+//    do
+//    {
+//        if(!xValida)
+//        {
+//            cout << "Ingrese la coordenada x: " << endl;
+//            cin >> *x;
+//            if (*x < 1 || *x > this->tablero->getCantProfundidadTablero())
+//            {
+//                cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
+//            }
+//            else
+//            {
+//                xValida = true;
+//            }
+//        }
+//        else if (!yValida)
+//        {
+//            cout << "Ingrese la coordenada y: " << endl;
+//            cin >> *y;
+//            if (*y < 1 || *y > this->tablero->getCantColumnasTablero())
+//            {
+//                cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
+//            }
+//            else
+//            {
+//                yValida = true;
+//            }
+//        }
+//        else if(!zValida)
+//        {
+//            cout << "Ingrese la coordenada z: " << endl;
+//            cin >> *z;
+//            if (*z < 1 || *z > this->tablero->getCantFilasTablero())
+//            {
+//                cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
+//            }
+//            else
+//            {
+//                zValida = true;
+//            }
+//        }
+//    }while(!xValida || !yValida || !zValida);
 }
 
 

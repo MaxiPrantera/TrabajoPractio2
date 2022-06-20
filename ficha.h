@@ -2,8 +2,7 @@
 #ifndef FICHA_H_
 #define FICHA_H_
 
-#include "constantes.h"
-#include "jugador.h"
+#include "Constantes.h"
 #include "casillero.h"
 #include "tablero.h"
 
@@ -13,7 +12,6 @@ class Ficha
 private:
 	EstadoFicha estado;
 	TipoFicha tipo;
-	Jugador* duenio;
 	Casillero* posicion;
 public:
 	
@@ -21,7 +19,7 @@ public:
 		PRE: - 
 		POST: Crea la instancia de ficha
 	*/
-	Ficha(TipoFicha, Jugador*, Casillero*);
+	Ficha(TipoFicha, Casillero*);
 	
 	/*
 		PRE: Tiene que existir una ficha

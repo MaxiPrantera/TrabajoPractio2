@@ -1,11 +1,11 @@
-#include "constantes.h"
 #include "ficha.h"
 
-Ficha::Ficha(TipoFicha tipo, Jugador * jugador, Casillero * casillero){
+Ficha::Ficha(TipoFicha tipo, Casillero * casillero){
 	this->tipo = tipo;
-	this->duenio = jugador;
 	this->estado = viva;
 	this->posicion = casillero;
+
+	//Repensar (Como eliminar la otra ficha del casillero???)
 	if (this->posicion->getEstado() == ocupado){
 		casillero->eliminarFicha();
 		eliminarFicha();
@@ -15,7 +15,6 @@ Ficha::Ficha(TipoFicha tipo, Jugador * jugador, Casillero * casillero){
 Ficha::Ficha(const Ficha& ficha){
 	this->tipo = ficha.tipo;
 	this->estado = ficha.estado;
-	this->duenio = ficha.duenio;
 	this->posicion = ficha.posicion;
 }
 

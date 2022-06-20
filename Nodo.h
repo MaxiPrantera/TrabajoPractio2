@@ -1,8 +1,6 @@
 #ifndef NODO_INCLUDED
 #define NODO_INCLUDED
 
-#include "Constantes.h"
-
 template<class T> 
 class Nodo
 {
@@ -24,13 +22,13 @@ template<class T>
 Nodo<T>::Nodo(const T& valor)
 {
 	this->dato = valor;
-	this->siguiente = NULL;
+	this->siguiente = 0;
 }
 
 template<class T> 
 bool Nodo<T>::haySiguiente()
 {
-	return (this->siguiente != NULL);
+	return (this->siguiente != 0);
 }
 
 template<class T>

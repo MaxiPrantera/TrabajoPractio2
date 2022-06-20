@@ -1,11 +1,12 @@
 #ifndef JUGADOR_H
 #define JUGADOR_H
-#include "ficha.h"
-#include "Carta.h"
+
 #include <string>
 #include "Lista.h"
 #include "Cola.h"
+#include "tablero.h"
 #include "Carta.h"
+#include "ficha.h"
 
 /* [TDA JUGADOR] :
 	.nombreJugador : Es el nombre del jugador
@@ -17,11 +18,12 @@ class Jugador
 {
 private:
 	string  nombreJugador;
-	unsigned int idJugador;
-	unsigned int cantidadFichas;
+//	unsigned int idJugador;
+//	unsigned int cantidadFichas;
 	Lista<Ficha *>* listaFichas;
-	Lista<Carta>* listaCartas;
+	Lista<Carta>* cartas;
 public:
+	Jugador();
 	Jugador(string nombre);
 	~Jugador();
 	void agregarFicha(Ficha* ficha);
@@ -34,7 +36,7 @@ public:
 	void robarCarta(Cola<Carta>* mazo);
 	unsigned int getCantidadCartas();
 	string getNombreCarta(unsigned int);
-	void tirarCarta(BatallaCampal* batallaCampal, unsigned int jugador, unsigned int carta);
+	void tirarCarta(unsigned int, Tablero*);
 };
 
 #endif

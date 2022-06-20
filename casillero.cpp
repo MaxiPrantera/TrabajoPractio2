@@ -9,15 +9,13 @@ Post: Inicializa un casillero con  una ficha nueva con el simbolo especificado
 Casillero::Casillero(){
     this->estado = vacio;
     this->turnosRestantesDesbloqueo = 0;
-
 }
 
-void Casillero::setEstado(Estado estado){
+void Casillero::setEstado(EstadoCasillero estado){
     this->estado = estado;
-
 }
 
-Estado Casillero::getEstado(){
+EstadoCasillero Casillero::getEstado(){
     return this->estado;
 }
 
@@ -55,8 +53,8 @@ PRE: el casillero existe
 Post: copia el contenido de un casillero a otro casillero
 */
 void Casillero::copiarCasillero(Casillero* dest){
-    dest->contenidoCasillero = this->contenidoCasillero;
-    this->contenidoCasillero = NULL;
+//    dest->contenidoCasillero = this->contenidoCasillero;
+//    this->contenidoCasillero = NULL;
 }
 
 /*
@@ -90,20 +88,20 @@ void Casillero::bloquearFichaDelCasillero(){
 }
 */
 
-void Casillero::setFicha(Ficha* ficha) {
-    this->contenidoCasillero = ficha;
-}
+//void Casillero::setFicha(Ficha* ficha) {
+//    this->contenidoCasillero = ficha;
+//}
 
 /*
 Pre : casillero creado anteriormete
 Post: devuelve el contenido del casillero*/
-Ficha* Casillero::obtenerContenidoCasillero(){
-	return this->contenidoCasillero;
-}
+//Ficha* Casillero::obtenerContenidoCasillero(){
+//	return this->contenidoCasillero;
+//}
 
 void Casillero::eliminarFicha(){
-    this->contenidoCasillero->setEstado(muerta);
-    this->turnosRestantesDesbloqueo = 0;
-    this->estado = inactivo;
+//    this->contenidoCasillero->setEstado(muerta);
+//    this->turnosRestantesDesbloqueo = 0;
+//    this->estado = inactivo;
 }
 
