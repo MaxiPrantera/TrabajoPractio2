@@ -154,7 +154,6 @@ Post:Devuelve la profundidad que posee el tablero
 unsigned int Tablero::getCantProfundidadTablero()
 {
     return this->zMax;
-
 }
 
 /*
@@ -163,57 +162,49 @@ unsigned int Tablero::getCantProfundidadTablero()
  */
 Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso)
 {
-//    bool xValida = false, yValida = false, zValida = false;
-//    cout << "Eliga las coordenadas para " << msj << endl;
-//
-//    if(esPiso)
-//    {
-//        *z = 1;
-//        zValida = true;
-//    }
-//
-//    do
-//    {
-//        if(!xValida)
-//        {
-//            cout << "Ingrese la coordenada x: " << endl;
-//            cin >> *x;
-//            if (*x < 1 || *x > this->tablero->getCantProfundidadTablero())
-//            {
-//                cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
-//            }
-//            else
-//            {
-//                xValida = true;
-//            }
-//        }
-//        else if (!yValida)
-//        {
-//            cout << "Ingrese la coordenada y: " << endl;
-//            cin >> *y;
-//            if (*y < 1 || *y > this->tablero->getCantColumnasTablero())
-//            {
-//                cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
-//            }
-//            else
-//            {
-//                yValida = true;
-//            }
-//        }
-//        else if(!zValida)
-//        {
-//            cout << "Ingrese la coordenada z: " << endl;
-//            cin >> *z;
-//            if (*z < 1 || *z > this->tablero->getCantFilasTablero())
-//            {
-//                cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
-//            }
-//            else
-//            {
-//                zValida = true;
-//            }
-//        }
-//    }while(!xValida || !yValida || !zValida);
+    unsigned int x = 0, y = 0, z = 0;
+    cout << "Eliga las coordenadas para " << msj << endl;
+
+    if(esPiso)
+    {
+        z = 1;
+    }
+
+    do
+    {
+        if(x == 0)
+        {
+            cout << "Ingrese la coordenada x: " << endl;
+            cin >> x;
+            if (x < 1 || x > this->getCantProfundidadTablero())
+            {
+                cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
+                x = 0;
+            }
+        }
+        else if (y == 0)
+        {
+            cout << "Ingrese la coordenada y: " << endl;
+            cin >> y;
+            if (y < 1 || y > this->getCantColumnasTablero())
+            {
+                cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
+                y = 0;
+            }
+        }
+        else if(z == 0)
+        {
+            cout << "Ingrese la coordenada z: " << endl;
+            cin >> z;
+            if (z < 1 || z > this->getCantFilasTablero())
+            {
+                cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
+                z = 0;
+            }
+        }
+    }while(x == 0 || y == 0 || z == 0);
+
+    return this->getCasillero(x, y, z);
 }
 
 
