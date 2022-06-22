@@ -13,26 +13,12 @@ BatallaCampal::BatallaCampal(){
     this->mazo = new Cola<Carta>();
 }
 
-BatallaCampal::~BatallaCampal(){ 
-/*
-for(unsigned int x = 1;  x < this->tablero->getCantFilasTablero(); x++)
-{
-    for (unsigned int y = 1; y < this->tablero->getCantColumnasTablero(); y++)
-    {
-        for (unsigned int z = 1; z < this->tablero->getCantProfundidadTablero(); z++)
-        {
-            delete this->tablero->getCasillero(x, y, z);
-        }
-        //delete this->casilleros->get(x)->get(y);
-    }
-    //delete this->casilleros->get(x);
-}
-*/
-
+BatallaCampal::~BatallaCampal(){
     delete this->tablero;
     delete this->jugadores;
     delete this->mazo;
 }
+
 
 
 //=======Jugador=======
@@ -43,7 +29,7 @@ unsigned int BatallaCampal::getCantidadJugadores()
 {return this->jugadores->getTamanio();}
 
 std::string BatallaCampal::getNombreJugador(unsigned int jugador)
-{return "hola";}
+{return this->getJugador(jugador)->getNombreJugador();}
 
 Jugador* BatallaCampal::getJugador(unsigned int jugador)
 {return &this->jugadores->get(jugador);}
@@ -64,7 +50,7 @@ void BatallaCampal::jugadorAgregarFicha(Ficha* ficha, unsigned int jugador){
 
 void BatallaCampal::jugadorRobarCarta(unsigned int jugador)
 {
-
+     getJugador(jugador)->robarCarta(this->getMazo());
 }
 
 void BatallaCampal::jugadorTirarCarta(unsigned int jugador, unsigned int carta)
@@ -93,6 +79,22 @@ void BatallaCampal::jugadorMoverFicha(unsigned int jugador){
     std::cin >> direccion;
 //    getFicha(jugador,respuesta)->moverFicha(direccion, this->tablero);
 }
+
+bool BatallaCampal::verificarGanador(Jugador* jugadorGanador){
+    int cantidadDeJugadores = 0;
+    this->jugadores->reiniciarCursor();
+    while(this->jugadores->avanzarCursor()){
+        if(this->jugadores->getCursor().getFichas() > 0){
+            cantidadDeJugadores++;
+        }
+        if(cantidadDeJugadores == 1){
+            jugadorGanador = &this->jugadores->getCursor();
+        }
+    }
+    
+    return cantidadDeJugadores == 1;
+}
+
 
 
 //=======Mazo=======
@@ -130,8 +132,9 @@ void BatallaCampal::inicializarMazo()
 Cola<Carta>* BatallaCampal::getMazo()
 {return this->mazo;}
 
-Carta& BatallaCampal::getCartaARobar()
-{return this->mazo->getFrente();}
+string BatallaCampal::getCartaARobar()
+{return this->mazo->getFrente().getNombre();}
+
 
 
 //======Tablero======
@@ -196,27 +199,16 @@ void BatallaCampal::iniciarEscenarioTres(unsigned int xmax, unsigned int ymax, u
     }
 }
 
+
+
+
+
 void BatallaCampal::jugadorDispara(unsigned int x, unsigned int y, unsigned int z)
 {
     this->tablero->getCasillero(x, y, z)->setEstado(inactivo);
     if(this->tablero->getCasillero(x, y, z)->getEstado() == ocupado){
         this->tablero->getCasillero(x, y, z)->eliminarFicha();
     }
-}
-
-bool BatallaCampal::verificarGanador(Jugador* jugadorGanador){
-    int cantidadDeJugadores = 0;
-    this->jugadores->reiniciarCursor();
-    while(this->jugadores->avanzarCursor()){
-        if(this->jugadores->getCursor().getFichas() > 0){
-            cantidadDeJugadores++;
-        }
-        if(cantidadDeJugadores == 1){
-            jugadorGanador = &this->jugadores->getCursor();
-        }
-    }
-    
-    return cantidadDeJugadores == 1;
 }
 
 Ficha* BatallaCampal::getFicha(unsigned int jugador,unsigned int ficha){

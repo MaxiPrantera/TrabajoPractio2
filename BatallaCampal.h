@@ -30,6 +30,7 @@ public:
     virtual ~BatallaCampal();
 
 
+
     //=======Jugador=======
     /*
 	 * Pre: ---
@@ -97,6 +98,13 @@ public:
      */
     void jugadorMoverFicha(unsigned int);
 
+    /*
+     * Pre: ---
+     * Post: Indica si un jugador gano el juego y lo devuelve.
+     */
+    bool verificarGanador(Jugador* jugadorGanador);
+
+
 
     //=======Mazo=======
     /*
@@ -115,37 +123,11 @@ public:
 	 * Pre: ---
 	 * Post: Devuelve la carta a robar.
 	 */
-	Carta& getCartaARobar();
+	std::string getCartaARobar();
 
 
 
-    /*
-    * pre: x, y, z deben estar en rango
-    * post: inicia el tablero en el escenario 1 ya configurado
-    */
-
-    void iniciarEscenarioUno(unsigned int xMax, unsigned int yMax, unsigned int zMax);
-
-    /*
-    * pre: x, y, z deben estar en rango
-    * post: inicia el tablero en el escenario 2 ya configurado
-    */
-
-    void iniciarEscenarioDos(unsigned int xMax, unsigned int yMax, unsigned int zMax);
-
-    /*
-    * pre: x, y, z deben estar en rango
-    * post: inicia el tablero en el escenario 3 ya configurado
-    */
-
-    void iniciarEscenarioTres(unsigned int xMax, unsigned int yMax, unsigned int zMax);
-
-    /*
-     * Pre: La posicion es valida.
-     * Post: Devuelve el casillero en la posicion indicada.
-     */
-    Casillero* getCasillero(unsigned int, unsigned int, unsigned int);
-
+    //=======Tablero=======
     /*
      * Pre: ---
      * Post: Devuelve el tablero.
@@ -153,10 +135,32 @@ public:
     Tablero* getTablero();
 
     /*
-     * Pre: ---
-     * Post: Indica si un jugador gano el juego y lo devuelve.
+    * pre: x, y, z deben estar en rango
+    * post: inicia el tablero en el escenario 1 ya configurado
+    */
+    void iniciarEscenarioUno(unsigned int xMax, unsigned int yMax, unsigned int zMax);
+
+    /*
+    * pre: x, y, z deben estar en rango
+    * post: inicia el tablero en el escenario 2 ya configurado
+    */
+    void iniciarEscenarioDos(unsigned int xMax, unsigned int yMax, unsigned int zMax);
+
+    /*
+    * pre: x, y, z deben estar en rango
+    * post: inicia el tablero en el escenario 3 ya configurado
+    */
+    void iniciarEscenarioTres(unsigned int xMax, unsigned int yMax, unsigned int zMax);
+
+
+
+
+
+    /*
+     * Pre: La posicion es valida.
+     * Post: Devuelve el casillero en la posicion indicada.
      */
-    bool verificarGanador(Jugador* jugadorGanador);
+    Casillero* getCasillero(unsigned int, unsigned int, unsigned int);
        
     /*
 	 * Pre: El numero de la ficha debe ser valido (Dentro del rango).

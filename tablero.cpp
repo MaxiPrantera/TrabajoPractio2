@@ -212,54 +212,6 @@ Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*void Tablero::crearMatrizVecinos(int cantFilas, int cantColumnas, int cantEnProfundidad) {
 
    Casillero *casilla;
