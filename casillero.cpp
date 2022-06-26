@@ -88,9 +88,9 @@ void Casillero::bloquearFichaDelCasillero(){
 }
 */
 
-//void Casillero::setFicha(Ficha* ficha) {
-//    this->contenidoCasillero = ficha;
-//}
+void Casillero::setFicha(Ficha* ficha) {
+    this->ficha = ficha;
+}
 
 /*
 Pre : casillero creado anteriormete

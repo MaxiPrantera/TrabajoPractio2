@@ -3,9 +3,7 @@
 #include "Lista.h"
 #include "Cola.h"
 #include "Constantes.h"
-#include "Carta.h"
 #include "ficha.h"
-#include "jugador.h"
 #include "BatallaCampal.h"
 
 using namespace std;
@@ -32,7 +30,7 @@ int main()
     cin >> respuestaUsuario;
 
     string nombreJugador;
-    for(unsigned int jugador = 0; jugador < respuestaUsuario;jugador++){
+    for(int jugador = 0; jugador < respuestaUsuario;jugador++){
     	cout << "Ingresar nombre del jugador" << endl;
     	cin>>nombreJugador;
     	batallaCampal->getJugadores()->agregar(Jugador(nombreJugador));
@@ -59,7 +57,7 @@ int main()
     cout << "Cuantos soldados tendra cada jugador?" << endl;
     cin >> respuestaUsuario;
 
-    for(unsigned int soldados = 0; soldados < respuestaUsuario; soldados++){
+    for(int soldados = 0; soldados < respuestaUsuario; soldados++){
 	    for(unsigned int jugador = 1; jugador <= batallaCampal->getCantidadJugadores(); jugador++){
 		    cout << "\nJugador " << batallaCampal->getNombreJugador(jugador);
 		    Casillero* casillero = batallaCampal->getTablero()->elegirCoordenadas("posicionar el soldado", true);
@@ -84,9 +82,9 @@ int main()
   	//Reparte las cartas:
   	cout << "Mezclando y repartiendo..." << endl;
   	batallaCampal->inicializarMazo();
-  	for(int jugador = 1; jugador <= batallaCampal->getCantidadJugadores(); jugador++)
+  	for(unsigned int jugador = 1; jugador <= batallaCampal->getCantidadJugadores(); jugador++)
   	{
-	  	for(int i = 1; i <= CANTIDAD_CARTAS_INICIALES; i++)
+	  	for(unsigned int i = 1; i <= CANTIDAD_CARTAS_INICIALES; i++)
 	  	{
 		  	batallaCampal->jugadorRobarCarta(jugador);
 	  	}

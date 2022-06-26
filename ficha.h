@@ -3,8 +3,6 @@
 #define FICHA_H_
 
 #include "Constantes.h"
-#include "casillero.h"
-#include "tablero.h"
 
 
 class Ficha
@@ -12,7 +10,6 @@ class Ficha
 private:
 	EstadoFicha estado;
 	TipoFicha tipo;
-	//Casillero* posicion;
 	unsigned int x;
 	unsigned int y;
 	unsigned int z;
@@ -72,18 +69,11 @@ public:
 	void setPosicion(unsigned int, unsigned int, unsigned int);
 	
 	/*
-		PRE: Se le pasa la direccion en la que quiere mover la ficha
-		POST: Se mueve la ficha una unidad en la direccion indicacda
-		
-	*/
-	void moverFicha(char, Tablero*);
-	
-	/*
 		PRE: La ficha tiene que ser un soldado, debe existir y debe estar muerto
 		POST: Cambia el estado del soldado a vivo
 
-	void revivirSoldado();
 	*/
+	void revivirSoldado();
 	
 	/*
 		PRE: La ficha debe existir y debe estar viva

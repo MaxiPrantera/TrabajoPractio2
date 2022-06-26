@@ -11,7 +11,7 @@ Ficha::Ficha(TipoFicha tipo, unsigned int x, unsigned int y, unsigned int z){
 	//if (this->posicion->getEstado() == ocupado){
 	//	casillero->eliminarFicha();
 	//	eliminarFicha();
-	}
+	//}
 }
 
 Ficha::Ficha(const Ficha& ficha){

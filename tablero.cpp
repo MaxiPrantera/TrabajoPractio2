@@ -259,6 +259,7 @@ void Tablero::moverFicha(char direccion, Ficha* ficha){
 		else{
 			std::cout << "Casillero inactivo no puedes moverte ahi" <<endl;
 		}
+	}
 }
 
 
