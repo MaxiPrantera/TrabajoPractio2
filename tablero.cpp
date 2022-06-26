@@ -6,31 +6,34 @@
 
 
 Tablero::Tablero(unsigned int xMax, unsigned int yMax, unsigned int zMax) {
+
+	//Revisar este if.
     if ((xMax < 2) || (yMax < 2) || (zMax < 2))
     {
         string DimensionInvalida = "dimensiones de tablero incorrectas";
         throw DimensionInvalida;
     }
+
     this->xMax=xMax;
     this->yMax=yMax;
     this->zMax=zMax; 
-    this->casilleros = new Lista<Lista <Lista<Casillero *>*>*>();
+    this->casilleros = new Lista<Lista<Lista<Casillero> > >();
     
     //Lista<Lista <Lista<Casillero *>*>*> * filas  = new Lista<Lista <Lista<Casillero *>*>*>;
 
-    for(unsigned int x=0;  x<this->xMax; x++)
+    for(unsigned int x=1;  x<=this->xMax; x++)
     {
         
-        this->casilleros->agregar(new Lista<Lista <Casillero *>*>());
+        this->casilleros->agregar(Lista<Lista<Casillero> >());
         //Lista<Lista <Casillero *>*> *columnas = new Lista<Lista <Casillero *>*>;
-        for (unsigned int y=0; y<this->yMax; y++)
+        for (unsigned int y=1; y<=this->yMax; y++)
         {
-            this->casilleros->get(x)->agregar(new Lista <Casillero*>());
+            this->casilleros->get(x).agregar(Lista <Casillero>());
             //Lista<Casillero *> * profundidad = new Lista<Casillero *>;
 
-            for (unsigned int z = 0; z < this->zMax; z++)
+            for (unsigned int z = 1; z <= this->zMax; z++)
             {
-                this->casilleros->get(x)->get(y)->agregar(new Casillero());
+                this->casilleros->get(x).get(y).agregar(Casillero());
                 //Casillero* nuevoCasillero = new Casillero();
                 //profundidad->agregar(nuevoCasillero);
             }
@@ -48,18 +51,18 @@ Tablero::Tablero(unsigned int xMax, unsigned int yMax, unsigned int zMax) {
 Tablero::~Tablero() {
 
 
-for(unsigned int x=0;  x<this->xMax; x++)
-{
-    for (unsigned int y=0; y<this->yMax; y++)
-    {
-        for (unsigned int z = 0; z < this->zMax; z++)
-        {
-            delete this->casilleros->get(x)->get(y)->get(z);
-        }
-        delete this->casilleros->get(x)->get(y);
-    }
-    delete this->casilleros->get(x);
-}
+//for(unsigned int x=0;  x<this->xMax; x++)
+//{
+//    for (unsigned int y=0; y<this->yMax; y++)
+//    {
+//        for (unsigned int z = 0; z < this->zMax; z++)
+//        {
+//            delete this->casilleros->get(x)->get(y)->get(z);
+//        }
+//        delete this->casilleros->get(x)->get(y);
+//    }
+//    delete this->casilleros->get(x);
+//}
 
 delete this->casilleros;
 
@@ -97,14 +100,14 @@ Pre: existe el tablero y el casillero solicitado
 Post: devuelve el casillero ubicado en la posicion [fila][columna][profundidad]
 */
 
-Casillero * Tablero::getCasillero(unsigned int x, unsigned int y, unsigned int z) 
+Casillero* Tablero::getCasillero(unsigned int x, unsigned int y, unsigned int z)
 { 
     if((x <= 0) || (y<= 0) || (z <=0) || (x>this->xMax) || (y>this->yMax) ||(z>this->zMax))
     {
         string CoordInvalidas = "coordenadas de casilleros invalidas";
         throw CoordInvalidas;
     }
-    return this->casilleros->get(x)->get(y)->get(z);
+    return &this->casilleros->get(x).get(y).get(z);
 }
 
 
@@ -118,7 +121,7 @@ con el simbolo 'simboloFicha'*/
 //
 //}
 
-Lista<Lista<Lista<Casillero*>*>*>* Tablero::obtenerMatrizTablero()
+Lista<Lista<Lista<Casillero> > >* Tablero::obtenerMatrizTablero()
 {
     return this->casilleros;
 }   

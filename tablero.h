@@ -3,9 +3,6 @@
 
 #include "Lista.h"
 #include "casillero.h"
-//#include "ficha.h"
-
-using namespace std;
 
 /*
     .casilleros: es la lista de listas de lista de punteros a casillero
@@ -16,7 +13,8 @@ using namespace std;
 
 class Tablero {
 private:
-    Lista<Lista<Lista<Casillero*>*>*>* casilleros; 
+    Lista<Lista<Lista<Casillero> > >* casilleros;
+    //No seria mejor ponerles nombres tipo, ancho alto y profundo???
     unsigned int xMax;
     unsigned int yMax;
     unsigned int zMax;
@@ -31,7 +29,7 @@ public:
     unsigned int getCantColumnasTablero();
     unsigned int getCantProfundidadTablero();
     bool existeLaCasilla(unsigned int m, unsigned int n, unsigned int l);
-    Lista<Lista<Lista<Casillero*>*>*>* obtenerMatrizTablero();
+    Lista<Lista<Lista<Casillero> > >* obtenerMatrizTablero();
     Casillero* elegirCoordenadas(std::string, bool);
 
 };
