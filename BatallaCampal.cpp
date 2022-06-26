@@ -77,6 +77,7 @@ void BatallaCampal::jugadorMoverFicha(unsigned int jugador){
     std::cout << "w = arriba, a = izquierda, s = abajo, d = derecha\n"
          	  << "q = diagonal izquierda arriba, e diagonal derecha arriba, z = diagonal abajo izquierda, c = diagonal abajo derecha\n";
     std::cin >> direccion;
+    this->tablero->moverFicha(direccion,getFicha(jugador,respuesta));
 //    getFicha(jugador,respuesta)->moverFicha(direccion, this->tablero);
 }
 

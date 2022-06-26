@@ -1,21 +1,25 @@
 #include "ficha.h"
 
-Ficha::Ficha(TipoFicha tipo, Casillero * casillero){
+Ficha::Ficha(TipoFicha tipo, unsigned int x, unsigned int y, unsigned int z){
 	this->tipo = tipo;
 	this->estado = viva;
-	this->posicion = casillero;
+	this->x = x;
+	this->y = y;
+	this->z = z;
 
 	//Repensar (Como eliminar la otra ficha del casillero???)
-	if (this->posicion->getEstado() == ocupado){
-		casillero->eliminarFicha();
-		eliminarFicha();
+	//if (this->posicion->getEstado() == ocupado){
+	//	casillero->eliminarFicha();
+	//	eliminarFicha();
 	}
 }
 
 Ficha::Ficha(const Ficha& ficha){
 	this->tipo = ficha.tipo;
 	this->estado = ficha.estado;
-	this->posicion = ficha.posicion;
+	this->x = ficha.x;
+	this->y = ficha.y;
+	this->z = ficha.z;
 }
 
 Ficha::~Ficha(){
@@ -27,27 +31,29 @@ EstadoFicha Ficha::getEstado(){
 }
 
 int Ficha::getUbicacionX(){
-	return this->posicion->getX();
+	return this->x;
 }
 
 int Ficha::getUbicacionY(){
-	return this->posicion->getY();
+	return this->y;
 }
 
 int Ficha::getUbicacionZ(){
-	return this->posicion->getZ();
+	return this->z;
 }
 
 void Ficha::setEstado(EstadoFicha estado){
 	this->estado = estado;
 }
 
-void Ficha::setPosicion(Casillero * casillero){
-	this->posicion = casillero;
+void Ficha::setPosicion(unsigned int x, unsigned inty, unsigned int z){
+	this->x = x;
+	this->y = y;
+	this->z = z;
 }
-
+/*
 void Ficha::moverFicha(char direccion, Tablero * tablero){
-	
+	 
 	int x = getUbicacionX();
 	int y = getUbicacionY();
 	int z = getUbicacionZ();
@@ -111,6 +117,7 @@ void Ficha::revivirSoldado(){
 	setEstado(viva);
 	this->posicion->setEstado(ocupado);
 }
+*/
 
 void Ficha::eliminarFicha(){
 	setEstado(muerta);

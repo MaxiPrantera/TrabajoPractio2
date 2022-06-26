@@ -12,14 +12,17 @@ class Ficha
 private:
 	EstadoFicha estado;
 	TipoFicha tipo;
-	Casillero* posicion;
+	//Casillero* posicion;
+	unsigned int x;
+	unsigned int y;
+	unsigned int z;
 public:
 	
 	/*
 		PRE: - 
 		POST: Crea la instancia de ficha
 	*/
-	Ficha(TipoFicha, Casillero*);
+	Ficha(TipoFicha, unsigned int, unsigned int, unsigned int);
 	
 	/*
 		PRE: Tiene que existir una ficha
@@ -66,7 +69,7 @@ public:
 		PRE: Tiene que existir la instancia de ficha y se le debe pasar un casillero valido
 		POST: Cambia la posicion de la ficha al casillero indicado
 	*/
-	void setPosicion(Casillero*);
+	void setPosicion(unsigned int, unsigned int, unsigned int);
 	
 	/*
 		PRE: Se le pasa la direccion en la que quiere mover la ficha
@@ -78,8 +81,9 @@ public:
 	/*
 		PRE: La ficha tiene que ser un soldado, debe existir y debe estar muerto
 		POST: Cambia el estado del soldado a vivo
-	*/
+
 	void revivirSoldado();
+	*/
 	
 	/*
 		PRE: La ficha debe existir y debe estar viva
