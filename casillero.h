@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include "Constantes.h"
+#include "ficha.h"
 //#include "jugador.h"
-//#include "ficha.h"
 
 using namespace std;
 
@@ -22,7 +22,7 @@ private:
     Terreno terreno;
     EstadoCasillero estado;
     unsigned int turnosRestantesDesbloqueo;
-//    Ficha* ficha;
+    Ficha* ficha;
     int x;
     int y;
     int z;
@@ -42,8 +42,8 @@ public:
     unsigned int getTurnosRestantesDesbloqueo(); 
     void decrementarTurnosRestantesDesbloqueo();
     void copiarCasillero(Casillero* dest);
-//    Ficha* obtenerContenidoCasillero();
-//    void setFicha(Ficha* ficha);
+    Ficha* obtenerContenidoCasillero();
+    void setFicha(Ficha* ficha);
     void eliminarFicha();
 };
 

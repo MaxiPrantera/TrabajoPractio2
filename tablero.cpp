@@ -44,13 +44,7 @@ Tablero::Tablero(unsigned int xMax, unsigned int yMax, unsigned int zMax) {
     //this->casilleros = filas;
 }
 
-
-
-
-
 Tablero::~Tablero() {
-
-
 //for(unsigned int x=0;  x<this->xMax; x++)
 //{
 //    for (unsigned int y=0; y<this->yMax; y++)
@@ -65,7 +59,6 @@ Tablero::~Tablero() {
 //}
 
 delete this->casilleros;
-
 }
 
 /* DESTRUCTOR VIEJO
@@ -94,12 +87,6 @@ delete this->casilleros;
 Pre: existe el tablero y el casillero solicitado
 Post: devuelve el casillero ubicado en la posicion [fila][columna][profundidad]
 */
-
-/*
-Pre: existe el tablero y el casillero solicitado
-Post: devuelve el casillero ubicado en la posicion [fila][columna][profundidad]
-*/
-
 Casillero* Tablero::getCasillero(unsigned int x, unsigned int y, unsigned int z)
 { 
     if((x <= 0) || (y<= 0) || (z <=0) || (x>this->xMax) || (y>this->yMax) ||(z>this->zMax))
@@ -142,6 +129,7 @@ unsigned int Tablero::getCantFilasTablero()
 {
     return this->xMax;
 }
+
 /*
 Pre: existe el tablero
 Post:Devuelve la cantidad de columnas que posee el tablero
@@ -150,6 +138,7 @@ unsigned int Tablero::getCantColumnasTablero()
 {
     return this->yMax;
 }
+
 /*
 Pre: existe el tablero
 Post:Devuelve la profundidad que posee el tablero
@@ -167,7 +156,6 @@ Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso)
 {
     unsigned int x = 0, y = 0, z = 0;
     cout << "Eliga las coordenadas para " << msj << endl;
-
     if(esPiso)
     {
         z = 1;
@@ -210,6 +198,68 @@ Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso)
     return this->getCasillero(x, y, z);
 }
 
+void Tablero::moverFicha(char direccion, Ficha* ficha){
+	
+	if (ficha->getTipoFicha() == soldado){
+		unsigned int x = ficha->getUbicacionX();
+		unsigned int y = ficha->getUbicacionY();
+		unsigned int z = ficha->getUbicacionZ();
+		Casillero* casillero;
+	
+		switch (direccion){
+			case IZQUIERDA:
+				x--;
+			    break;
+	
+			case ARRIBA:
+				y--;
+			    break;
+	
+			case DERECHA:
+				x++;
+			    break;
+	
+			case ABAJO:
+				y++;
+			    break;
+	
+			case DIAGONAL_IZQUERDA_ARRIBA:
+				x--;
+				y--;
+			    break;
+	
+			case DIAGONAL_DERECHA_ARRIBA:
+				x++;
+				y--;
+			    break;
+	
+			case DIAGONAL_IZQUERDA_ABAJO:
+				x--;
+				y++;
+			    break;
+	
+			case DIAGONAL_DERECHA_ABAJO:
+				x++;
+				y++;
+			    break;
+		}
+		casillero = getCasillero(x,y,z);
+		if (casillero->getEstado() == vacio){
+            ficha->setPosicion(x, y, z);
+			casillero->setFicha(ficha);
+			casillero->setEstado(ocupado);
+		}
+		else if (casillero->getEstado() == ocupado){
+            //Eliminar ficha ya deberia setear el estado del casillero a inactivo
+			casillero->eliminarFicha();
+			casillero->setEstado(inactivo);
+			ficha->eliminarFicha();
+			
+		}
+		else{
+			std::cout << "Casillero inactivo no puedes moverte ahi" <<endl;
+		}
+}
 
 
 
