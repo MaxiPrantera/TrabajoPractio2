@@ -27,15 +27,15 @@ Terreno Casillero::getTerreno(){
     return this->terreno;
 }
 
-int Casillero::getX(){
+unsigned int Casillero::getX(){
     return this->x;
 }
 
-int Casillero::getY(){
+unsigned int Casillero::getY(){
     return this->y;
 }
 
-int Casillero::getZ(){
+unsigned int Casillero::getZ(){
     return this->z;
 }
 
@@ -90,6 +90,7 @@ void Casillero::bloquearFichaDelCasillero(){
 
 void Casillero::setFicha(Ficha* ficha) {
     this->ficha = ficha;
+    this->estado = ocupado;
 }
 
 /*
@@ -100,8 +101,8 @@ Post: devuelve el contenido del casillero*/
 //}
 
 void Casillero::eliminarFicha(){
-//    this->contenidoCasillero->setEstado(muerta);
-//    this->turnosRestantesDesbloqueo = 0;
-//    this->estado = inactivo;
+    this->ficha->eliminarFicha();
+    this->turnosRestantesDesbloqueo = 0;
+    this->estado = inactivo;
 }
 

@@ -23,9 +23,9 @@ private:
     EstadoCasillero estado;
     unsigned int turnosRestantesDesbloqueo;
     Ficha* ficha;
-    int x;
-    int y;
-    int z;
+    unsigned int x;
+    unsigned int y;
+    unsigned int z;
   
 
 public:
@@ -33,9 +33,9 @@ public:
     virtual ~Casillero();
     void setEstado(EstadoCasillero estado);
     void setTerreno(Terreno terreno);
-    int getX();
-    int getY();
-    int getZ();
+    unsigned int getX();
+    unsigned int getY();
+    unsigned int getZ();
     EstadoCasillero getEstado();
     Terreno getTerreno();
     void setTurnosRestantesDesbloqueo(unsigned int cantidadTurnos);
