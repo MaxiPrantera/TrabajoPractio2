@@ -14,7 +14,12 @@ private:
 	unsigned int y;
 	unsigned int z;
 public:
-	
+	/*
+		PRE: -
+		POST: Crea la instancia de ficha
+	*/
+	Ficha();
+
 	/*
 		PRE: - 
 		POST: Crea la instancia de ficha

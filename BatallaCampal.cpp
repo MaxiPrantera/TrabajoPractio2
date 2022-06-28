@@ -29,23 +29,23 @@ unsigned int BatallaCampal::getCantidadJugadores()
 {return this->jugadores->getTamanio();}
 
 std::string BatallaCampal::getNombreJugador(unsigned int jugador)
-{return this->getJugador(jugador)->getNombreJugador();}
+{return this->getJugador(jugador)->getNombre();}
 
 Jugador* BatallaCampal::getJugador(unsigned int jugador)
 {return &this->jugadores->get(jugador);}
 
 unsigned int BatallaCampal::getCantidadCartasJugador(unsigned int jugador)
-{/*return this->listaJugadores->get(jugador).getCantidadCartas();*/}
+{return this->getJugador(jugador)->getCantidadCartas();}
 
 //Cambiar nombre de funcion getFichas por getCantidadFichas o algo asi y adentro simplemente retornar el getTamanio.
 unsigned int BatallaCampal::getCantidadFichasJugador(unsigned int jugador)
-{return getJugador(jugador)->getFichas();}
+{return getJugador(jugador)->getCantidadFichas();}
 
 std::string BatallaCampal::getCartaJugador(unsigned int jugador, unsigned int carta)
-{/*return getJugador(jugador)->getNombreCarta(carta);*/}
+{return getJugador(jugador)->getNombreCarta(carta);}
 
 void BatallaCampal::jugadorAgregarFicha(Ficha* ficha, unsigned int jugador){
-	 getJugador(jugador)->agregarFicha(ficha);
+	 getJugador(jugador)->agregarFicha(*ficha);
 }
 
 void BatallaCampal::jugadorRobarCarta(unsigned int jugador)
@@ -81,11 +81,12 @@ void BatallaCampal::jugadorMoverFicha(unsigned int jugador){
 //    getFicha(jugador,respuesta)->moverFicha(direccion, this->tablero);
 }
 
+//Revisar esta funcion porque si ningun jugador sobrevivio sigue el juego y no tiene sentido. Aparte creo que asigna mal el ganador.
 bool BatallaCampal::verificarGanador(Jugador* jugadorGanador){
     int cantidadDeJugadores = 0;
     this->jugadores->reiniciarCursor();
     while(this->jugadores->avanzarCursor()){
-        if(this->jugadores->getCursor().getFichas() > 0){
+        if(this->jugadores->getCursor().getCantidadFichas() > 0){
             cantidadDeJugadores++;
         }
         if(cantidadDeJugadores == 1){
@@ -213,7 +214,7 @@ void BatallaCampal::jugadorDispara(unsigned int x, unsigned int y, unsigned int 
 }
 
 Ficha* BatallaCampal::getFicha(unsigned int jugador,unsigned int ficha){
-	return getJugador(jugador)->getFichaAux(ficha);
+	return getJugador(jugador)->getFicha(ficha);
 }
 
 Casillero* BatallaCampal::getCasillero(unsigned int x, unsigned int y, unsigned int z)

@@ -18,7 +18,7 @@ int main()
 	BatallaCampal* batallaCampal = new BatallaCampal();
     Jugador* ganador = NULL;
 
-	//DEBUG
+	//F:DEBUG
 	bool inputValido;
 	unsigned int jugador;
 
@@ -52,32 +52,33 @@ int main()
 //      break;
 //  }
 
-	//Inicializacion de Soldados:
-	cout << "Recluta a tus tropas y posicionalas estrategicamente" << endl;
-    cout << "Cuantos soldados tendra cada jugador?" << endl;
-    cin >> respuestaUsuario;
-
-    for(int soldados = 0; soldados < respuestaUsuario; soldados++){
-	    for(unsigned int jugador = 1; jugador <= batallaCampal->getCantidadJugadores(); jugador++){
-		    cout << "\nJugador " << batallaCampal->getNombreJugador(jugador);
-		    Casillero* casillero = batallaCampal->getTablero()->elegirCoordenadas("posicionar el soldado", true);
-		    while (casillero->getEstado() == inactivo){
-		   	    casillero = batallaCampal->getTablero()->elegirCoordenadas("posicionar el soldado", true);
-		    }
-		    unsigned int x = casillero->getX();
-		    unsigned int y = casillero->getY();
-		    unsigned int z = casillero->getZ();
-		    Ficha* ficha = new Ficha(soldado, x, y, z);
-		    batallaCampal->jugadorAgregarFicha(ficha, jugador);
-		    if (casillero->getEstado() == ocupado){
-				casillero->eliminarFicha();
-		  	    ficha->eliminarFicha();
-		    }
-		    else{
-		  	    casillero->setFicha(ficha);   
-	        }
-	    }
-    }
+//	//Inicializacion de Soldados:
+//	cout << "Recluta a tus tropas y posicionalas estrategicamente" << endl;
+//    cout << "Cuantos soldados tendra cada jugador?" << endl;
+//    cin >> respuestaUsuario;
+//
+//    for(int soldados = 0; soldados < respuestaUsuario; soldados++){
+//	    for(unsigned int jugador = 1; jugador <= batallaCampal->getCantidadJugadores(); jugador++){
+//		    cout << "\nJugador " << batallaCampal->getNombreJugador(jugador) << endl;
+//		    Casillero* casillero = batallaCampal->getTablero()->elegirCoordenadas("posicionar el soldado", true);
+//		    while (casillero->getEstado() == inactivo){
+//		    	cout << "El casillero esta inactivo, volve a elegir las coordenadas." << endl;
+//		   	    casillero = batallaCampal->getTablero()->elegirCoordenadas("posicionar el soldado", true);
+//		    }
+//		    unsigned int x = casillero->getX();
+//		    unsigned int y = casillero->getY();
+//		    unsigned int z = casillero->getZ();
+//		    Ficha* ficha = new Ficha(soldado, x, y, z);
+//		    batallaCampal->jugadorAgregarFicha(ficha, jugador);
+//		    if (casillero->getEstado() == ocupado){
+//				casillero->eliminarFicha();
+//		  	    ficha->eliminarFicha();
+//		    }
+//		    else{
+//		  	    casillero->setFicha(ficha);
+//	        }
+//	    }
+//    }
 
   	//Reparte las cartas:
   	cout << "Mezclando y repartiendo..." << endl;
@@ -90,13 +91,14 @@ int main()
 	  	}
   	}
 
+
     //Loop de logica principal:
     cout << "Que comienze el juego!!!" << endl;
 	
     while (!batallaCampal->verificarGanador(ganador)){
   		if (jugadorActual > batallaCampal->getCantidadJugadores())
   	  	{
-  			jugadorActual = 0;
+  			jugadorActual = 1;
   	  	}
 
   	  	if (batallaCampal->getCantidadFichasJugador(jugadorActual) != 0){

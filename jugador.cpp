@@ -8,9 +8,9 @@ POST: Crea un jugador con atributos por default.
 */
 Jugador::Jugador()
 {
-	this->listaFichas = new Lista<Ficha *>();
+	this->nombre = "";
+	this->fichas = new Lista<Ficha>();
 	this->cartas = new Lista<Carta>();
-	this->nombreJugador = "";
 }
 
 /*
@@ -18,58 +18,38 @@ POST: Crea un jugador con un nombre
 */
 Jugador::Jugador(string nombre)
 {
-	this->listaFichas = new Lista<Ficha *>();
+	this->nombre = nombre;
+	this->fichas = new Lista<Ficha>();
 	this->cartas = new Lista<Carta>();
-	this->nombreJugador = nombre;
-}
-
-unsigned int Jugador::getFichas(){
-	unsigned int contadorFichas = 0;
-	this->listaFichas->reiniciarCursor();
-	while(this->listaFichas->avanzarCursor()){
-		if(this->listaFichas->getCursor()->getTipoFicha() == soldado && this->listaFichas->getCursor()->getEstado() == viva){
-			contadorFichas++;
-		}
-	}
-	return contadorFichas;
-}
-
-Ficha* Jugador::getFichaAux(unsigned int ficha)
-{
-	return this->listaFichas->get(ficha);
 }
 
 /**/
 Jugador::~Jugador()
 {
-
-}
-/*POST: Setea el nombre del jugador*/
-void Jugador::setNombreJugador(string nombre)
-{
-	this->nombreJugador = nombre;
+	delete this->fichas;
+	delete this->cartas;
 }
 
 /*POST: Devuelve el nombre del jugador*/
-string Jugador::getNombreJugador()
+string Jugador::getNombre()
 {
-	return this->nombreJugador;
+	return this->nombre;
 }
 
-/*
-PRE: el jugador existe
-POST: devuelve la ID del jugador*/
-unsigned int Jugador:: getIdJugador()
-{
-//	return this->idJugador;
-}
-void Jugador::setIdJugador(unsigned int id)
-{
-//	this->idJugador = id;
+//F: Agregar post.
+void Jugador::agregarFicha(const Ficha& ficha){
+	this->fichas->agregar(ficha);
 }
 
-void Jugador::agregarFicha(Ficha* ficha){
-	this->listaFichas->agregar(ficha);
+//F: Agregar post.
+unsigned int Jugador::getCantidadFichas(){
+	return this->fichas->getTamanio();
+}
+
+//F: Agregar post.
+Ficha* Jugador::getFicha(unsigned int ficha)
+{
+	return &this->fichas->get(ficha);
 }
 
 /*
@@ -77,15 +57,41 @@ void Jugador::agregarFicha(Ficha* ficha){
  * Post: El jugador roba una carta para ser utilizada en alguno de sus turnos.
  */
 void Jugador::robarCarta(Cola<Carta>* mazo)
-{
-	this->cartas->agregar(mazo->desacolar());
-}
+{this->cartas->agregar(mazo->desacolar());}
+
+/*
+ * Pre: ---
+ * Post: Devuelve la cantidad de cartas que tiene el jugador.
+ */
+unsigned int Jugador::getCantidadCartas()
+{return this->cartas->getTamanio();}
+
+/*
+ * Pre: ---
+ * Post: Devuelve el nombre de la carta en la posicion indicada.
+ */
+string Jugador::getNombreCarta(unsigned int carta)
+{return this->cartas->get(carta).getNombre();}
 
 /*
  * Pre: ---
  * Post: El jugador roba una carta para ser utilizada en alguno de sus turnos.
  */
 void Jugador::tirarCarta(unsigned int carta, Tablero* tablero)
+{this->cartas->get(carta).tirarCarta(tablero);}
+
+/*
+ * Pre: Igualar dos variables del tipo jugador.
+ * Post: Iguala las caracteristicas de la primer carta a las de la segunda.
+*/
+Jugador& Jugador::operator=(const Jugador& jugador)
 {
-	this->cartas->get(carta).tirarCarta(tablero);
+    this->nombre = jugador.nombre;
+    delete this->fichas;
+	this->fichas = new Lista<Ficha>();
+    this->fichas->agregar(jugador.fichas);
+    delete this->cartas;
+	this->cartas = new Lista<Carta>();
+    this->cartas->agregar(jugador.cartas);
+    return *this;
 }

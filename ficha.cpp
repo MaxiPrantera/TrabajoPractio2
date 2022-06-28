@@ -1,5 +1,13 @@
 #include "ficha.h"
 
+Ficha::Ficha(){
+	this->tipo = soldado;
+	this->estado = viva;
+	this->x = 0;
+	this->y = 0;
+	this->z = 0;
+}
+
 Ficha::Ficha(TipoFicha tipo, unsigned int x, unsigned int y, unsigned int z){
 	this->tipo = tipo;
 	this->estado = viva;

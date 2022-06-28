@@ -13,30 +13,26 @@
 	.idJugador: Es un identificatorio del jugador
  */
 
-using namespace std;
 class Jugador
 {
 private:
-	string  nombreJugador;
-//	unsigned int idJugador;
-//	unsigned int cantidadFichas;
-	Lista<Ficha *>* listaFichas;
+	std::string  nombre;
+	Lista<Ficha>* fichas;
 	Lista<Carta>* cartas;
 public:
 	Jugador();
-	Jugador(string nombre);
+	Jugador(std::string nombre);
 	~Jugador();
-	void agregarFicha(Ficha* ficha);
-	string getNombreJugador();
-	unsigned int getFichas();
-	Ficha* getFichaAux(unsigned int);
-	void setNombreJugador(string nombre);
-	void setIdJugador(unsigned int id);
-	unsigned int getIdJugador();
+	std::string getNombre();
+	void agregarFicha(const Ficha& ficha);
+	unsigned int getCantidadFichas();
+	Ficha* getFicha(unsigned int);
 	void robarCarta(Cola<Carta>* mazo);
 	unsigned int getCantidadCartas();
-	string getNombreCarta(unsigned int);
+	std::string getNombreCarta(unsigned int);
+	//F: Fijarse bien que necesita esta funcion.
 	void tirarCarta(unsigned int, Tablero*);
+    Jugador& operator = (const Jugador&);
 };
 
 #endif
