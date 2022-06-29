@@ -3,7 +3,6 @@
 #include "Lista.h"
 #include "Cola.h"
 #include "Constantes.h"
-#include "ficha.h"
 #include "BatallaCampal.h"
 
 using namespace std;
@@ -60,25 +59,7 @@ int main()
     for(int soldados = 0; soldados < respuestaUsuario; soldados++){
 	    for(unsigned int jugador = 1; jugador <= batallaCampal->getCantidadJugadores(); jugador++){
 		    cout << "\nJugador " << batallaCampal->getNombreJugador(jugador) << endl;
-		    Casillero* casillero = batallaCampal->getTablero()->elegirCoordenadas("posicionar el soldado", true);
-		    while (casillero->getEstado() == inactivo){
-		    	cout << "El casillero esta inactivo, volve a elegir las coordenadas." << endl;
-		   	    casillero = batallaCampal->getTablero()->elegirCoordenadas("posicionar el soldado", true);
-		    }
-		    unsigned int x = casillero->getX();
-		    unsigned int y = casillero->getY();
-		    unsigned int z = casillero->getZ();
-		    Ficha* ficha = new Ficha(soldado, x, y, z);
-		    batallaCampal->jugadorAgregarFicha(ficha, jugador);
-		    if (casillero->getEstado() == ocupado){
-				casillero->eliminarFicha();
-		  	    ficha->eliminarFicha();
-		  	    cout << "Ambas fiuchas eliminadas";
-
-		    }
-		    else{
-		  	    casillero->setFicha(ficha);
-	        }
+		    batallaCampal->jugadorAgregarFicha(jugador);
 	    }
     }
 

@@ -3,6 +3,7 @@
 
 #include "Lista.h"
 #include "Cola.h"
+#include "ficha.h"
 #include "casillero.h"
 #include "tablero.h"
 #include "Carta.h"
@@ -78,7 +79,7 @@ public:
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
      * Post: El jugador indicado agrega una ficha.
      */
-    void jugadorAgregarFicha(Ficha*, unsigned int);
+    void jugadorAgregarFicha(unsigned int);
 
     /*
      * Pre: El numero de jugador debe ser valido (Dentro del rango).

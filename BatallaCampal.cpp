@@ -44,8 +44,20 @@ unsigned int BatallaCampal::getCantidadFichasJugador(unsigned int jugador)
 std::string BatallaCampal::getCartaJugador(unsigned int jugador, unsigned int carta)
 {return getJugador(jugador)->getNombreCarta(carta);}
 
-void BatallaCampal::jugadorAgregarFicha(Ficha* ficha, unsigned int jugador){
-	 getJugador(jugador)->agregarFicha(*ficha);
+void BatallaCampal::jugadorAgregarFicha(unsigned int jugador){
+	
+	Casillero* casillero = this->tablero->elegirCoordenadas("posicionar el soldado", true, false);
+    Ficha ficha = Ficha(soldado, casillero->getX(), casillero->getY(), casillero->getZ());
+    if (casillero->getEstado() == ocupado){
+		casillero->eliminarFicha();
+  	    ficha->eliminarFicha();
+  	    cout << "Ambas fiuchas eliminadas";
+
+    }
+    else{
+  	    casillero->setFicha(ficha);
+    }			
+	getJugador(jugador)->agregarFicha(ficha);
 }
 
 void BatallaCampal::jugadorRobarCarta(unsigned int jugador)
