@@ -33,7 +33,7 @@ Tablero::Tablero(unsigned int xMax, unsigned int yMax, unsigned int zMax) {
 
             for (unsigned int z = 1; z <= this->zMax; z++)
             {
-                this->casilleros->get(x).get(y).agregar(Casillero());
+                this->casilleros->get(x).get(y).agregar(Casillero(x, y, z));
                 //Casillero* nuevoCasillero = new Casillero();
                 //profundidad->agregar(nuevoCasillero);
             }
