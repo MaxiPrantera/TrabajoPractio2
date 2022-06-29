@@ -46,6 +46,24 @@ unsigned int Jugador::getCantidadFichas(){
 	return this->fichas->getTamanio();
 }
 
+/*
+ * Pre: ---
+ * Post: Devuelve la cantidad de fichas de tipo soldado vivas.
+ */
+unsigned int Jugador::getCantidadSoldadosVivos()
+{
+	unsigned int contadorFichas = 0;
+	this->fichas->reiniciarCursor();
+	while(this->fichas->avanzarCursor())
+	{
+		if(this->fichas->getCursor().getTipoFicha() == soldado && this->fichas->getCursor().getEstado() == viva)
+		{
+			contadorFichas++;
+		}
+	}
+	return contadorFichas;
+}
+
 //F: Agregar post.
 Ficha* Jugador::getFicha(unsigned int ficha)
 {

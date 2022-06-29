@@ -30,7 +30,7 @@ public:
     unsigned int getCantProfundidadTablero();
     bool existeLaCasilla(unsigned int m, unsigned int n, unsigned int l);
     Lista<Lista<Lista<Casillero> > >* obtenerMatrizTablero();
-    Casillero* elegirCoordenadas(std::string, bool);
+    Casillero* elegirCoordenadas(std::string, bool, bool);
     void moverFicha(char, Ficha*);
 
 };

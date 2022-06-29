@@ -26,6 +26,7 @@ public:
 	std::string getNombre();
 	void agregarFicha(const Ficha& ficha);
 	unsigned int getCantidadFichas();
+	unsigned int getCantidadSoldadosVivos();
 	Ficha* getFicha(unsigned int);
 	void robarCarta(Cola<Carta>* mazo);
 	unsigned int getCantidadCartas();

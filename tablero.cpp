@@ -152,7 +152,7 @@ unsigned int Tablero::getCantProfundidadTablero()
  * Pre: ---
  * Post: Devuelve un casillero con coordenadas validas seleccionadas por el usuario.
  */
-Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso)
+Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso, bool aceptaInactivos)
 {
     unsigned int x = 0, y = 0, z = 0;
     cout << "Eliga las coordenadas para " << msj << endl;
@@ -192,6 +192,14 @@ Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso)
                 cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
                 z = 0;
             }
+        }
+
+        if (this->getCasillero(x, y, z)->getEstado() == inactivo && !aceptaInactivos)
+        {
+        	x = 0;
+        	y = 0;
+        	z = 0;
+            cout << "El casillero seleccionado esta inactivo, por favor seleccionar otro." << endl;
         }
     }while(x == 0 || y == 0 || z == 0);
 
