@@ -6,6 +6,7 @@
 #include "tablero.h"
 #include "jugador.h"
 
+using namespace std;
 
 BatallaCampal::BatallaCampal(){ 
     this->jugadores = new Lista<Jugador>();

@@ -2,8 +2,8 @@
 #include "Lista.h"
 #include "tablero.h"
 #include "casillero.h"
-#define SIMBOLO_FICHA_VACIA ' '
 
+using namespace std;
 
 Tablero::Tablero(unsigned int xMax, unsigned int yMax, unsigned int zMax) {
 

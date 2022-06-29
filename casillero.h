@@ -4,9 +4,6 @@
 #include <iostream>
 #include "Constantes.h"
 #include "ficha.h"
-//#include "jugador.h"
-
-using namespace std;
 
 /*[TDA CASILLERO]
     .turnosRestantesDesbloqueo: es la cantidad de turnos antes de poder desbloquearse
@@ -17,8 +14,6 @@ using namespace std;
 class Casillero{
 
 private:
-
-//    Jugador* jugador;
     Terreno terreno;
     EstadoCasillero estado;
     unsigned int turnosRestantesDesbloqueo;
@@ -30,6 +25,7 @@ private:
 
 public:
     Casillero();
+    Casillero(unsigned int, unsigned int, unsigned int);
     virtual ~Casillero();
     void setEstado(EstadoCasillero estado);
     void setTerreno(Terreno terreno);

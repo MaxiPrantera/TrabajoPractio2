@@ -35,21 +35,21 @@ int main()
     	batallaCampal->getJugadores()->agregar(Jugador(nombreJugador));
     }
 
-//  //Inicializacion de Tablero:
-//  cout << "Se arma el campo de batalla" << endl;
-//  switch(rand()%4){
-//    case 0:
-//      batallaCampal->iniciarEscenarioUno(20, 20, 5);
-//      break;
-//    case 1:
-//      batallaCampal->iniciarEscenarioDos(20, 20, 5);
-//      break;
-//    case 2:
-//      batallaCampal->iniciarEscenarioTres(20, 20, 5);
-//      break;
-//    default:
-//      break;
-//  }
+  //Inicializacion de Tablero:
+  cout << "Se arma el campo de batalla" << endl;
+  switch(rand()%4){
+    case 0:
+      batallaCampal->iniciarEscenarioUno(20, 20, 5);
+      break;
+    case 1:
+      batallaCampal->iniciarEscenarioDos(20, 20, 5);
+      break;
+    case 2:
+      batallaCampal->iniciarEscenarioTres(20, 20, 5);
+      break;
+    default:
+      break;
+  }
 
 	//Inicializacion de Soldados:
 	cout << "Recluta a tus tropas y posicionalas estrategicamente" << endl;

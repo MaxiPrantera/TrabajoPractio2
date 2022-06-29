@@ -7,8 +7,26 @@
 Post: Inicializa un casillero con  una ficha nueva con el simbolo especificado
 */
 Casillero::Casillero(){
+	this->terreno = aire;
     this->estado = vacio;
     this->turnosRestantesDesbloqueo = 0;
+    this->ficha = 0;
+    this->x = 0;
+    this->y = 0;
+    this->z = 0;
+}
+
+/*
+Post: Inicializa un casillero sin ficha en las coordenadas indicadas.
+*/
+Casillero::Casillero(unsigned int x, unsigned int y, unsigned int z){
+	this->terreno = aire;
+    this->estado = vacio;
+    this->turnosRestantesDesbloqueo = 0;
+    this->ficha = 0;
+    this->x = x;
+    this->y = y;
+    this->z = z;
 }
 
 void Casillero::setEstado(EstadoCasillero estado){
