@@ -25,9 +25,9 @@ public:
     virtual ~Tablero();
     Casillero* getCasillero(unsigned int filaIntroducida, unsigned int columnaIntroducida, unsigned int profundidadIntroducida);
     //void setCasilla(unsigned int x, unsigned int y, unsigned int z, Ficha* simboloFicha);
-    unsigned int getCantFilasTablero();
-    unsigned int getCantColumnasTablero();
-    unsigned int getCantProfundidadTablero();
+    unsigned int getCantidadFilas();
+    unsigned int getCantidadColumnas();
+    unsigned int getCantidadProfundidad();
     bool existeLaCasilla(unsigned int m, unsigned int n, unsigned int l);
     Lista<Lista<Lista<Casillero> > >* obtenerMatrizTablero();
     Casillero* elegirCoordenadas(std::string, bool, bool);

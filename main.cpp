@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstdlib>
 #include "Lista.h"
 #include "Cola.h"
 #include "Constantes.h"
@@ -27,6 +26,7 @@ int main()
 	//Inicializacion de jugadores:
 	cout << "Ingresar cantidad de jugadores" << endl;
     cin >> respuestaUsuario;
+	//respuestaUsuario = 3;
 
     string nombreJugador;
     for(int jugador = 0; jugador < respuestaUsuario;jugador++){
@@ -35,26 +35,29 @@ int main()
     	batallaCampal->getJugadores()->agregar(Jugador(nombreJugador));
     }
 
-  //Inicializacion de Tablero:
-  cout << "Se arma el campo de batalla" << endl;
-  switch(rand()%4){
-    case 0:
-      batallaCampal->iniciarEscenarioUno(20, 20, 5);
-      break;
-    case 1:
-      batallaCampal->iniciarEscenarioDos(20, 20, 5);
-      break;
-    case 2:
-      batallaCampal->iniciarEscenarioTres(20, 20, 5);
-      break;
-    default:
-      break;
-  }
+	//Inicializacion de Tablero:
+	cout << "Se arma el campo de batalla, eliga que escenario quiere jugar (Entre 1 y 3): " << endl;
+	cin >> respuestaUsuario;
+	//respuestaUsuario = 1;
+	switch(respuestaUsuario){
+	case 1:
+	  batallaCampal->iniciarEscenarioUno(20, 20, 5);
+	  break;
+	case 2:
+	  batallaCampal->iniciarEscenarioDos(20, 20, 5);
+	  break;
+	case 3:
+	  batallaCampal->iniciarEscenarioTres(20, 20, 5);
+	  break;
+	default:
+	  break;
+	}
 
 	//Inicializacion de Soldados:
 	cout << "Recluta a tus tropas y posicionalas estrategicamente" << endl;
     cout << "Cuantos soldados tendra cada jugador?" << endl;
     cin >> respuestaUsuario;
+    //respuestaUsuario = 3;
 
     for(int soldados = 0; soldados < respuestaUsuario; soldados++){
 	    for(unsigned int jugador = 1; jugador <= batallaCampal->getCantidadJugadores(); jugador++){

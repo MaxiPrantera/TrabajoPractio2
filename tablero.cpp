@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 #include "Lista.h"
 #include "tablero.h"
 #include "casillero.h"
@@ -125,7 +126,7 @@ bool Tablero::existeLaCasilla(unsigned int x, unsigned int y, unsigned int z) {
 Pre: existe el tablero
 Post:Devuelve la cantidad de filas que posee el tablero
 */
-unsigned int Tablero::getCantFilasTablero()
+unsigned int Tablero::getCantidadFilas()
 {
     return this->xMax;
 }
@@ -134,7 +135,7 @@ unsigned int Tablero::getCantFilasTablero()
 Pre: existe el tablero
 Post:Devuelve la cantidad de columnas que posee el tablero
 */
-unsigned int Tablero::getCantColumnasTablero()
+unsigned int Tablero::getCantidadColumnas()
 {
     return this->yMax;
 }
@@ -143,7 +144,7 @@ unsigned int Tablero::getCantColumnasTablero()
 Pre: existe el tablero
 Post:Devuelve la profundidad que posee el tablero
 */
-unsigned int Tablero::getCantProfundidadTablero()
+unsigned int Tablero::getCantidadProfundidad()
 {
     return this->zMax;
 }
@@ -154,7 +155,7 @@ unsigned int Tablero::getCantProfundidadTablero()
  */
 Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso, bool aceptaInactivos)
 {
-    unsigned int x = 0, y = 0, z = 0;
+    int x = 0, y = 0, z = 0;
     cout << "Eliga las coordenadas para " << msj << endl;
     if(esPiso)
     {
@@ -167,7 +168,8 @@ Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso, bool aceptaI
         {
             cout << "Ingrese la coordenada x: " << endl;
             cin >> x;
-            if (x < 1 || x > this->getCantProfundidadTablero())
+            //x = rand()%19 + 1;
+            if (x < 1 || x > this->getCantidadFilas())
             {
                 cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
                 x = 0;
@@ -177,7 +179,8 @@ Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso, bool aceptaI
         {
             cout << "Ingrese la coordenada y: " << endl;
             cin >> y;
-            if (y < 1 || y > this->getCantColumnasTablero())
+            //y = rand()%19 + 1;
+            if (y < 1 || y > this->getCantidadColumnas())
             {
                 cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
                 y = 0;
@@ -187,19 +190,26 @@ Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso, bool aceptaI
         {
             cout << "Ingrese la coordenada z: " << endl;
             cin >> z;
-            if (z < 1 || z > this->getCantFilasTablero())
+            //z = rand()%5 + 1;
+            if (z < 1 || z > this->getCantidadProfundidad())
             {
                 cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
                 z = 0;
             }
         }
 
-        if (this->getCasillero(x, y, z)->getEstado() == inactivo && !aceptaInactivos)
+        if (x != 0 && y != 0 && z != 0)
         {
-        	x = 0;
-        	y = 0;
-        	z = 0;
-            cout << "El casillero seleccionado esta inactivo, por favor seleccionar otro." << endl;
+            if (this->getCasillero(x, y, z)->getEstado() == inactivo && !aceptaInactivos)
+            {
+            	x = 0;
+            	y = 0;
+            	if (!esPiso)
+            	{
+                	z = 0;
+            	}
+                cout << "El casillero seleccionado esta inactivo, por favor seleccionar otro." << endl;
+            }
         }
     }while(x == 0 || y == 0 || z == 0);
 
