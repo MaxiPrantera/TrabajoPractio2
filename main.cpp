@@ -63,7 +63,7 @@ int main()
 
     for(int soldados = 0; soldados < respuestaUsuario; soldados++){
 	    for(unsigned int jugador = 1; jugador <= batallaCampal->getCantidadJugadores(); jugador++){
-		    cout << "\nJugador " << batallaCampal->getNombreJugador(jugador) << endl << endl;
+		    cout << "\nJugador " << batallaCampal->getNombreJugador(jugador) << endl;
 		    batallaCampal->jugadorAgregarFicha(jugador);
 	    }
     }
