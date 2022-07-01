@@ -222,14 +222,15 @@ void Tablero::moverFicha(char direccion, Ficha* ficha){
 		unsigned int x = ficha->getUbicacionX();
 		unsigned int y = ficha->getUbicacionY();
 		unsigned int z = ficha->getUbicacionZ();
-		Casillero* casillero;
+		Casillero* casillero = getCasillero(x,y,z);
+		casillero->setEstado(vacio);
 	
 		switch (direccion){
 			case IZQUIERDA:
 				x--;
 			    break;
 	
-			case ARRIBA:
+			case ADELANTE:
 				y--;
 			    break;
 	
@@ -237,26 +238,26 @@ void Tablero::moverFicha(char direccion, Ficha* ficha){
 				x++;
 			    break;
 	
-			case ABAJO:
+			case ATRAS:
 				y++;
 			    break;
 	
-			case DIAGONAL_IZQUERDA_ARRIBA:
+			case DIAGONAL_IZQUERDA_ADELANTE:
 				x--;
 				y--;
 			    break;
 	
-			case DIAGONAL_DERECHA_ARRIBA:
+			case DIAGONAL_DERECHA_ADELANTE:
 				x++;
 				y--;
 			    break;
 	
-			case DIAGONAL_IZQUERDA_ABAJO:
+			case DIAGONAL_IZQUERDA_ATRAS:
 				x--;
 				y++;
 			    break;
 	
-			case DIAGONAL_DERECHA_ABAJO:
+			case DIAGONAL_DERECHA_ATRAS:
 				x++;
 				y++;
 			    break;

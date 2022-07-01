@@ -9,13 +9,13 @@
 #define CONSTANTES_H_
 
     #define IZQUIERDA 'a'
-    #define ARRIBA 'w'
+    #define ADELANTE 'w'
     #define DERECHA 'd'
-    #define ABAJO 's'
-    #define DIAGONAL_IZQUERDA_ARRIBA 'q'
-    #define DIAGONAL_DERECHA_ARRIBA 'e'
-    #define DIAGONAL_IZQUERDA_ABAJO 'z'
-    #define DIAGONAL_DERECHA_ABAJO 'c'
+    #define ATRAS 's'
+    #define DIAGONAL_IZQUERDA_ADELANTE 'q'
+    #define DIAGONAL_DERECHA_ADELANTE 'e'
+    #define DIAGONAL_IZQUERDA_ATRAS 'z'
+    #define DIAGONAL_DERECHA_ATRAS 'c'
 
     enum EstadoFicha{
         viva,

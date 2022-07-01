@@ -83,12 +83,15 @@ void BatallaCampal::jugadorMoverFicha(unsigned int jugador){
     	}
 	}
     std::cin >> respuesta;
-    char direccion;
-    std::cout << "w = arriba, a = izquierda, s = abajo, d = derecha\n"
-         	  << "q = diagonal izquierda arriba, e diagonal derecha arriba, z = diagonal abajo izquierda, c = diagonal abajo derecha\n";
-    std::cin >> direccion;
-    this->tablero->moverFicha(direccion,getFicha(jugador,respuesta));
-//    getFicha(jugador,respuesta)->moverFicha(direccion, this->tablero);
+    //respuesta = 1;
+    if (respuesta != 0){
+		char direccion;
+		std::cout << "w = adelante, a = atras, s = a, d = derecha\n"
+				  << "q = diagonal izquierda adelante, e diagonal derecha adelante, z = diagonal atras izquierda, c = diagonal atras derecha\n";
+		std::cin >> direccion;
+		//direccion = 'w';
+		this->tablero->moverFicha(direccion,getFicha(jugador,respuesta));
+    }
 }
 
 //Revisar esta funcion porque si ningun jugador sobrevivio sigue el juego y no tiene sentido. Aparte creo que asigna mal el ganador.

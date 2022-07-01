@@ -26,12 +26,12 @@ int main()
 	//Inicializacion de jugadores:
 	cout << "Ingresar cantidad de jugadores" << endl;
     cin >> respuestaUsuario;
-	//respuestaUsuario = 3;
+	//respuestaUsuario = 2;
 
     string nombreJugador;
     for(int jugador = 0; jugador < respuestaUsuario;jugador++){
     	cout << "Ingresar nombre del jugador" << endl;
-    	cin>>nombreJugador;
+    	cin >> nombreJugador;
     	batallaCampal->getJugadores()->agregar(Jugador(nombreJugador));
     }
 
@@ -53,18 +53,21 @@ int main()
 	  break;
 	}
 
+
+
 	//Inicializacion de Soldados:
 	cout << "Recluta a tus tropas y posicionalas estrategicamente" << endl;
     cout << "Cuantos soldados tendra cada jugador?" << endl;
     cin >> respuestaUsuario;
-    //respuestaUsuario = 3;
+    //respuestaUsuario = 1;
 
     for(int soldados = 0; soldados < respuestaUsuario; soldados++){
 	    for(unsigned int jugador = 1; jugador <= batallaCampal->getCantidadJugadores(); jugador++){
-		    cout << "\nJugador " << batallaCampal->getNombreJugador(jugador) << endl;
+		    cout << "\nJugador " << batallaCampal->getNombreJugador(jugador) << endl << endl;
 		    batallaCampal->jugadorAgregarFicha(jugador);
 	    }
     }
+
 
   	//Reparte las cartas:
   	cout << "Mezclando y repartiendo..." << endl;
@@ -76,6 +79,7 @@ int main()
 		  	batallaCampal->jugadorRobarCarta(jugador);
 	  	}
   	}
+
 
 
     //Loop de logica principal:
@@ -96,7 +100,7 @@ int main()
   
   		    //(2) Logica de Movimiento:
   		    batallaCampal->jugadorMoverFicha(jugadorActual);
-  
+
   
   //		  //(1) Logica de disparos:
   //		  int x, y, z;
