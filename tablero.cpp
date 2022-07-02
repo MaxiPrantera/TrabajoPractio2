@@ -281,6 +281,11 @@ void Tablero::moverFicha(char direccion, Ficha* ficha){
 	}
 }
 
+void Tablero::disparar(unsigned int, unsigned int, unsigned int, bool, bool)
+{
+	std::cout << "Hola" <<endl;
+}
+
 
 
 

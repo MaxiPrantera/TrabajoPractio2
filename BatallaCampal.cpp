@@ -44,27 +44,36 @@ unsigned int BatallaCampal::getCantidadFichasJugador(unsigned int jugador)
 std::string BatallaCampal::getCartaJugador(unsigned int jugador, unsigned int carta)
 {return getJugador(jugador)->getNombreCarta(carta);}
 
-void BatallaCampal::jugadorAgregarFicha(unsigned int jugador){
-	
-	Casillero* casillero = this->tablero->elegirCoordenadas("posicionar el soldado", true, false);
-	getJugador(jugador)->agregarFicha(Ficha(soldado, casillero->getX(), casillero->getY(), casillero->getZ()));
-    if (casillero->getEstado() == ocupado){
-		casillero->eliminarFicha();
-		this->getJugador(jugador)->getFicha(getJugador(jugador)->getCantidadFichas())->eliminarFicha();
-  	    cout << "Ambas fichas eliminadas";
-    }
-    else{
-  	    casillero->setFicha(this->getJugador(jugador)->getFicha(getJugador(jugador)->getCantidadFichas()));
-    }
-}
+void BatallaCampal::jugadorAgregarSoldado(unsigned int jugador)
+{getJugador(jugador)->agregarFicha(soldado, this->getTablero());}
 
 void BatallaCampal::jugadorRobarCarta(unsigned int jugador)
 {
      getJugador(jugador)->robarCarta(this->getMazo());
 }
 
-void BatallaCampal::jugadorTirarCarta(unsigned int jugador, unsigned int carta)
+void BatallaCampal::jugadorTirarCarta(unsigned int jugador)
 {
+	bool inputValido = false;
+	int carta  = 0;
+	do
+	{
+		cout << this->getJugador(jugador)->getNombre() << " que carta vas a tirar? (0 para no tirar carta): " << endl;
+		cin >> carta;
+		if (carta >= 0 && carta <= this->getJugador(jugador)->getCantidadCartas())
+		{
+			inputValido = true;
+			if (carta != 0)
+			{
+				cout << "Utilizaste tu carta " << this->getJugador(jugador)->getNombreCarta(carta) << endl;
+				this->getJugador(jugador)->tirarCarta(carta, this->getTablero());
+			}
+		}
+		else
+		{
+			cout << "Número de carta fuera del rango válido, intenta elegir un número entre 0 y tu cantidad de cartas" << endl;
+		}
+	}while(!inputValido);
 
 }
 

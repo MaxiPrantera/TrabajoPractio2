@@ -27,13 +27,13 @@ int main()
 	cout << "Ingresar cantidad de jugadores" << endl;
     cin >> respuestaUsuario;
 	//respuestaUsuario = 2;
-
     string nombreJugador;
     for(int jugador = 0; jugador < respuestaUsuario;jugador++){
     	cout << "Ingresar nombre del jugador" << endl;
     	cin >> nombreJugador;
     	batallaCampal->getJugadores()->agregar(Jugador(nombreJugador));
     }
+
 
 	//Inicializacion de Tablero:
 	cout << "Se arma el campo de batalla, eliga que escenario quiere jugar (Entre 1 y 3): " << endl;
@@ -54,17 +54,15 @@ int main()
 	}
 
 
-
 	//Inicializacion de Soldados:
 	cout << "Recluta a tus tropas y posicionalas estrategicamente" << endl;
     cout << "Cuantos soldados tendra cada jugador?" << endl;
     cin >> respuestaUsuario;
     //respuestaUsuario = 1;
-
     for(int soldados = 0; soldados < respuestaUsuario; soldados++){
 	    for(unsigned int jugador = 1; jugador <= batallaCampal->getCantidadJugadores(); jugador++){
 		    cout << "\nJugador " << batallaCampal->getNombreJugador(jugador) << endl;
-		    batallaCampal->jugadorAgregarFicha(jugador);
+		    batallaCampal->jugadorAgregarSoldado(jugador);
 	    }
     }
 
@@ -112,25 +110,7 @@ int main()
   
 
         	//(3) Logica de tirar carta:
-  //      inputValido = false;
-  //      do
-  //      {
-  //        cout << batallaCampal->getNombreJugador(jugador) << " que carta vas a tirar? (0 para no tirar ninguna): ";
-  //        cin >> respuestaUsuario;
-  //        if (respuestaUsuario > 0 && respuestaUsuario <= batallaCampal->getCantidadCartasJugador(jugador))
-  //        {
-  //          inputValido = true;
-  //          if (respuestaUsuario != 0)
-  //          {
-  //            cout << "Utilizaste tu carta " << batallaCampal->getCartaJugador(jugadorActual, respuestaUsuario) << endl;
-  //            batallaCampal->jugadorTiraCarta(jugador, respuestaUsuario);
-  //          }
-  //        }
-  //        else
-  //        {
-  //          cout << "Número de carta fuera del rango válido, intenta elegir un número entre 0 y tu cantidad de cartas" << endl;
-  //        }
-  //      }while(!inputValido);
+  		    batallaCampal->jugadorTirarCarta(jugadorActual);
   
   
   //      //(4) Logica de mostrar tablero:

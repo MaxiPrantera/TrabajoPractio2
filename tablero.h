@@ -33,6 +33,8 @@ public:
     Casillero* elegirCoordenadas(std::string, bool, bool);
     void moverFicha(char, Ficha*);
 
+    void disparar(unsigned int, unsigned int, unsigned int, bool, bool);
+
 };
 
 #endif //TP2_TABLERO_H

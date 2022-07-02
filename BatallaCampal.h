@@ -79,7 +79,7 @@ public:
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
      * Post: El jugador indicado agrega una ficha.
      */
-    void jugadorAgregarFicha(unsigned int);
+    void jugadorAgregarSoldado(unsigned int);
 
     /*
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
@@ -91,7 +91,7 @@ public:
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
      * Post: El jugador indicado tira una carta.
      */
-    void jugadorTirarCarta(unsigned int, unsigned int);
+    void jugadorTirarCarta(unsigned int);
 
     /*
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
