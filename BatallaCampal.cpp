@@ -79,11 +79,18 @@ void BatallaCampal::jugadorTirarCarta(unsigned int jugador)
 
 void BatallaCampal::jugadorMoverFicha(unsigned int jugador){
 	int respuesta;
-    std::cout << "Que ficha quiere mover?(Responda 0 si no quiere mover nada)";
+    std::cout << "Que ficha quiere mover?(Responda 0 si no quiere mover nada)" << endl;
 
     for(unsigned int ficha = 1; ficha < (getCantidadFichasJugador(jugador) + 1); ficha++){
-        if (getFicha(jugador, ficha)->getEstado() == viva){
-        	std::cout << ficha << "." << getFicha(jugador, ficha)->getUbicacionX()
+        if (getFicha(jugador, ficha)->getEstado() == viva and getFicha(jugador, ficha)->getTipoFicha() != barco ){
+        	std::cout << ficha << ". ";
+        	if (getFicha(jugador, ficha)->getTipoFicha() == soldado){
+        		std::cout << "soldado - ";
+        	}
+        	else{
+        		std::cout << "avion - ";
+        	}
+        	std::cout << getFicha(jugador, ficha)->getUbicacionX()
              	 	  << "/"
              		  << getFicha(jugador, ficha)->getUbicacionY()
              	 	  << "/"
@@ -95,8 +102,11 @@ void BatallaCampal::jugadorMoverFicha(unsigned int jugador){
     //respuesta = 1;
     if (respuesta != 0){
 		char direccion;
-		std::cout << "w = adelante, a = atras, s = a, d = derecha\n"
-				  << "q = diagonal izquierda adelante, e diagonal derecha adelante, z = diagonal atras izquierda, c = diagonal atras derecha\n";
+		std::cout << "w = adelante, a = izquierda, s = atras, d = derecha\n"
+				  << "q = diagonal izquierda adelante, e diagonal derecha adelante, z = diagonal atras izquierda, c = diagonal atras derecha" << endl;
+		if (getFicha(jugador,respuesta)->getTipoFicha() == avion){
+			std::cout << "r = arriba, f = abajo" << endl;
+		}
 		std::cin >> direccion;
 		//direccion = 'w';
 		this->tablero->moverFicha(direccion,getFicha(jugador,respuesta));

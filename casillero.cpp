@@ -114,9 +114,9 @@ void Casillero::setFicha(Ficha* ficha) {
 /*
 Pre : casillero creado anteriormete
 Post: devuelve el contenido del casillero*/
-//Ficha* Casillero::obtenerContenidoCasillero(){
-//	return this->contenidoCasillero;
-//}
+Ficha* Casillero::obtenerContenidoCasillero(){
+	return this->ficha;
+}
 
 void Casillero::eliminarFicha(){
     this->ficha->eliminarFicha();

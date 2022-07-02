@@ -16,6 +16,8 @@
     #define DIAGONAL_DERECHA_ADELANTE 'e'
     #define DIAGONAL_IZQUERDA_ATRAS 'z'
     #define DIAGONAL_DERECHA_ATRAS 'c'
+	#define ARRIBA 'r'
+	#define ABAJO 'f'
 
     enum EstadoFicha{
         viva,

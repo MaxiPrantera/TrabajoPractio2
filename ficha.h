@@ -10,6 +10,7 @@ class Ficha
 private:
 	EstadoFicha estado;
 	TipoFicha tipo;
+	bool escudo;
 	unsigned int x;
 	unsigned int y;
 	unsigned int z;
@@ -92,6 +93,25 @@ public:
 		POST: Devuleve el tipo de ficha
 	*/
 	TipoFicha getTipoFicha();
+
+	/*
+		PRE: -
+		POST: devuelve true si tiene escudo, false si no
+	*/
+	bool getEscudo();
+
+	/*
+		PRE: La ficha debe existir y no debe tener escudo
+		POST: le da un escudo a la ficha
+	*/
+	void darEscudo();
+
+	/*
+		PRE: La ficha debe existir y debe tener escudo
+		POST: le quita el escudo a la ficha
+	*/
+	void quitarEscudo();
+
 };
 
 
