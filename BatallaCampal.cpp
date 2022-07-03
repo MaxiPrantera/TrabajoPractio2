@@ -129,7 +129,7 @@ void BatallaCampal::jugadorDisparar(unsigned int jugador)
 }
 
 //Revisar esta funcion porque si ningun jugador sobrevivio sigue el juego y no tiene sentido. Aparte creo que asigna mal el ganador.
-bool BatallaCampal::verificarGanador(Jugador* jugadorGanador){
+bool BatallaCampal::verificarGanador(unsigned int * jugadorGanador){
     int cantidadDeJugadores = 0;
     this->jugadores->reiniciarCursor();
     unsigned int ubicacionJugador = 0;
