@@ -14,7 +14,7 @@ int main()
 
 	//TDAs
 	BatallaCampal* batallaCampal = new BatallaCampal();
-    Jugador* ganador = NULL;
+    unsigned int ubicacionGanador = 0;
 
 	//F:DEBUG
 	bool inputValido;
@@ -85,7 +85,7 @@ int main()
     //Loop de logica principal:
     cout << "Que comienze el juego!!!" << endl;
 	
-    while (!batallaCampal->verificarGanador(ganador)){
+    while (!batallaCampal->verificarGanador(&ubicacionGanador)){
   		if (jugadorActual > batallaCampal->getCantidadJugadores())
   	  	{
   			jugadorActual = 1;
@@ -122,7 +122,7 @@ int main()
       	jugadorActual++;
     }
 
-
+	cout << "Y el ganador es..." <<batallaCampal->getJugadores()->get(ubicacionGanador)->getNombre()<<endl;
   //  //Finalizar el juego:
   //  cout << "Y el ganador es..." << endl;
   //  /*
@@ -130,6 +130,7 @@ int main()
   //  * Muestra por pantalla el nombre del ganador
   //  * Ejecuta Delete de las variables correspondientes
   //  */
-  //  cout << "fin del juego." << endl;
+   ~BatallaCampal();
+	 cout << "fin del juego." << endl;
   	return 0;
 }

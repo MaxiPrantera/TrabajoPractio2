@@ -117,15 +117,14 @@ void BatallaCampal::jugadorMoverFicha(unsigned int jugador){
 bool BatallaCampal::verificarGanador(Jugador* jugadorGanador){
     int cantidadDeJugadores = 0;
     this->jugadores->reiniciarCursor();
+    unsigned int ubicacionJugador = 0;
     while(this->jugadores->avanzarCursor()){
-        if(this->jugadores->getCursor().getCantidadFichas() > 0){
+        if(this->jugadores->getCursor().getCantidadSoldadosVivos() > 0){
+           
             cantidadDeJugadores++;
-        }
-        if(cantidadDeJugadores == 1){
-            jugadorGanador = &this->jugadores->getCursor();
-        }
+        }   
+        *jugadorGanador = *jugadorGanador + 1;
     }
-    
     return cantidadDeJugadores == 1;
 }
 
