@@ -59,7 +59,11 @@ void BatallaCampal::jugadorTirarCarta(unsigned int jugador)
 	do
 	{
 		cout << this->getJugador(jugador)->getNombre() << " que carta vas a tirar? (0 para no tirar carta): " << endl;
+		for(unsigned int carta = 1; carta < (getCantidadCartasJugador(jugador) + 1); carta++){
+			cout << carta << ". " << getCartaJugador(jugador, carta) << endl;
+		}
 		cin >> carta;
+
 		if (carta >= 0 && carta <= this->getJugador(jugador)->getCantidadCartas())
 		{
 			inputValido = true;
@@ -119,28 +123,29 @@ void BatallaCampal::jugadorDisparar(unsigned int jugador)
 	for(unsigned int ficha = 1; ficha <= this->getJugador(jugador)->getCantidadFichas(); ficha++){
 		if(this->getFicha(jugador, ficha)->getEstado() == viva){
 			if(this->getFicha(jugador, ficha)->getTipoFicha() == avion){
-				this->tablero->disparar(this->tablero->elegirCoordenadas("disparar", false, true));
-				this->tablero->disparar(this->tablero->elegirCoordenadas("disparar", false, true));
+				this->tablero->disparar(this->tablero->elegirCoordenadas("que el avion dispare", false, true));
+				this->tablero->disparar(this->tablero->elegirCoordenadas("que el avion dispare", false, true));
 			}else if(this->getFicha(jugador, ficha)->getTipoFicha() == barco){
-				this->tablero->tirarMisil(this->tablero->elegirCoordenadas("disparar", false, true));	
+				this->tablero->tirarMisil(this->tablero->elegirCoordenadas("que el barco tire el misil", false, true));
 			}
 		}
 	}
 }
 
 //Revisar esta funcion porque si ningun jugador sobrevivio sigue el juego y no tiene sentido. Aparte creo que asigna mal el ganador.
-bool BatallaCampal::verificarGanador(unsigned int * jugadorGanador){
+bool BatallaCampal::verificarGanador(Jugador* ganador){
     int cantidadDeJugadores = 0;
+    *ganador = Jugador();
+
     this->jugadores->reiniciarCursor();
-    unsigned int ubicacionJugador = 0;
     while(this->jugadores->avanzarCursor()){
         if(this->jugadores->getCursor().getCantidadSoldadosVivos() > 0){
-           
-            cantidadDeJugadores++;
-        }   
-        *jugadorGanador = *jugadorGanador + 1;
+        	cantidadDeJugadores++;
+            *ganador = this->jugadores->getCursor();
+        }
     }
-    return cantidadDeJugadores == 1;
+
+    return (cantidadDeJugadores <= 1);
 }
 
 

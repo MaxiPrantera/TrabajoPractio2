@@ -119,8 +119,14 @@ Ficha* Casillero::obtenerContenidoCasillero(){
 }
 
 void Casillero::eliminarFicha(){
-    this->ficha->eliminarFicha();
-    this->turnosRestantesDesbloqueo = 0;
     this->estado = inactivo;
+	if(this->ficha != 0)
+	{
+	    this->ficha->eliminarFicha();
+	    if (this->ficha->getEstado() == viva)
+	    {
+	    	this->estado = ocupado;
+	    }
+	}
 }
 

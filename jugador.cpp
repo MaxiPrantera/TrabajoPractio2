@@ -52,11 +52,11 @@ void Jugador::agregarFicha(TipoFicha tipo, Tablero* tablero){
 		}
 	}while(!inputValido);
 
-	this->fichas->agregar(Ficha(tipo, casillero->getX(), casillero->getY(), casillero->getZ()));
+	this->fichas->agregar(Ficha(tipo, casillero->getX(), casillero->getY(), casillero->getZ(), this->nombre));
     if (casillero->getEstado() == ocupado){
 		casillero->eliminarFicha();
 		this->getFicha(this->getCantidadFichas())->eliminarFicha();
-  	    cout << "Ambas fichas eliminadas";
+  	    cout << "Ambas fichas eliminadas" << endl;
     }
     else{
   	    casillero->setFicha(this->getFicha(this->getCantidadFichas()));
@@ -140,6 +140,8 @@ void Jugador::tirarCarta(unsigned int carta, Tablero* tablero)
 			this->revivir(tablero);
 			break;
 	}
+
+	this->cartas->remover(carta);
 }
 
 /*
@@ -147,10 +149,7 @@ void Jugador::tirarCarta(unsigned int carta, Tablero* tablero)
  * Post: Tira un misil a un casillero el cual lo inhabilita y a todos los vecinos (3x3x3).
  */
 void Jugador::tirarMisil(Tablero* tablero)
-{
-    Casillero* blanco = tablero->elegirCoordenadas(" tirar el misil", false, true);
-    tablero->disparar(blanco->getX(), blanco->getY(), blanco->getZ(), true, false);
-}
+{tablero->tirarMisil(tablero->elegirCoordenadas("tirar el misil", false, true));}
 
 /*
  * Pre: ---.
@@ -171,13 +170,7 @@ void Jugador::ponerBarco(Tablero* tablero)
  * Post: Tira una molotov a un casillero el cual lo inhabilita y a todos los vecinos en horizontal por 3 turnos.
  */
 void Jugador::tirarMolotov(Tablero* tablero)
-{
-    //analogo a misil pero solo lo puede tirar en piso y tipo terreno que no sea agua
-    // ademas solo tendria que hacer dos for anidados para la x e y con z constante en 0
-    // si el casillero fuese agua en alguna iteracion seguir adelante sin nada.
-    Casillero* blanco = tablero->elegirCoordenadas(" tirar la molotov", true, true);
-    tablero->disparar(blanco->getX(), blanco->getY(), blanco->getZ(), false, true);
-}
+{tablero->tirarMolotov(tablero->elegirCoordenadas("tirar la molotov", true, true));}
 
 /*
  * Pre: ---.
@@ -187,10 +180,26 @@ void Jugador::ponerEscudo(Tablero* tablero)
 {
 	//Funcion jodida, habria que cambiar varias otras funciones para controlar la muerte de las fichas
 	//Atencion: funcion eliminarFicha.
-//    Hacer elegir a la ficha
-//    Si la ficha esta muerta volver a pedir. (Copiar comportamiento moverFicha)
-//    setear alguna variable bool en tda ficha que haga que cuando le cae un misil o disparo
-//     en vez de matarlo poner esa variable en false y ya la siguiente si moriria.
+	int fichaSeleccionada;
+
+	cout << "A que ficha le quiere poner escudo?" << endl;
+
+	for(unsigned int ficha = 1; ficha <= this->getCantidadFichas(); ficha++)
+	{
+		if (this->fichas->get(ficha).getEstado() == viva)
+		{
+			cout << ficha << ". " << this->fichas->get(ficha).getTipoFichaStr() << " - ";
+			cout << this->fichas->get(ficha).getUbicacionX()
+				 << "/"
+				 << this->fichas->get(ficha).getUbicacionY()
+				 << "/"
+				 << this->fichas->get(ficha).getUbicacionZ()
+				 << endl;
+		}
+	}
+
+	cin >> fichaSeleccionada;
+	this->fichas->get(fichaSeleccionada).darEscudo();
 }
 
 //Cambiar a teletransportarse.

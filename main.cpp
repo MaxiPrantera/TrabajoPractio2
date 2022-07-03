@@ -14,12 +14,7 @@ int main()
 
 	//TDAs
 	BatallaCampal* batallaCampal = new BatallaCampal();
-    unsigned int ubicacionGanador = 0;
-
-	//F:DEBUG
-	bool inputValido;
-	unsigned int jugador;
-
+    Jugador* ganador = new Jugador();
 
 	cout << "Bienvenidos a Batalla Campal V2.0!!!" << endl;
 
@@ -79,19 +74,16 @@ int main()
   	}
 
 
-
-
-
     //Loop de logica principal:
     cout << "Que comienze el juego!!!" << endl;
 	
-    while (!batallaCampal->verificarGanador(&ubicacionGanador)){
+    while (!batallaCampal->verificarGanador(ganador)){
   		if (jugadorActual > batallaCampal->getCantidadJugadores())
   	  	{
   			jugadorActual = 1;
   	  	}
 
-  	  	if (batallaCampal->getCantidadFichasJugador(jugadorActual) != 0){
+  	  	if (batallaCampal->getJugador(jugadorActual)->getCantidadSoldadosVivos() != 0){
   		  	cout << batallaCampal->getNombreJugador(jugadorActual) << " te toca" << endl;
   
   		  	//Inicia el turno robando carta.
@@ -117,15 +109,22 @@ int main()
       	jugadorActual++;
     }
 
-	cout << "Y el ganador es..." <<batallaCampal->getJugadores()->get(ubicacionGanador)->getNombre()<<endl;
-  //  //Finalizar el juego:
-  //  cout << "Y el ganador es..." << endl;
-  //  /*
-  //  * A esta altura ya salio del loop principal con lo que tenemos ganador
-  //  * Muestra por pantalla el nombre del ganador
-  //  * Ejecuta Delete de las variables correspondientes
-  //  */
-   ~BatallaCampal();
-	 cout << "fin del juego." << endl;
+
+    //Finalizar el juego:
+    cout << "Y el ganador es..." << endl;
+    if(ganador->getNombre() == "")
+    {
+    	cout << "Todos los jugadores se quedaron sin soldados vivos, hubo empate :_(" << endl;
+    }
+    else
+    {
+    	cout << ganador->getNombre() << "!!!" << endl;
+    }
+
+    delete batallaCampal;
+
+	cout << "fin del juego." << endl;
+	cin >> respuestaUsuario;
+
   	return 0;
 }

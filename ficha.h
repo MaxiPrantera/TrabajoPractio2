@@ -2,6 +2,8 @@
 #ifndef FICHA_H_
 #define FICHA_H_
 
+#include <string>
+#include <iostream>
 #include "Constantes.h"
 
 
@@ -14,6 +16,7 @@ private:
 	unsigned int x;
 	unsigned int y;
 	unsigned int z;
+	std::string duenio;
 public:
 	/*
 		PRE: -
@@ -25,7 +28,7 @@ public:
 		PRE: - 
 		POST: Crea la instancia de ficha
 	*/
-	Ficha(TipoFicha, unsigned int, unsigned int, unsigned int);
+	Ficha(TipoFicha, unsigned int, unsigned int, unsigned int, std::string);
 	
 	/*
 		PRE: Tiene que existir una ficha
@@ -75,13 +78,6 @@ public:
 	void setPosicion(unsigned int, unsigned int, unsigned int);
 	
 	/*
-		PRE: La ficha tiene que ser un soldado, debe existir y debe estar muerto
-		POST: Cambia el estado del soldado a vivo
-
-	*/
-	void revivirSoldado();
-	
-	/*
 		PRE: La ficha debe existir y debe estar viva
 		POST: Cambia el estado de la ficha al soldado
 		
@@ -93,6 +89,12 @@ public:
 		POST: Devuleve el tipo de ficha
 	*/
 	TipoFicha getTipoFicha();
+
+	/*
+		PRE: La ficha debe existir
+		POST: Devuleve el tipo de ficha en formato string
+	*/
+	std::string getTipoFichaStr();
 
 	/*
 		PRE: -

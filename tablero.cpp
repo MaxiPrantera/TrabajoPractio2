@@ -155,8 +155,8 @@ unsigned int Tablero::getCantidadProfundidad()
  */
 Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso, bool aceptaInactivos)
 {
-    int x = 0, y = 0, z = 0;
-    cout << "Eliga las coordenadas para " << msj << endl;
+    unsigned int x = 0, y = 0, z = 0;
+    cout << "Elija las coordenadas para " << msj << endl;
     if(esPiso)
     {
         z = 1;
@@ -272,18 +272,8 @@ void Tablero::moverFicha(char direccion, Ficha* ficha){
 			}
 			break;
 	}
-	bool movimiento = true;
-	if (x < 1 || x > this->getCantidadFilas()){
-		movimiento = false;
-	}
-	if (y < 1 || x > this->getCantidadFilas()){
-		movimiento = false;
-	}
-	if (z < 1 || z > this->getCantidadFilas()){
-		movimiento = false;
-	}
 
-	if (movimiento == true){
+	if (this->existeLaCasilla(x, y, z)){
 		casillero->setEstado(vacio);
 		casillero = getCasillero(x,y,z);
 		if (casillero->getEstado() == vacio){
@@ -325,11 +315,11 @@ void Tablero::disparar(Casillero* casillero)
 
 void Tablero::tirarMisil(Casillero* casillero)
 {
-    for(int x = casillero->getX() - 1; x <= casillero->getX() + 1; x++)
+    for(unsigned int x = casillero->getX() - 1; x <= casillero->getX() + 1; x++)
     {
-        for(int y = casillero->getY() - 1; y <= casillero->getY() + 1; y++)
+        for(unsigned int y = casillero->getY() - 1; y <= casillero->getY() + 1; y++)
         {
-            for(int z = casillero->getZ() - 1; z <= casillero->getZ() + 1; z++)
+            for(unsigned int z = casillero->getZ() - 1; z <= casillero->getZ() + 1; z++)
             {
             	if(this->existeLaCasilla(x, y, z))
 				{
@@ -342,9 +332,9 @@ void Tablero::tirarMisil(Casillero* casillero)
 
 void Tablero::tirarMolotov(Casillero* casillero)
 {
-    for(int x = casillero->getX() - 1; x <= casillero->getX() + 1; x++)
+    for(unsigned int x = casillero->getX() - 1; x <= casillero->getX() + 1; x++)
     {
-        for(int y = casillero->getY() - 1; y <= casillero->getY() + 1; y++)
+        for(unsigned int y = casillero->getY() - 1; y <= casillero->getY() + 1; y++)
         {
             if(this->existeLaCasilla(x, y, 1))
 			{
