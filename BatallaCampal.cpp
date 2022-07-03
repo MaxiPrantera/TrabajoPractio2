@@ -113,6 +113,21 @@ void BatallaCampal::jugadorMoverFicha(unsigned int jugador){
     }
 }
 
+void BatallaCampal::jugadorDisparar(unsigned int jugador)
+{  
+	this->tablero->disparar(this->tablero->elegirCoordenadas("disparar", false, true));
+	for(unsigned int ficha = 1; ficha <= this->getJugador(jugador)->getCantidadFichas(); ficha++){
+		if(this->getFicha(jugador, ficha)->getEstado() == viva){
+			if(this->getFicha(jugador, ficha)->getTipoFicha() == avion){
+				this->tablero->disparar(this->tablero->elegirCoordenadas("disparar", false, true));
+				this->tablero->disparar(this->tablero->elegirCoordenadas("disparar", false, true));
+			}else if(this->getFicha(jugador, ficha)->getTipoFicha() == barco){
+				this->tablero->tirarMisil(this->tablero->elegirCoordenadas("disparar", false, true));	
+			}
+		}
+	}
+}
+
 //Revisar esta funcion porque si ningun jugador sobrevivio sigue el juego y no tiene sentido. Aparte creo que asigna mal el ganador.
 bool BatallaCampal::verificarGanador(Jugador* jugadorGanador){
     int cantidadDeJugadores = 0;
@@ -233,16 +248,6 @@ void BatallaCampal::iniciarEscenarioTres(unsigned int xmax, unsigned int ymax, u
 }
 
 
-
-
-
-void BatallaCampal::jugadorDispara(unsigned int x, unsigned int y, unsigned int z)
-{
-    this->tablero->getCasillero(x, y, z)->setEstado(inactivo);
-    if(this->tablero->getCasillero(x, y, z)->getEstado() == ocupado){
-        this->tablero->getCasillero(x, y, z)->eliminarFicha();
-    }
-}
 
 Ficha* BatallaCampal::getFicha(unsigned int jugador,unsigned int ficha){
 	return getJugador(jugador)->getFicha(ficha);

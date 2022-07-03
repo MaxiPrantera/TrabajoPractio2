@@ -102,13 +102,8 @@ int main()
   		    batallaCampal->jugadorMoverFicha(jugadorActual);
 
   
-  //		  //(1) Logica de disparos:
-  //		  int x, y, z;
-  //		  cout << "Eliga una posicion en x y z para disparar" << endl;
-  //		  cin >> x;
-  //		  cin >> y;
-  //		  cin >> z;
-  //		  batallaCampal->jugadorDispara(x, y, z);
+  		  	//(1) Logica de disparos:
+  		  	batallaCampal->jugadorDisparar(jugadorActual); 
   
 
         	//(3) Logica de tirar carta:

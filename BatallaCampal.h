@@ -98,6 +98,12 @@ public:
      * Post: El jugador indicado mueve una ficha.
      */
     void jugadorMoverFicha(unsigned int);
+    
+    /*
+     * Pre: El numero de jugador debe ser valido (Dentro del rango).
+     * Post: El jugador indicado dispara.
+     */
+    void jugadorDisparar(unsigned int jugador);
 
     /*
      * Pre: ---
@@ -161,7 +167,7 @@ public:
      * Pre: La posicion es valida.
      * Post: Devuelve el casillero en la posicion indicada.
      */
-    Casillero* getCasillero(unsigned int, unsigned int, unsigned int);
+    Casillero* getCasillero(unsigned int x, unsigned int y, unsigned int z);
        
     /*
 	 * Pre: El numero de la ficha debe ser valido (Dentro del rango).
@@ -169,10 +175,6 @@ public:
   	 */
 	Ficha* getFicha(unsigned int, unsigned int);
 
-    /*
-     * Pre: El numero de jugador debe ser valido (Dentro del rango).
-     * Post: El jugador indicado dispara.
-     */
-    void jugadorDispara(unsigned int, unsigned int, unsigned int);
+
 };
 #endif

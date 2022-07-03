@@ -32,9 +32,9 @@ public:
     Lista<Lista<Lista<Casillero> > >* obtenerMatrizTablero();
     Casillero* elegirCoordenadas(std::string, bool, bool);
     void moverFicha(char, Ficha*);
-
-    void disparar(unsigned int, unsigned int, unsigned int, bool, bool);
-
+    void disparar(Casillero*);
+    void tirarMisil(Casillero*);
+	void tirarMolotov(Casillero*);
 };
 
 #endif //TP2_TABLERO_H

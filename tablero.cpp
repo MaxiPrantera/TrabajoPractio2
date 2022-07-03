@@ -314,93 +314,47 @@ void Tablero::moverFicha(char direccion, Ficha* ficha){
 	}
 }
 
-void Tablero::disparar(unsigned int, unsigned int, unsigned int, bool, bool)
+void Tablero::disparar(Casillero* casillero)
 {
-	std::cout << "Hola" <<endl;
+    if(casillero->getEstado() == ocupado){
+        casillero->eliminarFicha();
+    }
+    casillero->setEstado(inactivo);
 }
 
 
-
-
-
-/*void Tablero::crearMatrizVecinos(int cantFilas, int cantColumnas, int cantEnProfundidad) {
-
-   Casillero *casilla;
-
-    for (int i = 0; i < this->cantFilas; i++) {
-        for (int j = 0; j < this->cantColumnas; j++) {
-            for (int k = 0; k < this->cantEnProfundidad; k++) {
-
-                casilla = this->getCasilla(i,j,k);
-                Casillero**** matrizVecinal = new Casillero***();
-
-                for (int l = 0; l <3; l++) {
-                    //Casillero *** columna = new Casillero**();
-                    matrizVecinal[l] = new Casillero** ();
-                    for (int m = 0; m < 3; m++) {
-                        matrizVecinal[l][m] = new Casillero*();
-                        for (int n = 0; n < 3; n++) {
-                            //matrizVecinal[l][m][n] = new Casillero();
-                            matrizVecinal[l][m][n] = NULL;
-                        }
-                    }
-                }
-                casilla->asignarMatrizVecinos(matrizVecinal);
-            }
-        }
-    }
-}*/
-
-
-
-
-//ASIGNO LOS VECINOS
-// edit matriz vecinos // Algoritmo que Asigna la matriz de vecinos //falta implementar existeLaCasilla
-/*
-    for (int i = 0; i < this->cantColumnas; i++) { //el primer for me agarra la primer columna
-        for (int j = 0; j < this->cantFilas; j++) { //el segundo for me define la fila
-            for (int k = 0; k < this->cantEnProfundidad; k++) { //el 3er for la profundidad
-                Casillero* casillero = this->getCasilla(i,j,k);
-                for (int l = -1; l < 2; l++) {
-                    for (int m = -1; m < 2; m++) {
-                        for (int n = -1; n < 2; n++) {
-                            if (existeLaCasilla(i + l, j + m, k + n)) {   //Implementar existeLaCasilla (>0, <ancho, <alto, <profundo)
-                            //Con este if resolvemos la parte imaginaria(osea los que estarian en NULL porq estan por fuera del tablero)
-                            Casillero *casilleroVecino = this->getCasilla(i + l, j + m, k +n); //SI NO EXISTE LA CASILLA, getCasilla tendria q devolver excepcoion
-                            casilleroVecino->asignarVecino(l, m, n, casilleroVecino);
-                            }
-                        }
-                    }
-                }
+void Tablero::tirarMisil(Casillero* casillero)
+{
+    for(int x = casillero->getX() - 1; x <= casillero->getX() + 1; x++)
+    {
+        for(int y = casillero->getY() - 1; y <= casillero->getY() + 1; y++)
+        {
+            for(int z = casillero->getZ() - 1; z <= casillero->getZ() + 1; z++)
+            {
+            	if(this->existeLaCasilla(x, y, z))
+				{
+					this->disparar(this->getCasillero(x, y, z));
+				}
             }
         }
     }
 }
 
-//edit matriz vecinos
-//edit matriz vecinos
-
-//edit matriz vecinos //TERMINAR!!
-//Algoritmo que verifica el ganador
-bool Tablero::hayTateti(Casillero *casilleroOrigen, direccion) { //casilleroOrigen es donde estoy parado(revisar que seria)
-   casilleroOrigen->getVecinos();
-   int longitudesAdyacentes[3][3][3];
-
-   for (int i = 0; i <3 ; i++) {
-       for (int j = 0; j <3 ; j++) {
-           for (int k = 0; k <3 ; k++) {
-               longitudesAdyacentes[i][j][k] = casilleroOrigen->getLongitud(i,j,k); //Devuelve la longitud de los casiilrros usados x la misma ficha
-           }
-       }
-   }
-   for (int i = 0; i <3 ; i++) {
-       for (int j = 0; j <3 ; j++) {
-           for (int k = 0; k <3 ; k++) {
-               longitudesAdyacentes[i][j][k];
-
-           }
-       }
-   }
+void Tablero::tirarMolotov(Casillero* casillero)
+{
+    for(int x = casillero->getX() - 1; x <= casillero->getX() + 1; x++)
+    {
+        for(int y = casillero->getY() - 1; y <= casillero->getY() + 1; y++)
+        {
+            if(this->existeLaCasilla(x, y, 1))
+			{
+            	if(this->getCasillero(x, y, 1)->getTerreno() != agua)
+				{
+					this->disparar(this->getCasillero(x, y, 1));
+				}
+            }
+        }
+    }
 }
-*/
-//edit matriz vecinos
+
+
