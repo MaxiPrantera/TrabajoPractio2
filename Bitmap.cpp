@@ -1,108 +1,182 @@
-#include "bitmap_image.hpp"
+#include "EasyBMP.h"
+#include "EasyBMP.cpp"
 #include "Lista.h"
 #include "tablero.h"
 
-using namespace std;
 
-Bitmap::Bitmap(){
-    Lista<BMP*>* listaBitmap = new Lista<BMP*>();
-    this->listaBitmap = listaBitmap;
+Bitmap::Bitmap(unsigned int xMax, unsigned int yMax, unsigned int zMax){
+   	this->tablero = new Tablero(xmax, ymax, zmax);
+	this->listaBitmap = new Lista<BMP*>();
+	this->xMax=xMax;
+    	this->yMax=yMax;
+    	this->zMax=zMax; 
 }
 
-void dibujarTablero(Lista<BMP*> * capasTablero, unsigned int xMax, unsigned int yMax, unsigned int zMax){
+void Bitmap::dibujarTablero(Lista<BMP*> * capasTablero, unsigned int xMax, unsigned int yMax, unsigned int zMax){
 
+    BMP casilleroVacio;
     std::string file_name("agua" + "tierra" + casillero.terrenoAString()+ ".bmp");
-    bitmap_image image(file_name);
-    bitmap_image image(600, 400);
+    
+    for(unsigned int i = 1; i < zMax; i++){
 
-    const rgb_t* colormap[1] = 
-    {
-        gray_colormap,
-    };
+        capasTablero->get(i)->SetSize(xMax, yMax);
+        capasTablero->get(i)->SetBitDepth(8);
 
-    for(unsigned int i = 0; i < xMax; i++){
-        for(unsigned int j = 0; j < yMax; j++){
-            capasTablero->get(i)->SetBitDepth(32);
-            draw.pen_color(colormap[j][i].red, colormap[j][i].green, colormap[j][i].blue);
-            draw.vertical_line_segment(j * 20, (j+1) * 20, i);
-            RangedPixelToPixelCopy(image, 0 ,184, 0, 152,*capasTablero->get(i), j*184, 152*k);
+
+        for(unsigned int j = 1; j < yMax; j++){
+            for(unsigned int k = 1; k < xMax; k++){
+
+            RangedPixelToPixelCopy(casilleroVacio, 100 ,184, 600, 152,*capasTablero->get(i), j*184, 152*k);
+
+            }
         }
         
     }
-void dibujarTierra(){
+}
 
-    const int width  = 600;
-    const int height = 400;
-    cartesian_canvas tierra(width,height);
-    {
-    const rgb_t* colormap[9] = {
-                                    autumn_colormap,
-                                    copper_colormap,
-                                    gray_colormap,
-                                    hot_colormap,
-                                    hsv_colormap,
-                                    jet_colormap,
-                                    prism_colormap,
-                                    vga_colormap,
-                                    yarg_colormap
-                                };
-    const double x = 0.7;
-    const double y = 0.7;
-    const double c1 = 0.3;
-    const double c2 = 0.3;
-    const double c3 = 0.2;
-    const double c4 = 0.2;
+void Bitmap::dibujarTierra( BMP& InputImage ) //EscenarioUno
+{
+	int BitDepth = InputImage.TellBitDepth();
+	if( BitDepth != 1 && BitDepth != 4 && BitDepth != 8 ){ 
+		return; }
+	int NumberOfColors = IntPow(2,BitDepth); 
+	int i;
+	ebmpBYTE StepSize;
+	if( BitDepth != 1 )
+		{ 
+		StepSize = 255/(NumberOfColors-1); }
+	else{ 
+		StepSize = 255; }
+	for( i=0 ; i < NumberOfColors ; i++)
+	{
+	RGBApixel Temp;
+	Temp.Red = 67; //67 //19
+	Temp.Green = 36; //36 //79
+	Temp.Blue = 3; //3 //178
+	Temp.Alpha = 0;
+	InputImage.SetColor(i,Temp);
+	}
+}
 
-    ::srand(0xB6BB6BB6);
+void Bitmap::dibujarAgua( BMP& InputImage ) //EscenarioDos
+{
+	int BitDepth = InputImage.TellBitDepth();
+	if( BitDepth != 1 && BitDepth != 4 && BitDepth != 8 ){ 
+		return; }
+	int NumberOfColors = IntPow(2,BitDepth); 
+	int i;
+	ebmpBYTE StepSize;
+	if( BitDepth != 1 )
+		{ 
+		StepSize = 255/(NumberOfColors-1); }
+	else{ 
+		StepSize = 255; }
+	for( i=0 ; i < NumberOfColors ; i++)
+	{
+		RGBApixel Temp;
+		Temp.Red = 19; //67 //19
+		Temp.Green = 79; //36 //79
+		Temp.Blue = 178; //3 //178
+		Temp.Alpha = 0;
+		InputImage.SetColor(i,Temp);
+	}
+}
 
-    plasma(tierra.image(), x, y, width, height, c1, c2, c3, c4, 0.9, copper_colormap);
+void Bitmap::dibujarLaguna() //EscenarioTres
+{
+    BMP AguaTierra;
 
+    AguaTierra.SetBitDepth(8);
+    AguaTierra.SetSize(600,600);
+
+    int x ;
+    int y ;
+    for (x = 0; x < 600; x++){
+	    for(y = 0; y < 600; y++){
+
+		    AguaTierra(x,y)->Red = 19;
+		    AguaTierra(x,y)->Green = 79;
+		    AguaTierra(x,y)->Blue = 178;
+		    AguaTierra(x,y)->Alpha = 0;
+	
+	    }
     }
-    tierra.image().save_image("tierra.bmp");
+    for (x = 0; x < 600; x++){
+	    for(y = 0; y < 150; y++){
 
-}
-
-void dibujarAgua(){
-    const int width  = 600;
-    const int height = 400;
-    cartesian_canvas agua(width,height);
-
-    {
-    const double x = 0.7;
-    const double y = 0.7;
-    const double c1 = 0.3;
-    const double c2 = 0.3;
-    const double c3 = 0.2;
-    const double c4 = 0.2;
-
-    ::srand(0xA5AA5AA5);
-
-    plasma(agua.image(), x, y, width, height, c1, c2, c3, c4, 0.2, jet_colormap);
-
+		    AguaTierra(x,y)->Red = 67;
+		    AguaTierra(x,y)->Green = 36;
+		    AguaTierra(x,y)->Blue = 3;
+		    AguaTierra(x,y)->Alpha = 0;
+	    }
     }
-    agua.image().save_image("agua.bmp");
+    for (x = 0; x < 600; x++){
+	    for(y = 450; y < 600; y++){
+
+		    AguaTierra(x,y)->Red = 67;
+		    AguaTierra(x,y)->Green = 36;
+		    AguaTierra(x,y)->Blue = 3;
+		    AguaTierra(x,y)->Alpha = 0;
+	    }
+    }
 }
 
-void dibujarFuego(){
-    bitmap_image fuego(600,400);
+void Bitmap::quemarCasillero( BMP& InputImage )
+{
+	int BitDepth = InputImage.TellBitDepth();
+	if( BitDepth != 1 && BitDepth != 4 && BitDepth != 8 ){ 
+		return;
+	}
+	int NumberOfColors = IntPow(2,BitDepth); 
+	int i;
+	ebmpBYTE StepSize;
+	if( BitDepth != 1 )
+		{ 
+		StepSize = 255/(NumberOfColors-1); }
+	else{ 
+		StepSize = 255; }
+	for( i=0 ; i < NumberOfColors ; i++)
+	{
+		RGBApixel Temp;
+		Temp.Red = i*StepSize; //67 //19
+		Temp.Green = 0; //36 //79
+		Temp.Blue = 0; //3 //178
+		Temp.Alpha = 0;
+		InputImage.SetColor(i,Temp);
+	}
+}
 
-    image.clear();
+void Bitmap::casilleroAnulado(){
 
-    double c1 = 0.9;
-    double c2 = 0.5;
-    double c3 = 0.3;
-    double c4 = 0.7;
+	BMP Gris;
+	Gris.ReadFromFile( "soldado.bmp" ); //Le paso como ejemplo la imagen del soldado
 
-    ::srand(0xA5AA5AA5);
-    plasma(image,0,0,image.width(),image.height(),c1,c2,c3,c4,3.0,jet_colormap);
-    fuego.save_image("fuego.bmp");
+	for( int j=0 ; j < Gris.TellHeight() ; j++)
+	{
+		for( int i=0 ; i < Gris.TellWidth() ; i++)
+		{
+			int Temp = (int) floor( 0.299*Gris(i,j)->Red + 0.587*Gris(i,j)->Green + 0.114*Gris(i,j)->Blue );
+			ebmpBYTE TempBYTE = (ebmpBYTE) Temp;
+			Gris(i,j)->Red = TempBYTE;
+			Gris(i,j)->Green = TempBYTE;
+			Gris(i,j)->Blue = TempBYTE;
+		}
+	}
+	// Creo Tabla de color gris
+	if( Gris.TellBitDepth() < 16 )
+	{ 
+		CreateGrayscaleColorTable( Gris ); }
+	
+	Gris.WriteToFile( "gris.bmp" );
+
 }
 
 
+void Bitmap::imprimirTablero(Tablero * tablero, unsigned int xMax, unsigned int yMax, unsigned int zMax){
 
-void imprimirTablero(Tablero * tablero, unsigned int xMax, unsigned int yMax, unsigned int zMax){
+	this->tablero = new Tablero(xmax, ymax, zmax);
 
-    Lista<BMP*> * capasTablero  = new Lista<BMP*> ;
+    Lista<BMP*> * capasTablero  = new Lista<BMP*>;
     for(unsigned int cantidadDeCapas = 0; cantidadDeCapas <zMax ;cantidadCapas++)
 	{
 		BMP * nuevoBitmap = new BMP;
@@ -113,26 +187,24 @@ void imprimirTablero(Tablero * tablero, unsigned int xMax, unsigned int yMax, un
     Tablero* = tablero->obtenerMatrizTablero();
     Casillero * casilleroActual = NULL;
 
-	for(unsigned int z = 1 ;z <= zMax; z++)
-	{		
-		for(unsigned int y = 1; y <= yMax; y++)
-		{
-			for(unsigned int x = 1; x <= xMax;fil++)
-			{
-
-                casilleroActual = Casillero->getCasillero(x, y, z);
-                char fichaActual = casilleroActual->Ficha(const Ficha&);
+    for(unsigned int x = 1; x < this->xMax; x++)
+    {
+        this->casilleros->agregar(Lista<Lista<Casillero> >());
+        for (unsigned int y = 1; y < this->yMax; y++)
+        {
+            this->casilleros->get(x).agregar(Lista <Casillero>());
+            for (unsigned int z = 1; z < this->zMax; z++)
+            {
+                this->casilleros->get(x).get(y).agregar(Casillero());
             }
         }
-
+    }
     tablero.save_image("tablero.bmp");
 
-    //libero memoria dinamica de los bitmaps
     capasTablero->iniciarCursor();
 	while(capasTablero->avanzarCursor())
 	{
 		delete capasTablero->obtenerCursor();
 	}
 	delete capasTablero;
-    }
 }
