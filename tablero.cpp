@@ -216,92 +216,112 @@ Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso, bool aceptaI
     return this->getCasillero(x, y, z);
 }
 
-void Tablero::moverFicha(char direccion, Ficha* ficha){
+void Tablero::moverFicha(Ficha* ficha){
 	
-	unsigned int x = ficha->getUbicacionX();
-	unsigned int y = ficha->getUbicacionY();
-	unsigned int z = ficha->getUbicacionZ();
-	Casillero* casillero = getCasillero(x,y,z);
-
-	switch (direccion){
-		case IZQUIERDA:
-			x--;
-			break;
-
-		case ADELANTE:
-			y--;
-			break;
-
-		case DERECHA:
-			x++;
-			break;
-
-		case ATRAS:
-			y++;
-			break;
-
-		case DIAGONAL_IZQUERDA_ADELANTE:
-			x--;
-			y--;
-			break;
-
-		case DIAGONAL_DERECHA_ADELANTE:
-			x++;
-			y--;
-			break;
-
-		case DIAGONAL_IZQUERDA_ATRAS:
-			x--;
-			y++;
-			break;
-
-		case DIAGONAL_DERECHA_ATRAS:
-			x++;
-			y++;
-			break;
-
-		case ARRIBA:
-			if (ficha->getTipoFicha() == avion){
-				z++;
+	char direccion;
+	bool validacion = false;
+	do
+	{
+		do
+		{
+			cin >> direccion;
+			if (direccion != 'w' && direccion != 'a' && direccion != 's' && direccion != 'd' && direccion != 'q' && direccion != 'e' && direccion != 'z' && direccion != 'c' && direccion != 'r' && direccion != 'f'){
+				cout << "Direccion invalida, seleccione otra" << endl;
 			}
-			break;
-
-		case ABAJO:
-			if (ficha->getTipoFicha() == avion){
-				z--;
+			else{
+				validacion = true;
 			}
-			break;
-	}
-
-	if (this->existeLaCasilla(x, y, z)){
-		casillero->setEstado(vacio);
-		casillero = getCasillero(x,y,z);
-		if (casillero->getEstado() == vacio){
-			ficha->setPosicion(x, y, z);
-			casillero->setFicha(ficha);
 		}
-		else if (casillero->getEstado() == ocupado){
-			if (ficha->getEscudo() == true && casillero->obtenerContenidoCasillero()->getEscudo() == true){
-				casillero->obtenerContenidoCasillero()->quitarEscudo();
-				ficha->quitarEscudo();
-			}
-			casillero->eliminarFicha();
-			ficha->eliminarFicha();
-			if (ficha->getEstado() == viva){
+		while(!validacion);
+
+		unsigned int x = ficha->getUbicacionX();
+		unsigned int y = ficha->getUbicacionY();
+		unsigned int z = ficha->getUbicacionZ();
+		Casillero* casillero = getCasillero(x,y,z);
+
+		switch (direccion){
+			case IZQUIERDA:
+				x--;
+				break;
+
+			case ADELANTE:
+				y--;
+				break;
+
+			case DERECHA:
+				x++;
+				break;
+
+			case ATRAS:
+				y++;
+				break;
+
+			case DIAGONAL_IZQUERDA_ADELANTE:
+				x--;
+				y--;
+				break;
+
+			case DIAGONAL_DERECHA_ADELANTE:
+				x++;
+				y--;
+				break;
+
+			case DIAGONAL_IZQUERDA_ATRAS:
+				x--;
+				y++;
+				break;
+
+			case DIAGONAL_DERECHA_ATRAS:
+				x++;
+				y++;
+				break;
+
+			case ARRIBA:
+				if (ficha->getTipoFicha() == avion){
+					z++;
+				}
+				break;
+
+			case ABAJO:
+				if (ficha->getTipoFicha() == avion){
+					z--;
+				}
+				break;
+		}
+
+		if (this->existeLaCasilla(x, y, z)){
+			validacion = true;
+			casillero->setEstado(vacio);
+			casillero = getCasillero(x,y,z);
+			if (casillero->getEstado() == vacio){
 				ficha->setPosicion(x, y, z);
 				casillero->setFicha(ficha);
 			}
-			if (casillero->obtenerContenidoCasillero()->getEstado() == viva){
-				casillero->setEstado(ocupado);
+			else if (casillero->getEstado() == ocupado){
+				if (ficha->getEscudo() == true && casillero->obtenerContenidoCasillero()->getEscudo() == true){
+					casillero->obtenerContenidoCasillero()->quitarEscudo();
+					ficha->quitarEscudo();
+				}
+				casillero->eliminarFicha();
+				ficha->eliminarFicha();
+				if (ficha->getEstado() == viva){
+					ficha->setPosicion(x, y, z);
+					casillero->setFicha(ficha);
+				}
+				if (casillero->obtenerContenidoCasillero()->getEstado() == viva){
+					casillero->setEstado(ocupado);
+				}
+			}
+			else{
+				cout << "Casillero inactivo no puedes moverte ahi, seleccione otro" << endl;
+				validacion = false;
 			}
 		}
 		else{
-			std::cout << "Casillero inactivo no puedes moverte ahi" << endl;
+			cout << "Casillero fuera de rango, no puedes moverte ahi, seleccione otro" << endl;
+			validacion = false;
 		}
-	}
-	else{
-		std::cout << "Casillero fuera de rango, no puedes moverte ahi!" << endl;
-	}
+	}while(!validacion);
 }
 
 void Tablero::disparar(Casillero* casillero)

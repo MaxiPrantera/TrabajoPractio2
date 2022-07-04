@@ -82,38 +82,32 @@ void BatallaCampal::jugadorTirarCarta(unsigned int jugador)
 }
 
 void BatallaCampal::jugadorMoverFicha(unsigned int jugador){
-	int respuesta;
-    std::cout << "Que ficha quiere mover?(Responda 0 si no quiere mover nada)" << endl;
+	unsigned int respuesta;
+	bool validacion = false;
+    cout << "Que ficha quiere mover?(Responda 0 si no quiere mover nada)" << endl;
 
     for(unsigned int ficha = 1; ficha < (getCantidadFichasJugador(jugador) + 1); ficha++){
         if (getFicha(jugador, ficha)->getEstado() == viva and getFicha(jugador, ficha)->getTipoFicha() != barco ){
-        	std::cout << ficha << ". ";
-        	if (getFicha(jugador, ficha)->getTipoFicha() == soldado){
-        		std::cout << "soldado - ";
-        	}
-        	else{
-        		std::cout << "avion - ";
-        	}
-        	std::cout << getFicha(jugador, ficha)->getUbicacionX()
-             	 	  << "/"
-             		  << getFicha(jugador, ficha)->getUbicacionY()
-             	 	  << "/"
-             		  << getFicha(jugador, ficha)->getUbicacionZ()
-             	 	  << endl;
+        	cout << ficha << ". " << getFicha(jugador, ficha)->getTipoFichaStr() << " - "
+        	     << getFicha(jugador, ficha)->getUbicacionX()
+             	 << "/"
+                 << getFicha(jugador, ficha)->getUbicacionY()
+             	 << "/"
+             	 << getFicha(jugador, ficha)->getUbicacionZ()
+             	 << endl;
     	}
 	}
-    std::cin >> respuesta;
+    cin >> respuesta;
     //respuesta = 1;
     if (respuesta != 0){
-		char direccion;
-		std::cout << "w = adelante, a = izquierda, s = atras, d = derecha\n"
-				  << "q = diagonal izquierda adelante, e diagonal derecha adelante, z = diagonal atras izquierda, c = diagonal atras derecha" << endl;
+		cout << "Elija una Direccion"
+			 << endl
+			 << "w = adelante, a = izquierda, s = atras, d = derecha\n"
+		     << "q = diagonal izquierda adelante, e diagonal derecha adelante, z = diagonal atras izquierda, c = diagonal atras derecha" << endl;
 		if (getFicha(jugador,respuesta)->getTipoFicha() == avion){
-			std::cout << "r = arriba, f = abajo" << endl;
+			cout << "r = arriba, f = abajo" << endl;
 		}
-		std::cin >> direccion;
-		//direccion = 'w';
-		this->tablero->moverFicha(direccion,getFicha(jugador,respuesta));
+		this->tablero->moverFicha(getFicha(jugador,respuesta));
     }
 }
 
