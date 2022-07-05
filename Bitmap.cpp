@@ -171,6 +171,20 @@ void Bitmap::casilleroAnulado(){
 
 }
 
+void Bitmap::agregarEscudo(){
+	
+	BMP Soldado;
+	Soldado.SetBitDepth(8);
+	Soldado.ReadFromFile("soldado.bmp");
+	BMP Escudo;
+	Escudo.ReadFromFile("Escudo.bmp");
+
+	RGBApixel TransparentColor;
+	TransparentColor.Red = 255;
+	TransparentColor.Green = 255;
+	TransparentColor.Blue = 255;
+	RangedPixelToPixelCopyTransparent(Soldado, 100, 600, 600, 100, Escudo, 100, 110, TransparentColor);
+}
 
 void Bitmap::imprimirTablero(Tablero * tablero, unsigned int xMax, unsigned int yMax, unsigned int zMax){
 
