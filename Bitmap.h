@@ -23,6 +23,8 @@ public:
     void quemarCasillero( BMP& InputImage );
 
     void casilleroAnulado();
+    
+    void agregarEscudo();
 
     void imprimirTablero(Tablero * tablero, unsigned int xMax, unsigned int yMax, unsigned int zMax);
 
