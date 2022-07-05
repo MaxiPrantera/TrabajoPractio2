@@ -1,40 +1,39 @@
-#include "EasyBMP.h"
-#include "EasyBMP.cpp"
 #include "Lista.h"
+#include "Constantes.h"
+#include "MiBitmap.h"
 #include "tablero.h"
 
+using namespace std;
 
-Bitmap::Bitmap(unsigned int xMax, unsigned int yMax, unsigned int zMax){
-   	this->tablero = new Tablero(xmax, ymax, zmax);
-	this->listaBitmap = new Lista<BMP*>();
-	this->xMax=xMax;
-    	this->yMax=yMax;
-    	this->zMax=zMax; 
+
+MiBitmap::MiBitmap(){
+	this->filasAImprimir = new Lista<BMP>();
 }
 
-void Bitmap::dibujarTablero(Lista<BMP*> * capasTablero, unsigned int xMax, unsigned int yMax, unsigned int zMax){
+MiBitmap::~MiBitmap(){
+	delete this->filasAImprimir;
+}
 
+void MiBitmap::dibujarTablero(){
     BMP casilleroVacio;
-    std::string file_name("agua" + "tierra" + casillero.terrenoAString()+ ".bmp");
+    casilleroVacio.ReadFromFile("casillero.bmp");
     
-    for(unsigned int i = 1; i < zMax; i++){
+    for(unsigned int fila = 1; fila <= ALTO_TABLERO; fila++){
 
-        capasTablero->get(i)->SetSize(xMax, yMax);
-        capasTablero->get(i)->SetBitDepth(8);
+    	this->filasAImprimir->get(fila).SetSize(PROFUNDIDAD_TABLERO, ANCHO_TABLERO);
+    	this->filasAImprimir->get(fila).SetBitDepth(8);
 
 
-        for(unsigned int j = 1; j < yMax; j++){
-            for(unsigned int k = 1; k < xMax; k++){
-
-            RangedPixelToPixelCopy(casilleroVacio, 100 ,184, 600, 152,*capasTablero->get(i), j*184, 152*k);
-
+        for(unsigned int columna = 1; columna < ANCHO_TABLERO; columna++){
+            for(unsigned int profundidad = 1; profundidad < PROFUNDIDAD_TABLERO; profundidad++){
+            	RangedPixelToPixelCopy(casilleroVacio, 100 ,184, 600, 152, this->filasAImprimir->get(fila), columna*184, profundidad*152);
             }
         }
         
     }
 }
 
-void Bitmap::dibujarTierra( BMP& InputImage ) //EscenarioUno
+void MiBitmap::dibujarTierra( BMP& InputImage ) //EscenarioUno
 {
 	int BitDepth = InputImage.TellBitDepth();
 	if( BitDepth != 1 && BitDepth != 4 && BitDepth != 8 ){ 
@@ -58,7 +57,7 @@ void Bitmap::dibujarTierra( BMP& InputImage ) //EscenarioUno
 	}
 }
 
-void Bitmap::dibujarAgua( BMP& InputImage ) //EscenarioDos
+void MiBitmap::dibujarAgua( BMP& InputImage ) //EscenarioDos
 {
 	int BitDepth = InputImage.TellBitDepth();
 	if( BitDepth != 1 && BitDepth != 4 && BitDepth != 8 ){ 
@@ -82,7 +81,7 @@ void Bitmap::dibujarAgua( BMP& InputImage ) //EscenarioDos
 	}
 }
 
-void Bitmap::dibujarLaguna() //EscenarioTres
+void MiBitmap::dibujarLaguna() //EscenarioTres
 {
     BMP AguaTierra;
 
@@ -121,7 +120,7 @@ void Bitmap::dibujarLaguna() //EscenarioTres
     }
 }
 
-void Bitmap::quemarCasillero( BMP& InputImage )
+void MiBitmap::quemarCasillero( BMP& InputImage )
 {
 	int BitDepth = InputImage.TellBitDepth();
 	if( BitDepth != 1 && BitDepth != 4 && BitDepth != 8 ){ 
@@ -146,7 +145,7 @@ void Bitmap::quemarCasillero( BMP& InputImage )
 	}
 }
 
-void Bitmap::casilleroAnulado(){
+void MiBitmap::casilleroAnulado(){
 
 	BMP Gris;
 	Gris.ReadFromFile( "soldado.bmp" ); //Le paso como ejemplo la imagen del soldado
@@ -171,7 +170,7 @@ void Bitmap::casilleroAnulado(){
 
 }
 
-void Bitmap::agregarEscudo(){
+void MiBitmap::agregarEscudo(){
 	
 	BMP Soldado;
 	Soldado.SetBitDepth(8);
@@ -186,17 +185,8 @@ void Bitmap::agregarEscudo(){
 	RangedPixelToPixelCopyTransparent(Soldado, 100, 600, 600, 100, Escudo, 100, 110, TransparentColor);
 }
 
-void Bitmap::imprimirTablero(Tablero * tablero, unsigned int xMax, unsigned int yMax, unsigned int zMax){
-
-	this->tablero = new Tablero(xmax, ymax, zmax);
-
-    Lista<BMP*> * capasTablero  = new Lista<BMP*>;
-    for(unsigned int cantidadDeCapas = 0; cantidadDeCapas <zMax ;cantidadCapas++)
-	{
-		BMP * nuevoBitmap = new BMP;
-		capasTablero->get(nuevoBitmap);
-	}
-    dibujarTablero(capasTablero, xMax, yMax, zMax)
+void MiBitmap::imprimirTablero(Tablero * tablero, unsigned int xMax, unsigned int yMax, unsigned int zMax){
+	this->dibujarTablero();
 
     Tablero* = tablero->obtenerMatrizTablero();
     Casillero * casilleroActual = NULL;
@@ -214,11 +204,4 @@ void Bitmap::imprimirTablero(Tablero * tablero, unsigned int xMax, unsigned int 
         }
     }
     tablero.save_image("tablero.bmp");
-
-    capasTablero->iniciarCursor();
-	while(capasTablero->avanzarCursor())
-	{
-		delete capasTablero->obtenerCursor();
-	}
-	delete capasTablero;
 }

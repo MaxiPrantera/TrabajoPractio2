@@ -1,18 +1,21 @@
+#ifndef MIBITMAP_INCLUDED
+#define MIBITMAP_INCLUDED
+
 #include "tablero.h"
-#include "casillero.h"
-#include "ficha.h"
+#include "EasyBMP.h"
 
-class Bitmap{
-
+class MiBitmap
+{
 private:
-    Tablero* tablero;
-    Lista<BMP*> listaBitmap;
+    Lista<BMP>* filasAImprimir;
 
 public:
 
-    Bitmap();
+    MiBitmap();
 
-    void dibujarTablero(Lista<BMP*> * capasTablero, unsigned int xMax, unsigned int yMax, unsigned int zMax);
+    virtual ~MiBitmap();
+
+    void dibujarTablero();
 
     void dibujarAgua( BMP& InputImage );
 
@@ -27,7 +30,6 @@ public:
     void agregarEscudo();
 
     void imprimirTablero(Tablero * tablero, unsigned int xMax, unsigned int yMax, unsigned int zMax);
+};
 
-    virtual ~Bitmap();
-
-}
+#endif // MIBITMAP_INCLUDED
