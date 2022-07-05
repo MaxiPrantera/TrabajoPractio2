@@ -43,8 +43,8 @@ string Carta::tipoAString(TipoCarta tipo)
             return "Molotov";
         case ESCUDO:
             return "Escudo";
-        case REVIVIR:
-            return "Revivir";
+        case TELETRANSPORTAR:
+            return "Teletransportar";
     }
 }
 

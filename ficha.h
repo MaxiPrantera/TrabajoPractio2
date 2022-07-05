@@ -65,6 +65,7 @@ public:
 		POST: Devuelve la ubicacion en "z" de la ficha
 	*/
 	int getUbicacionZ();
+
 	/*
 		PRE: Tiene que existir la instancia de ficha
 		POST: Cambia el estado de la ficha
@@ -80,7 +81,6 @@ public:
 	/*
 		PRE: La ficha debe existir y debe estar viva
 		POST: Cambia el estado de la ficha al soldado
-		
 	*/
 	void eliminarFicha();
 	

@@ -1,6 +1,4 @@
 #include <iostream>
-#include "Lista.h"
-#include "Cola.h"
 #include "Constantes.h"
 #include "BatallaCampal.h"
 
@@ -10,7 +8,7 @@ int main()
 {
 	//Variables auxiliares
 	int respuestaUsuario;
-    unsigned int turno = 1, jugadorActual = 1;
+    unsigned int jugadorActual = 1;
 
 	//TDAs
 	BatallaCampal* batallaCampal = new BatallaCampal();
@@ -21,7 +19,6 @@ int main()
 	//Inicializacion de jugadores:
 	cout << "Ingresar cantidad de jugadores" << endl;
     cin >> respuestaUsuario;
-	//respuestaUsuario = 2;
     string nombreJugador;
     for(int jugador = 0; jugador < respuestaUsuario;jugador++){
     	cout << "Ingresar nombre del jugador" << endl;
@@ -33,16 +30,15 @@ int main()
 	//Inicializacion de Tablero:
 	cout << "Se arma el campo de batalla, eliga que escenario quiere jugar (Entre 1 y 3): " << endl;
 	cin >> respuestaUsuario;
-	//respuestaUsuario = 1;
 	switch(respuestaUsuario){
 	case 1:
-	  batallaCampal->iniciarEscenarioUno(20, 20, 5);
+	  batallaCampal->iniciarEscenarioUno();
 	  break;
 	case 2:
-	  batallaCampal->iniciarEscenarioDos(20, 20, 5);
+	  batallaCampal->iniciarEscenarioDos();
 	  break;
 	case 3:
-	  batallaCampal->iniciarEscenarioTres(20, 20, 5);
+	  batallaCampal->iniciarEscenarioTres();
 	  break;
 	default:
 	  break;
@@ -53,7 +49,6 @@ int main()
 	cout << "Recluta a tus tropas y posicionalas estrategicamente" << endl;
     cout << "Cuantos soldados tendra cada jugador?" << endl;
     cin >> respuestaUsuario;
-    //respuestaUsuario = 1;
     for(int soldados = 0; soldados < respuestaUsuario; soldados++){
 	    for(unsigned int jugador = 1; jugador <= batallaCampal->getCantidadJugadores(); jugador++){
 		    cout << "\nJugador " << batallaCampal->getNombreJugador(jugador) << endl;
@@ -79,33 +74,26 @@ int main()
 	
     while (!batallaCampal->verificarGanador(ganador)){
   		if (jugadorActual > batallaCampal->getCantidadJugadores())
-  	  	{
-  			jugadorActual = 1;
-  	  	}
+  	  	{jugadorActual = 1;}
 
   	  	if (batallaCampal->getJugador(jugadorActual)->getCantidadSoldadosVivos() != 0){
-  		  	cout << batallaCampal->getNombreJugador(jugadorActual) << " te toca" << endl;
-  
   		  	//Inicia el turno robando carta.
-  		  	cout << batallaCampal->getNombreJugador(jugadorActual) << " robaste la carta " << batallaCampal->getCartaARobar() << endl;
+  		  	cout << "Es el turno de " << batallaCampal->getNombreJugador(jugadorActual) << " y roba una carta" << endl;
 		  	batallaCampal->jugadorRobarCarta(jugadorActual);
-  
-  		    //(2) Logica de Movimiento:
+
+  		    //(1) Logica de Movimiento:
   		    batallaCampal->jugadorMoverFicha(jugadorActual);
 
-  
-  		  	//(1) Logica de disparos:
+  		  	//(2) Logica de disparos:
   		  	batallaCampal->jugadorDisparar(jugadorActual); 
   
-
         	//(3) Logica de tirar carta:
   		    batallaCampal->jugadorTirarCarta(jugadorActual);
   
-  
-  //      //(4) Logica de mostrar tablero:
+  		    //(4) Logica de mostrar tablero:
   
       	}
-      	turno++;
+
       	jugadorActual++;
     }
 
@@ -122,9 +110,9 @@ int main()
     }
 
     delete batallaCampal;
+	delete ganador;
 
 	cout << "fin del juego." << endl;
-	cin >> respuestaUsuario;
 
   	return 0;
 }

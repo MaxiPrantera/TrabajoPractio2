@@ -9,7 +9,6 @@ Post: Inicializa un casillero con  una ficha nueva con el simbolo especificado
 Casillero::Casillero(){
 	this->terreno = aire;
     this->estado = vacio;
-    this->turnosRestantesDesbloqueo = 0;
     this->ficha = 0;
     this->x = 0;
     this->y = 0;
@@ -22,39 +21,10 @@ Post: Inicializa un casillero sin ficha en las coordenadas indicadas.
 Casillero::Casillero(unsigned int x, unsigned int y, unsigned int z){
 	this->terreno = aire;
     this->estado = vacio;
-    this->turnosRestantesDesbloqueo = 0;
     this->ficha = 0;
     this->x = x;
     this->y = y;
     this->z = z;
-}
-
-void Casillero::setEstado(EstadoCasillero estado){
-    this->estado = estado;
-}
-
-EstadoCasillero Casillero::getEstado(){
-    return this->estado;
-}
-
-void Casillero::setTerreno(Terreno terreno){
-    this->terreno = terreno;
-}
-
-Terreno Casillero::getTerreno(){
-    return this->terreno;
-}
-
-unsigned int Casillero::getX(){
-    return this->x;
-}
-
-unsigned int Casillero::getY(){
-    return this->y;
-}
-
-unsigned int Casillero::getZ(){
-    return this->z;
 }
 
 /*
@@ -66,58 +36,99 @@ Casillero::~Casillero()
 {
 
 }
+
 /*
-PRE: el casillero existe
-Post: copia el contenido de un casillero a otro casillero
+Post: Setea el estado con el valor indicado.
 */
-void Casillero::copiarCasillero(Casillero* dest){
-//    dest->contenidoCasillero = this->contenidoCasillero;
-//    this->contenidoCasillero = NULL;
+void Casillero::setEstado(EstadoCasillero estado){
+    this->estado = estado;
 }
 
 /*
-Pre: casillero fue creado anteriormete
-Post :retorna la cantidad de turnos restantes por los cuales el casillero esta bloqueado
+Post: Setea el terreno con el valor indicado.
 */
-unsigned int Casillero::getTurnosRestantesDesbloqueo(){
-    return this->turnosRestantesDesbloqueo;
+void Casillero::setTerreno(Terreno terreno){
+    this->terreno = terreno;
+}
+
+/*
+Post: Devuelve la coordenada en x del casillero.
+*/
+unsigned int Casillero::getX(){
+    return this->x;
+}
+
+/*
+Post: Devuelve la coordenada en y del casillero.
+*/
+unsigned int Casillero::getY(){
+    return this->y;
+}
+
+/*
+Post: Devuelve la coordenada en z del casillero.
+*/
+unsigned int Casillero::getZ(){
+    return this->z;
+}
+
+/*
+Post: Devuelve el estado del casillero.
+*/
+EstadoCasillero Casillero::getEstado(){
+    return this->estado;
+}
+
+/*
+Post: Devuelve el terreno del casillero.
+*/
+Terreno Casillero::getTerreno(){
+    return this->terreno;
 }
 
 /*
 Pre : casillero creado anteriormete
-Post : setea la cantidad de turnos restantes por los cuales el casillero esta bajo efectos de una carta
-*/
-
-void Casillero::setTurnosRestantesDesbloqueo(unsigned int cantidadTurnos){
-    this->turnosRestantesDesbloqueo = cantidadTurnos;
-
-}
-/*
-Pre : casillero creado anteriormetePost : Decrementa en 1 la cantidad de turnos restantes para que pueda usarse el casillero*/
-
-void Casillero::decrementarTurnosRestantesDesbloqueo(){
-    (this->turnosRestantesDesbloqueo)--;
-}
-/*
-PRE: el casillero fue creado anteriormente y posee una ficha en el
-Post : Bloquea la ficha del casillero
-void Casillero::bloquearFichaDelCasillero(){
-    this->contenidoCasillero->bloquearFicha();
-}
-*/
-
-void Casillero::setFicha(Ficha* ficha) {
-    this->ficha = ficha;
-    this->estado = ocupado;
-}
-
-/*
-Pre : casillero creado anteriormete
-Post: devuelve el contenido del casillero*/
-Ficha* Casillero::obtenerContenidoCasillero(){
+Post: devuelve la ficha contenida en el casillero*/
+Ficha* Casillero::getFicha(){
 	return this->ficha;
 }
 
+/*
+Post: Asigna la ficha al casillero.
+*/
+void Casillero::setFicha(Ficha* ficha) {
+	if(ficha == 0)
+	{
+	    this->ficha = ficha;
+        this->estado = vacio;
+	}
+	else
+	{
+		if (this->estado == vacio)
+		{
+			ficha->setPosicion(this->x, this->y, this->z);
+		    this->ficha = ficha;
+	        this->estado = ocupado;
+		}
+		else if (this->estado == ocupado){
+			if (ficha->getEscudo() && this->ficha->getEscudo()){
+				this->ficha->quitarEscudo();
+				ficha->quitarEscudo();
+			}
+			this->eliminarFicha();
+			ficha->eliminarFicha();
+			if (ficha->getEstado() == viva){
+				ficha->setPosicion(this->x, this->y, this->z);
+			    this->ficha = ficha;
+		        this->estado = ocupado;
+			}
+		}
+	}
+}
+
+/*
+Post: Elimina la ficha del casillero.
+*/
 void Casillero::eliminarFicha(){
     this->estado = inactivo;
 	if(this->ficha != 0)

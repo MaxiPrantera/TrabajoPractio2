@@ -3,19 +3,17 @@
 
 #include "Lista.h"
 #include "Cola.h"
-#include "ficha.h"
 #include "casillero.h"
 #include "tablero.h"
 #include "Carta.h"
 #include "jugador.h"
+#include "ficha.h"
 
 class BatallaCampal{
 
 private:
     Lista<Jugador>* jugadores;
     Cola<Carta>* mazo;
-
-    //Debatible
     Tablero* tablero;
 public:
     /*
@@ -74,6 +72,12 @@ public:
      * Post: Devuelve la carta del jugador indicado.
      */
     std::string getCartaJugador(unsigned int, unsigned int);
+       
+    /*
+	 * Pre: El numero de la ficha debe ser valido (Dentro del rango).
+	 * Post: Devuelve el puntero a ficha indicado.
+  	 */
+	Ficha* getFichaJugador(unsigned int, unsigned int);
 
     /*
      * Pre: El numero de jugador debe ser valido (Dentro del rango).
@@ -145,36 +149,18 @@ public:
     * pre: x, y, z deben estar en rango
     * post: inicia el tablero en el escenario 1 ya configurado
     */
-    void iniciarEscenarioUno(unsigned int xMax, unsigned int yMax, unsigned int zMax);
+    void iniciarEscenarioUno();
 
     /*
     * pre: x, y, z deben estar en rango
     * post: inicia el tablero en el escenario 2 ya configurado
     */
-    void iniciarEscenarioDos(unsigned int xMax, unsigned int yMax, unsigned int zMax);
+    void iniciarEscenarioDos();
 
     /*
     * pre: x, y, z deben estar en rango
     * post: inicia el tablero en el escenario 3 ya configurado
     */
-    void iniciarEscenarioTres(unsigned int xMax, unsigned int yMax, unsigned int zMax);
-
-
-
-
-
-    /*
-     * Pre: La posicion es valida.
-     * Post: Devuelve el casillero en la posicion indicada.
-     */
-    Casillero* getCasillero(unsigned int x, unsigned int y, unsigned int z);
-       
-    /*
-	 * Pre: El numero de la ficha debe ser valido (Dentro del rango).
-	 * Post: Devuelve el puntero a ficha indicado.
-  	 */
-	Ficha* getFicha(unsigned int, unsigned int);
-
-
+    void iniciarEscenarioTres();
 };
 #endif

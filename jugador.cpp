@@ -35,35 +35,7 @@ string Jugador::getNombre()
 	return this->nombre;
 }
 
-//F: Agregar post.
-void Jugador::agregarFicha(TipoFicha tipo, Tablero* tablero){
-	bool inputValido = false;
-	Casillero* casillero;
-	do
-	{
-		casillero = tablero->elegirCoordenadas("posicionar la ficha", (tipo != avion), false);
-		if(casillero->getTerreno() != agua and tipo == barco)
-		{
-			cout << "Los barcos solo se pueden posicionar en el agua" << endl;
-		}
-		else
-		{
-			inputValido = true;
-		}
-	}while(!inputValido);
-
-	this->fichas->agregar(Ficha(tipo, casillero->getX(), casillero->getY(), casillero->getZ(), this->nombre));
-    if (casillero->getEstado() == ocupado){
-		casillero->eliminarFicha();
-		this->getFicha(this->getCantidadFichas())->eliminarFicha();
-  	    cout << "Ambas fichas eliminadas" << endl;
-    }
-    else{
-  	    casillero->setFicha(this->getFicha(this->getCantidadFichas()));
-    }
-}
-
-//F: Agregar post.
+/*POST: Devuelve la cantidad de fichas del jugador*/
 unsigned int Jugador::getCantidadFichas(){
 	return this->fichas->getTamanio();
 }
@@ -86,10 +58,106 @@ unsigned int Jugador::getCantidadSoldadosVivos()
 	return contadorFichas;
 }
 
-//F: Agregar post.
+/*
+ * Pre: ---
+ * Post: Devuelve la cantidad de cartas que tiene el jugador.
+ */
+unsigned int Jugador::getCantidadCartas()
+{return this->cartas->getTamanio();}
+
+/*POST: Devuelve la ficha indicada del jugador*/
 Ficha* Jugador::getFicha(unsigned int ficha)
 {
 	return &this->fichas->get(ficha);
+}
+
+/*
+ * Pre: ---
+ * Post: Devuelve el nombre de la carta en la posicion indicada.
+ */
+string Jugador::getNombreCarta(unsigned int carta)
+{return this->cartas->get(carta).getNombre();}
+
+/*
+ * Pre: ---
+ * Post: Devuelve una ficha valida seleccionada por el usuario.
+ */
+unsigned int Jugador::elegirFicha(string msj, bool ceroDefault)
+{
+	unsigned int fichaSeleccionada;
+	bool fichaValida = false;
+
+	if(ceroDefault)
+	{
+		msj += " (Ingrese 0 para no elegir ninguna)";
+	}
+
+	cout << "Seleccione la ficha para " << msj << ":" << endl;
+	for(unsigned int ficha = 1; ficha <= this->getCantidadFichas(); ficha++)
+	{
+		if (this->fichas->get(ficha).getEstado() == viva)
+		{
+			cout << ficha << ". " << this->fichas->get(ficha).getTipoFichaStr() << " - ";
+			cout << this->fichas->get(ficha).getUbicacionX()
+				 << "/"
+				 << this->fichas->get(ficha).getUbicacionY()
+				 << "/"
+				 << this->fichas->get(ficha).getUbicacionZ()
+				 << endl;
+		}
+	}
+
+	do
+	{
+		cin >> fichaSeleccionada;
+
+		if(fichaSeleccionada >= 1 && fichaSeleccionada <= this->getCantidadFichas())
+			fichaValida = (this->fichas->get(fichaSeleccionada).getEstado() == viva);
+		else if(fichaSeleccionada == 0)
+		{
+			fichaValida = ceroDefault;
+		}
+
+		if(!fichaValida)
+		{
+			cout << "La ficha seleccionada no es valida, por favor ingrese un número válido. " << endl;
+		}
+	}while(!fichaValida);
+
+	return fichaSeleccionada;
+}
+
+/*
+ * Pre: ---
+ * Post: Agrega la ficha a la lista del jugador y la valida.
+ * 		 En caso de agregarla sobre otra ficha elimina ambas.
+ */
+void Jugador::agregarFicha(TipoFicha tipo, Tablero* tablero){
+	bool inputValido = false;
+	Casillero* casillero;
+	do
+	{
+		casillero = tablero->elegirCoordenadas("posicionar la ficha", (tipo != avion), false);
+		if(casillero->getTerreno() != agua and tipo == barco)
+		{
+			cout << "Los barcos solo se pueden posicionar en el agua" << endl;
+		}
+		else
+		{
+			inputValido = true;
+		}
+	}while(!inputValido);
+
+	//F: revisar esto con el tema del escudo.
+	this->fichas->agregar(Ficha(tipo, casillero->getX(), casillero->getY(), casillero->getZ(), this->nombre));
+    if (casillero->getEstado() == ocupado){
+		casillero->eliminarFicha();
+		this->getFicha(this->getCantidadFichas())->eliminarFicha();
+  	    cout << "Ambas fichas eliminadas" << endl;
+    }
+    else{
+  	    casillero->setFicha(this->getFicha(this->getCantidadFichas()));
+    }
 }
 
 /*
@@ -98,20 +166,6 @@ Ficha* Jugador::getFicha(unsigned int ficha)
  */
 void Jugador::robarCarta(Cola<Carta>* mazo)
 {this->cartas->agregar(mazo->desacolar());}
-
-/*
- * Pre: ---
- * Post: Devuelve la cantidad de cartas que tiene el jugador.
- */
-unsigned int Jugador::getCantidadCartas()
-{return this->cartas->getTamanio();}
-
-/*
- * Pre: ---
- * Post: Devuelve el nombre de la carta en la posicion indicada.
- */
-string Jugador::getNombreCarta(unsigned int carta)
-{return this->cartas->get(carta).getNombre();}
 
 /*
  * Pre: ---
@@ -134,10 +188,10 @@ void Jugador::tirarCarta(unsigned int carta, Tablero* tablero)
 			this->tirarMolotov(tablero);
 			break;
 		case ESCUDO:
-			this->ponerEscudo(tablero);
+			this->ponerEscudo();
 			break;
-		case REVIVIR:
-			this->revivir(tablero);
+		case TELETRANSPORTAR:
+			this->teletransportar(tablero);
 			break;
 	}
 
@@ -176,44 +230,36 @@ void Jugador::tirarMolotov(Tablero* tablero)
  * Pre: ---.
  * Post: Le pone un escudo a una ficha y la protege del siguiente ataque directo (Misil o disparo o molotov).
  */
-void Jugador::ponerEscudo(Tablero* tablero)
-{
-	//Funcion jodida, habria que cambiar varias otras funciones para controlar la muerte de las fichas
-	//Atencion: funcion eliminarFicha.
-	int fichaSeleccionada;
+void Jugador::ponerEscudo()
+{this->getFicha(this->elegirFicha("poner el escudo", false))->darEscudo();}
 
-	cout << "A que ficha le quiere poner escudo?" << endl;
-
-	for(unsigned int ficha = 1; ficha <= this->getCantidadFichas(); ficha++)
-	{
-		if (this->fichas->get(ficha).getEstado() == viva)
-		{
-			cout << ficha << ". " << this->fichas->get(ficha).getTipoFichaStr() << " - ";
-			cout << this->fichas->get(ficha).getUbicacionX()
-				 << "/"
-				 << this->fichas->get(ficha).getUbicacionY()
-				 << "/"
-				 << this->fichas->get(ficha).getUbicacionZ()
-				 << endl;
-		}
-	}
-
-	cin >> fichaSeleccionada;
-	this->fichas->get(fichaSeleccionada).darEscudo();
-}
-
-//Cambiar a teletransportarse.
 /*
  * Pre: ---.
- * Post: Revive a la ficha indicada y habilita su casillero en el que murio.
+ * Post: Teletransporta a la ficha indicada al casillero deseado.
  */
-void Jugador::revivir(Tablero* tablero)
+void Jugador::teletransportar(Tablero* tablero)
 {
-    //Hacer elegir a la ficha, hacer funcion analoga a pedir coordenada pero para fichas???
-    //Si la ficha esta viva volver a pedir.
-    //hacer que vuelva a estar vivo y que el casillero vuelva a esta habilitado.
-    // pensar casos cuando en el casillero hay otra ficha muerta (murieron por "colision").
-    // pensar casos cuando en el casillero hay una molotov activa.
+	unsigned int fichaNumero;
+	bool fichaValida = false;
+	do
+	{
+		fichaNumero = this->elegirFicha("teletransportar", false);
+		if(fichaNumero != 0){
+			if(this->getFicha(fichaNumero)->getTipoFicha() == barco){
+				cout << "Los barcos son inamovibles, por favor seleccione otra ficha." << endl;
+			}
+			else{
+				fichaValida = true;
+			}
+		}
+		else{
+			fichaValida = true;
+		}
+	}while(!fichaValida);
+
+    Ficha* ficha = this->getFicha(fichaNumero);
+    Casillero* casillero = tablero->elegirCoordenadas("teletransportar a la ficha", (ficha->getTipoFicha() != avion), false);
+    casillero->setFicha(ficha);
 }
 
 /*

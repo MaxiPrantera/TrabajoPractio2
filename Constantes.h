@@ -37,7 +37,7 @@
         BARCO,
         MOLOTOV,
         ESCUDO,
-        REVIVIR
+        TELETRANSPORTAR
     };
 
     enum Terreno
@@ -54,10 +54,10 @@
 		inactivo
 	};
 
-
-
-    //Esta cantidad debe ser multiplo de 6, asi siempre hay misma cantidad de cada tipo???
     const unsigned int CANTIDAD_CARTAS_MAZO = 30;
     const unsigned int CANTIDAD_CARTAS_INICIALES = 3;
+    const unsigned int PROFUNDIDAD_TABLERO = 20;
+    const unsigned int ANCHO_TABLERO = 20;
+    const unsigned int ALTO_TABLERO = 5;
 
 #endif // CONSTANTES_INCLUDED

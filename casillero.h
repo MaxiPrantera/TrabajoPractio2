@@ -16,13 +16,11 @@ class Casillero{
 private:
     Terreno terreno;
     EstadoCasillero estado;
-    unsigned int turnosRestantesDesbloqueo;
     Ficha* ficha;
     unsigned int x;
     unsigned int y;
     unsigned int z;
   
-
 public:
     Casillero();
     Casillero(unsigned int, unsigned int, unsigned int);
@@ -34,11 +32,7 @@ public:
     unsigned int getZ();
     EstadoCasillero getEstado();
     Terreno getTerreno();
-    void setTurnosRestantesDesbloqueo(unsigned int cantidadTurnos);
-    unsigned int getTurnosRestantesDesbloqueo(); 
-    void decrementarTurnosRestantesDesbloqueo();
-    void copiarCasillero(Casillero* dest);
-    Ficha* obtenerContenidoCasillero();
+    Ficha* getFicha();
     void setFicha(Ficha* ficha);
     void eliminarFicha();
 };

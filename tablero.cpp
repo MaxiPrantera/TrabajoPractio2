@@ -6,138 +6,50 @@
 
 using namespace std;
 
-Tablero::Tablero(unsigned int xMax, unsigned int yMax, unsigned int zMax) {
+//F: Falta pre y post.
+Tablero::Tablero(unsigned int cantProfundidad, unsigned int cantColumnas, unsigned int cantFilas) {
 
-	//Revisar este if.
-    if ((xMax < 2) || (yMax < 2) || (zMax < 2))
+    if ((cantProfundidad < 2) || (cantColumnas < 2) || (cantFilas < 2))
     {
         string DimensionInvalida = "dimensiones de tablero incorrectas";
         throw DimensionInvalida;
     }
 
-    this->xMax=xMax;
-    this->yMax=yMax;
-    this->zMax=zMax; 
+    this->profundidad=cantProfundidad;
+    this->ancho=cantColumnas;
+    this->alto=cantFilas; 
     this->casilleros = new Lista<Lista<Lista<Casillero> > >();
-    
-    //Lista<Lista <Lista<Casillero *>*>*> * filas  = new Lista<Lista <Lista<Casillero *>*>*>;
 
-    for(unsigned int x=1;  x<=this->xMax; x++)
+    for(unsigned int x=1;  x<=this->profundidad; x++)
     {
-        
         this->casilleros->agregar(Lista<Lista<Casillero> >());
-        //Lista<Lista <Casillero *>*> *columnas = new Lista<Lista <Casillero *>*>;
-        for (unsigned int y=1; y<=this->yMax; y++)
+        for (unsigned int y=1; y<=this->ancho; y++)
         {
             this->casilleros->get(x).agregar(Lista <Casillero>());
-            //Lista<Casillero *> * profundidad = new Lista<Casillero *>;
-
-            for (unsigned int z = 1; z <= this->zMax; z++)
+            for (unsigned int z = 1; z <= this->alto; z++)
             {
                 this->casilleros->get(x).get(y).agregar(Casillero(x, y, z));
-                //Casillero* nuevoCasillero = new Casillero();
-                //profundidad->agregar(nuevoCasillero);
             }
-            //columnas->agregar(profundidad);
         }
-        //filas->agregar(columnas);
     }
-    //this->casilleros = filas;
 }
 
 Tablero::~Tablero() {
-//for(unsigned int x=0;  x<this->xMax; x++)
-//{
-//    for (unsigned int y=0; y<this->yMax; y++)
-//    {
-//        for (unsigned int z = 0; z < this->zMax; z++)
-//        {
-//            delete this->casilleros->get(x)->get(y)->get(z);
-//        }
-//        delete this->casilleros->get(x)->get(y);
-//    }
-//    delete this->casilleros->get(x);
-//}
+    delete this->casilleros;
+} 
 
-delete this->casilleros;
-}
-
-/* DESTRUCTOR VIEJO
-     Lista<Lista<Lista<Casillero *>*>*> * filas = this->casilleros;
-
-     while(filas->avanzarCursor())
-     {
-        Lista<Lista <Casillero *>*> *columnas = this->casilleros->getCursor();
-        while(columnas->avanzarCursor())
-        {
-
-            Lista<Casillero *> * profundidad = columnas->getCursor();
-            while(profundidad->avanzarCursor())
-            {
-                delete profundidad->getCursor();
-
-            }delete profundidad;
-
-        }delete columnas;
-
-     }delete filas;
-*/  
-
-    
 /*
 Pre: existe el tablero y el casillero solicitado
-Post: devuelve el casillero ubicado en la posicion [fila][columna][profundidad]
+Post: devuelve el casillero ubicado en la posicion [profundidad][columna][fila]
 */
 Casillero* Tablero::getCasillero(unsigned int x, unsigned int y, unsigned int z)
 { 
-    if((x <= 0) || (y<= 0) || (z <=0) || (x>this->xMax) || (y>this->yMax) ||(z>this->zMax))
+    if(!this->existeLaCasilla(x, y, z))
     {
         string CoordInvalidas = "coordenadas de casilleros invalidas";
         throw CoordInvalidas;
     }
     return &this->casilleros->get(x).get(y).get(z);
-}
-
-
-/*
-Pre: existe el casillero establecido y esta en el rango del tablero
-Post:Establece la ficha del casillero ubicado en la posicion [fila][columna][profundidad] 
-con el simbolo 'simboloFicha'*/
-//void Tablero::setCasilla(unsigned int x, unsigned int y, unsigned int z, Ficha* simboloFicha) {
-//
-//    this->casilleros->get(x)->get(y)->get(z)->setFicha(simboloFicha);
-//
-//}
-
-Lista<Lista<Lista<Casillero> > >* Tablero::obtenerMatrizTablero()
-{
-    return this->casilleros;
-}   
-
-bool Tablero::existeLaCasilla(unsigned int x, unsigned int y, unsigned int z) {
-    if(this->xMax < x ||this->yMax < y ||this->zMax < z ||
-        x< 1 || y<1 || z<1){
-        return false;
-    }
-    return true;
-}
-
-/*
-Pre: existe el tablero
-Post:Devuelve la cantidad de filas que posee el tablero
-*/
-unsigned int Tablero::getCantidadFilas()
-{
-    return this->xMax;
-}
-
-/*
-Pre: existe el tablero
-Post:Devuelve la cantidad de columnas que posee el tablero
-*/
-unsigned int Tablero::getCantidadColumnas()
-{
-    return this->yMax;
 }
 
 /*
@@ -146,7 +58,33 @@ Post:Devuelve la profundidad que posee el tablero
 */
 unsigned int Tablero::getCantidadProfundidad()
 {
-    return this->zMax;
+    return this->profundidad;
+} 
+
+/*
+Pre: existe el tablero
+Post:Devuelve la cantidad de columnas que posee el tablero
+*/
+unsigned int Tablero::getCantidadColumnas()
+{
+    return this->ancho;
+}
+
+/*
+Pre: existe el tablero
+Post:Devuelve la cantidad de filas que posee el tablero
+*/
+unsigned int Tablero::getCantidadFilas()
+{
+    return this->alto;
+}
+
+/*
+Pre: existe el tablero
+Post: Indica si las coordenadas pasadas son validas y estan dentro del rango del tablero.
+*/
+bool Tablero::existeLaCasilla(unsigned int x, unsigned int y, unsigned int z) {
+    return ((x > 0) && (y > 0) && (z > 0) && (x <= this->profundidad) && (y <= this->ancho) && (z <= this->alto));
 }
 
 /*
@@ -168,8 +106,7 @@ Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso, bool aceptaI
         {
             cout << "Ingrese la coordenada x: " << endl;
             cin >> x;
-            //x = rand()%19 + 1;
-            if (x < 1 || x > this->getCantidadFilas())
+            if (x < 1 || x > this->getCantidadProfundidad())
             {
                 cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
                 x = 0;
@@ -179,7 +116,6 @@ Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso, bool aceptaI
         {
             cout << "Ingrese la coordenada y: " << endl;
             cin >> y;
-            //y = rand()%19 + 1;
             if (y < 1 || y > this->getCantidadColumnas())
             {
                 cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
@@ -190,8 +126,7 @@ Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso, bool aceptaI
         {
             cout << "Ingrese la coordenada z: " << endl;
             cin >> z;
-            //z = rand()%5 + 1;
-            if (z < 1 || z > this->getCantidadProfundidad())
+            if (z < 1 || z > this->getCantidadFilas())
             {
                 cout << "Coordenada seleccionada fuera de rango, ingresar un numero entre 1 y el limite del tablero." << endl;
                 z = 0;
@@ -216,12 +151,24 @@ Casillero* Tablero::elegirCoordenadas(std::string msj, bool esPiso, bool aceptaI
     return this->getCasillero(x, y, z);
 }
 
+/*
+ * Pre: ---
+ * Post: Mueve la ficha indicada a la direccion seleccionada por el usuario.
+ */
 void Tablero::moverFicha(Ficha* ficha){
-	
 	char direccion;
 	bool validacion = false;
 	do
 	{
+
+		cout << "Elija una Direccion"
+			 << endl
+			 << "w = adelante, a = izquierda, s = atras, d = derecha\n"
+		     << "q = diagonal izquierda adelante, e diagonal derecha adelante, z = diagonal atras izquierda, c = diagonal atras derecha" << endl;
+		if (ficha->getTipoFicha() == avion){
+			cout << "r = arriba, f = abajo" << endl;
+		}
+
 		do
 		{
 			cin >> direccion;
@@ -237,23 +184,26 @@ void Tablero::moverFicha(Ficha* ficha){
 		unsigned int x = ficha->getUbicacionX();
 		unsigned int y = ficha->getUbicacionY();
 		unsigned int z = ficha->getUbicacionZ();
+
 		Casillero* casillero = getCasillero(x,y,z);
+		casillero->setEstado(vacio);
+		casillero->setFicha(0);
 
 		switch (direccion){
 			case IZQUIERDA:
-				x--;
-				break;
-
-			case ADELANTE:
 				y--;
 				break;
 
+			case ADELANTE:
+				x--;
+				break;
+
 			case DERECHA:
-				x++;
+				y++;
 				break;
 
 			case ATRAS:
-				y++;
+				x++;
 				break;
 
 			case DIAGONAL_IZQUERDA_ADELANTE:
@@ -262,13 +212,13 @@ void Tablero::moverFicha(Ficha* ficha){
 				break;
 
 			case DIAGONAL_DERECHA_ADELANTE:
-				x++;
-				y--;
+				x--;
+				y++;
 				break;
 
 			case DIAGONAL_IZQUERDA_ATRAS:
-				x--;
-				y++;
+				x++;
+				y--;
 				break;
 
 			case DIAGONAL_DERECHA_ATRAS:
@@ -290,31 +240,14 @@ void Tablero::moverFicha(Ficha* ficha){
 		}
 
 		if (this->existeLaCasilla(x, y, z)){
-			validacion = true;
-			casillero->setEstado(vacio);
 			casillero = getCasillero(x,y,z);
-			if (casillero->getEstado() == vacio){
-				ficha->setPosicion(x, y, z);
-				casillero->setFicha(ficha);
-			}
-			else if (casillero->getEstado() == ocupado){
-				if (ficha->getEscudo() == true && casillero->obtenerContenidoCasillero()->getEscudo() == true){
-					casillero->obtenerContenidoCasillero()->quitarEscudo();
-					ficha->quitarEscudo();
-				}
-				casillero->eliminarFicha();
-				ficha->eliminarFicha();
-				if (ficha->getEstado() == viva){
-					ficha->setPosicion(x, y, z);
-					casillero->setFicha(ficha);
-				}
-				if (casillero->obtenerContenidoCasillero()->getEstado() == viva){
-					casillero->setEstado(ocupado);
-				}
-			}
-			else{
+			if (casillero->getEstado() == inactivo){
 				cout << "Casillero inactivo no puedes moverte ahi, seleccione otro" << endl;
 				validacion = false;
+			}
+			else
+			{
+				casillero->setFicha(ficha);
 			}
 		}
 		else{
@@ -324,6 +257,10 @@ void Tablero::moverFicha(Ficha* ficha){
 	}while(!validacion);
 }
 
+/*
+ * Pre: ---
+ * Post: Pega un disparo en el casillero indicado.
+ */
 void Tablero::disparar(Casillero* casillero)
 {
     if(casillero->getEstado() == ocupado){
@@ -332,7 +269,10 @@ void Tablero::disparar(Casillero* casillero)
     casillero->setEstado(inactivo);
 }
 
-
+/*
+ * Pre: ---
+ * Post: Tira un misil que explota en la posicion indicada y todos sus vecinos (3x3x3).
+ */
 void Tablero::tirarMisil(Casillero* casillero)
 {
     for(unsigned int x = casillero->getX() - 1; x <= casillero->getX() + 1; x++)
@@ -350,21 +290,23 @@ void Tablero::tirarMisil(Casillero* casillero)
     }
 }
 
+/*
+ * Pre: ---
+ * Post: Tira una molotov que incendia el piso indicado y sus arlededores esceptuando los casilleros de agua (3x3).
+ */
 void Tablero::tirarMolotov(Casillero* casillero)
 {
     for(unsigned int x = casillero->getX() - 1; x <= casillero->getX() + 1; x++)
     {
         for(unsigned int y = casillero->getY() - 1; y <= casillero->getY() + 1; y++)
         {
-            if(this->existeLaCasilla(x, y, 1))
+            if(this->existeLaCasilla(x, y, casillero->getZ()))
 			{
-            	if(this->getCasillero(x, y, 1)->getTerreno() != agua)
+            	if(this->getCasillero(x, y, casillero->getZ())->getTerreno() != agua)
 				{
-					this->disparar(this->getCasillero(x, y, 1));
+					this->disparar(this->getCasillero(x, y, casillero->getZ()));
 				}
             }
         }
     }
 }
-
-

@@ -14,22 +14,18 @@
 class Tablero {
 private:
     Lista<Lista<Lista<Casillero> > >* casilleros;
-    //No seria mejor ponerles nombres tipo, ancho alto y profundo???
-    unsigned int xMax;
-    unsigned int yMax;
-    unsigned int zMax;
+    unsigned int profundidad; /*Máximo valor en x*/
+    unsigned int ancho; /*Máximo valor en y*/
+    unsigned int alto; /*Máximo valor en z*/
 
 public:
-    Tablero(unsigned int cantFilas, unsigned int cantColumnas, unsigned int cantEnProfundidad);
-    Tablero();
+    Tablero(unsigned int cantProfundidad, unsigned int cantColumnas, unsigned int cantFilas);
     virtual ~Tablero();
-    Casillero* getCasillero(unsigned int filaIntroducida, unsigned int columnaIntroducida, unsigned int profundidadIntroducida);
-    //void setCasilla(unsigned int x, unsigned int y, unsigned int z, Ficha* simboloFicha);
-    unsigned int getCantidadFilas();
-    unsigned int getCantidadColumnas();
+    Casillero* getCasillero(unsigned int profundidadIntroducida, unsigned int columnaIntroducida, unsigned int filaIntroducida);
     unsigned int getCantidadProfundidad();
-    bool existeLaCasilla(unsigned int m, unsigned int n, unsigned int l);
-    Lista<Lista<Lista<Casillero> > >* obtenerMatrizTablero();
+    unsigned int getCantidadColumnas();
+    unsigned int getCantidadFilas();
+    bool existeLaCasilla(unsigned int profundidadIntroducida, unsigned int columnaIntroducida, unsigned int filaIntroducida);
     Casillero* elegirCoordenadas(std::string, bool, bool);
     void moverFicha(Ficha*);
     void disparar(Casillero*);

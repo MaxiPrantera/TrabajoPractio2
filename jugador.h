@@ -24,20 +24,21 @@ private:
 	void ponerAvion(Tablero*);
 	void ponerBarco(Tablero*);
 	void tirarMolotov(Tablero*);
-	void ponerEscudo(Tablero*);
-	void revivir(Tablero*);
+	void ponerEscudo();
+	void teletransportar(Tablero*);
 public:
 	Jugador();
 	Jugador(std::string nombre);
 	~Jugador();
 	std::string getNombre();
-	void agregarFicha(TipoFicha, Tablero*);
 	unsigned int getCantidadFichas();
 	unsigned int getCantidadSoldadosVivos();
-	Ficha* getFicha(unsigned int);
-	void robarCarta(Cola<Carta>* mazo);
 	unsigned int getCantidadCartas();
+	Ficha* getFicha(unsigned int);
 	std::string getNombreCarta(unsigned int);
+	unsigned int elegirFicha(std::string, bool);
+	void agregarFicha(TipoFicha, Tablero*);
+	void robarCarta(Cola<Carta>* mazo);
 	void tirarCarta(unsigned int, Tablero*);
     Jugador& operator = (const Jugador&);
 };
