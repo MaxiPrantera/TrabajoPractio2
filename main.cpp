@@ -68,16 +68,18 @@ int main()
 	  	}
   	}
 
-  	batallaCampal->mostrarTablero();
-    cin >> respuestaUsuario;
-
 
     //Loop de logica principal:
     cout << "Que comienze el juego!!!" << endl;
 	
     while (!batallaCampal->verificarGanador(ganador)){
   		if (jugadorActual > batallaCampal->getCantidadJugadores())
-  	  	{jugadorActual = 1;}
+  	  	{
+  		    //(4) Logica de mostrar tablero:
+  		  	batallaCampal->mostrarTablero();
+
+  			jugadorActual = 1;
+  	  	}
 
   	  	if (batallaCampal->getJugador(jugadorActual)->getCantidadSoldadosVivos() != 0){
   		  	//Inicia el turno robando carta.
@@ -92,9 +94,6 @@ int main()
   
         	//(3) Logica de tirar carta:
   		    batallaCampal->jugadorTirarCarta(jugadorActual);
-  
-  		    //(4) Logica de mostrar tablero:
-  
       	}
 
       	jugadorActual++;

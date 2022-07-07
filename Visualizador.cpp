@@ -113,12 +113,13 @@ void Visualizador::dibujarFicha(unsigned int profundidad, unsigned int columna, 
 	string archivo = tipoFicha + ".bmp";
 	imagenFicha.ReadFromFile(archivo.c_str());
 	imagenFicha.SetBitDepth(8);
-	imagenFicha.SetSize(PIXELES_POR_CASILLERO, PIXELES_POR_CASILLERO);
+	Rescale(imagenFicha, 'W', PIXELES_POR_CASILLERO * 2);
 
 	unsigned int posicionX = ((profundidad - 1) * PIXELES_POR_CASILLERO);
 	unsigned int posicionY = ((columna - 1) * PIXELES_POR_CASILLERO);
 
-	RangedPixelToPixelCopyTransparent(imagenFicha, posicionX ,PIXELES_POR_CASILLERO, PIXELES_POR_CASILLERO, posicionY, this->capa, 600, 600, TransparentColor);
+	//RangedPixelToPixelCopyTransparent(imagenFicha, PIXELES_POR_CASILLERO/2 ,(PIXELES_POR_CASILLERO/2) * 3, (PIXELES_POR_CASILLERO/2) * 3, PIXELES_POR_CASILLERO/4, this->capa, posicionY, posicionX, TransparentColor);
+	RangedPixelToPixelCopy(imagenFicha, PIXELES_POR_CASILLERO/2 ,(PIXELES_POR_CASILLERO/2) * 3, (PIXELES_POR_CASILLERO/2) * 3, PIXELES_POR_CASILLERO/4, this->capa, posicionY, posicionX);
 }
 
 void Visualizador::exportarImagen(unsigned int altura)
