@@ -177,7 +177,7 @@ Tablero* BatallaCampal::getTablero()
 {return this->tablero;}
 
 void BatallaCampal::iniciarEscenarioUno(){
-	//Escenario todo de tierra.
+	//Escenario completamente de tierra.
     for(unsigned int x=1;  x <= this->tablero->getCantidadProfundidad(); x++){
         for(unsigned int y=1; y <= this->tablero->getCantidadColumnas(); y++){
             for(unsigned int z=1; z <= this->tablero->getCantidadFilas(); z++){ //z = 1 seria tierra o agua
@@ -234,5 +234,6 @@ void BatallaCampal::mostrarTablero()
 	for(unsigned int z = 1; z <= this->tablero->getCantidadFilas(); z++)
 	{
 		this->graficos->dibujarCapa(this->tablero, z);
+		this->graficos->exportarImagen(z);
 	}
 }

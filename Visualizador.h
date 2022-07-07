@@ -7,24 +7,19 @@
 class Visualizador
 {
 private:
-    BMP imagen;
+    BMP capa;
 
 public:
 
     Visualizador();
-
     virtual ~Visualizador();
-
     void dibujarCapa(Tablero*, unsigned int);
-
     void dibujarTerreno(unsigned int, unsigned int, Terreno);
-
-    void imprimirTablero(Tablero * tablero, unsigned int xMax, unsigned int yMax, unsigned int zMax);
-
-
-    void casilleroAnulado();
+    void dibujarInactivo(unsigned int, unsigned int);
+    void dibujarFicha(unsigned int, unsigned int, std::string);
+    void exportarImagen(unsigned int);
     
-    void agregarEscudo();
+    //void agregarEscudo();
 };
 
 #endif // VISUALIZADOR_INCLUDED

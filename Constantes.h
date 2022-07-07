@@ -59,6 +59,6 @@
     const unsigned int PROFUNDIDAD_TABLERO = 20;
     const unsigned int ANCHO_TABLERO = 20;
     const unsigned int ALTO_TABLERO = 5;
-    const unsigned int PIXELES_POR_CASILLERO = 600;
+    const unsigned int PIXELES_POR_CASILLERO = 30;
 
 #endif // CONSTANTES_INCLUDED

@@ -9,24 +9,16 @@ using namespace std;
 
 Visualizador::Visualizador()
 {
+	this->capa.SetBitDepth(8);
+	this->capa.SetSize(ANCHO_TABLERO * PIXELES_POR_CASILLERO, PROFUNDIDAD_TABLERO * PIXELES_POR_CASILLERO);
 }
 
 Visualizador::~Visualizador()
 {}
 
-void Visualizador::dibujarCapa(Tablero* tablero, unsigned int altura){
-	//RangedPixelToPixelCopy(casilleroVacio, 100 ,184, 600, 152, this->filasAImprimir->get(fila), columna*184, profundidad*152);
+void Visualizador::dibujarCapa(Tablero* tablero, unsigned int altura)
+{
 	Casillero* casilleroActual;
-
-	BMP imagen;
-	imagen.ReadFromFile("soldado.bmp");
-	imagen.SetSize(ANCHO_TABLERO * PIXELES_POR_CASILLERO, PROFUNDIDAD_TABLERO * PIXELES_POR_CASILLERO);
-	imagen.SetBitDepth(8);
-
-	string nombreArchivo = "Tablero_Altura_";
-	stringstream alturaStr;
-	alturaStr << altura;
-	nombreArchivo = nombreArchivo + alturaStr.str() + ".bmp";
 
     for(unsigned int profundidad = 1; profundidad <= tablero->getCantidadProfundidad(); profundidad++)
     {
@@ -39,18 +31,11 @@ void Visualizador::dibujarCapa(Tablero* tablero, unsigned int altura){
     		switch(casilleroActual->getEstado())
     		{
     			case inactivo:
+    				this->dibujarInactivo(profundidad, columna);
     				break;
     			case ocupado:
+    				this->dibujarFicha(profundidad, columna, casilleroActual->getFicha()->getTipoFichaStr());
 					break;
-    		}
-
-    		if (this->imagen.WriteToFile(nombreArchivo.c_str()))
-    		{
-    		  	cout << "Capa guardada corretamente" << endl;
-    		}
-    		else
-    		{
-    		  	cout << "Error al guardar" << endl;
     		}
     	}
     }
@@ -62,6 +47,7 @@ void Visualizador::dibujarTerreno(unsigned int profundidad, unsigned int columna
 	unsigned int inicioY = ((columna - 1) * PIXELES_POR_CASILLERO);
 	unsigned int rojo, verde, azul, alpha;
 
+
 	switch(tipoTerreno)
 	{
 		case agua:
@@ -71,7 +57,7 @@ void Visualizador::dibujarTerreno(unsigned int profundidad, unsigned int columna
 			alpha = 0;
 			break;
 		case tierra:
-			rojo = 77;
+			rojo =  77;
 			verde = 39;
 			azul = 4;
 			alpha = 0;
@@ -84,48 +70,67 @@ void Visualizador::dibujarTerreno(unsigned int profundidad, unsigned int columna
 			break;
 	}
 
-	for(unsigned int x = inicioX; x <= (inicioX + PIXELES_POR_CASILLERO); x++)
+	for(unsigned int x = inicioX; x < (inicioX + PIXELES_POR_CASILLERO); x++)
 	{
-		for(unsigned int y = inicioY; y <= (inicioY + PIXELES_POR_CASILLERO); y++)
+		for(unsigned int y = inicioY; y < (inicioY + PIXELES_POR_CASILLERO); y++)
 		{
-			this->imagen(x,y)->Red = rojo;
-			this->imagen(x,y)->Green = verde;
-			this->imagen(x,y)->Blue = azul;
-			this->imagen(x,y)->Alpha = alpha;
+			this->capa(x,y)->Red = rojo;
+			this->capa(x,y)->Green = verde;
+			this->capa(x,y)->Blue = azul;
+			this->capa(x,y)->Alpha = alpha;
 		}
 	}
 }
 
-//void Visualizador::imprimirTablero(Tablero * tablero, unsigned int xMax, unsigned int yMax, unsigned int zMax)
-//{
-//    tablero.save_image("tablero.bmp");
-//}
+void Visualizador::dibujarInactivo(unsigned int profundidad, unsigned int columna)
+{
+	unsigned int inicioX = ((profundidad - 1) * PIXELES_POR_CASILLERO);
+	unsigned int inicioY = ((columna - 1) * PIXELES_POR_CASILLERO);
 
-//void MiBitmap::casilleroAnulado(){
-//
-//	BMP Gris;
-//	Gris.ReadFromFile( "soldado.bmp" ); //Le paso como ejemplo la imagen del soldado
-//
-//	for( int j=0 ; j < Gris.TellHeight() ; j++)
-//	{
-//		for( int i=0 ; i < Gris.TellWidth() ; i++)
-//		{
-//			int Temp = (int) floor( 0.299*Gris(i,j)->Red + 0.587*Gris(i,j)->Green + 0.114*Gris(i,j)->Blue );
-//			ebmpBYTE TempBYTE = (ebmpBYTE) Temp;
-//			Gris(i,j)->Red = TempBYTE;
-//			Gris(i,j)->Green = TempBYTE;
-//			Gris(i,j)->Blue = TempBYTE;
-//		}
-//	}
-//	// Creo Tabla de color gris
-//	if( Gris.TellBitDepth() < 16 )
-//	{
-//		CreateGrayscaleColorTable( Gris ); }
-//
-//	Gris.WriteToFile( "gris.bmp" );
-//
-//}
-//
+	for(unsigned int x = inicioX; x < (inicioX + PIXELES_POR_CASILLERO); x++)
+	{
+		for(unsigned int y = inicioY; y < (inicioY + PIXELES_POR_CASILLERO); y++)
+		{
+			if(x == y || x == ((inicioY + PIXELES_POR_CASILLERO) - y - 1))
+			{
+				this->capa(x,y)->Red = 250;
+				this->capa(x,y)->Green = 0;
+				this->capa(x,y)->Blue = 0;
+				this->capa(x,y)->Alpha = 0;
+			}
+		}
+	}
+}
+
+void Visualizador::dibujarFicha(unsigned int profundidad, unsigned int columna, string tipoFicha)
+{
+	RGBApixel TransparentColor;
+	TransparentColor.Red = 255;
+	TransparentColor.Green = 255;
+	TransparentColor.Blue = 255;
+
+	BMP imagenFicha;
+	string archivo = tipoFicha + ".bmp";
+	imagenFicha.ReadFromFile(archivo.c_str());
+	imagenFicha.SetBitDepth(8);
+	imagenFicha.SetSize(PIXELES_POR_CASILLERO, PIXELES_POR_CASILLERO);
+
+	unsigned int posicionX = ((profundidad - 1) * PIXELES_POR_CASILLERO);
+	unsigned int posicionY = ((columna - 1) * PIXELES_POR_CASILLERO);
+
+	RangedPixelToPixelCopyTransparent(imagenFicha, posicionX ,PIXELES_POR_CASILLERO, PIXELES_POR_CASILLERO, posicionY, this->capa, 600, 600, TransparentColor);
+}
+
+void Visualizador::exportarImagen(unsigned int altura)
+{
+	string nombreArchivo = "Tablero_Altura_";
+	stringstream alturaStr;
+	alturaStr << altura;
+	nombreArchivo = nombreArchivo + alturaStr.str() + ".bmp";
+
+	this->capa.WriteToFile(nombreArchivo.c_str());
+}
+
 //void MiBitmap::agregarEscudo(){
 //
 //	BMP Soldado;
