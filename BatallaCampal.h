@@ -8,6 +8,7 @@
 #include "Carta.h"
 #include "jugador.h"
 #include "ficha.h"
+#include "Visualizador.h"
 
 class BatallaCampal{
 
@@ -15,6 +16,7 @@ private:
     Lista<Jugador>* jugadores;
     Cola<Carta>* mazo;
     Tablero* tablero;
+    Visualizador* graficos;
 public:
     /*
      * pre:
@@ -162,5 +164,11 @@ public:
     * post: inicia el tablero en el escenario 3 ya configurado
     */
     void iniciarEscenarioTres();
+
+    /*
+	 * pre: ---
+	 * post: Exporta el tablero en imagenes bmp para visualizar.
+	 */
+    void mostrarTablero();
 };
 #endif

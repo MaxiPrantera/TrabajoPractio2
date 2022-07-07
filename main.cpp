@@ -68,6 +68,9 @@ int main()
 	  	}
   	}
 
+  	batallaCampal->mostrarTablero();
+    cin >> respuestaUsuario;
+
 
     //Loop de logica principal:
     cout << "Que comienze el juego!!!" << endl;

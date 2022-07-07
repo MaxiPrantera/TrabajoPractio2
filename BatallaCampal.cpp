@@ -7,12 +7,14 @@ BatallaCampal::BatallaCampal(){
     this->jugadores = new Lista<Jugador>();
     this->mazo = new Cola<Carta>();
     this->tablero = new Tablero(PROFUNDIDAD_TABLERO, ANCHO_TABLERO, ALTO_TABLERO);
+    this->graficos = new Visualizador();
 }
 
 BatallaCampal::~BatallaCampal(){
     delete this->jugadores;
     delete this->mazo;
     delete this->tablero;
+    delete this->graficos;
 }
 
 
@@ -80,7 +82,7 @@ void BatallaCampal::jugadorMoverFicha(unsigned int jugador){
 	bool fichaValida = false;
 	do
 	{
-		ficha = this->getJugador(jugador)->elegirFicha("mover", true);
+		ficha = this->getJugador(jugador)->elegirFicha("mover", true, false);
 		if(ficha != 0){
 			if(this->getFichaJugador(jugador,ficha)->getTipoFicha() == barco){
 				cout << "Los barcos son inamovibles, por favor seleccione otra ficha." << endl;
@@ -225,4 +227,12 @@ void BatallaCampal::iniciarEscenarioTres(){
             }   
         }
     }
+}
+
+void BatallaCampal::mostrarTablero()
+{
+	for(unsigned int z = 1; z <= this->tablero->getCantidadFilas(); z++)
+	{
+		this->graficos->dibujarCapa(this->tablero, z);
+	}
 }

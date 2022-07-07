@@ -82,20 +82,18 @@ string Jugador::getNombreCarta(unsigned int carta)
  * Pre: ---
  * Post: Devuelve una ficha valida seleccionada por el usuario.
  */
-unsigned int Jugador::elegirFicha(string msj, bool ceroDefault)
+unsigned int Jugador::elegirFicha(string msj, bool ceroDefault, bool aceptaBarcos)
 {
 	unsigned int fichaSeleccionada;
 	bool fichaValida = false;
 
 	if(ceroDefault)
-	{
-		msj += " (Ingrese 0 para no elegir ninguna)";
-	}
+	{msj += " (Ingrese 0 para no elegir ninguna)";}
 
 	cout << "Seleccione la ficha para " << msj << ":" << endl;
 	for(unsigned int ficha = 1; ficha <= this->getCantidadFichas(); ficha++)
 	{
-		if (this->fichas->get(ficha).getEstado() == viva)
+		if (this->getFicha(ficha)->getEstado() == viva && (aceptaBarcos || this->getFicha(ficha)->getTipoFicha() != barco))
 		{
 			cout << ficha << ". " << this->fichas->get(ficha).getTipoFichaStr() << " - ";
 			cout << this->fichas->get(ficha).getUbicacionX()
@@ -112,7 +110,7 @@ unsigned int Jugador::elegirFicha(string msj, bool ceroDefault)
 		cin >> fichaSeleccionada;
 
 		if(fichaSeleccionada >= 1 && fichaSeleccionada <= this->getCantidadFichas())
-			fichaValida = (this->fichas->get(fichaSeleccionada).getEstado() == viva);
+			fichaValida = (this->getFicha(fichaSeleccionada)->getEstado() == viva && (aceptaBarcos || this->getFicha(fichaSeleccionada)->getTipoFicha() != barco));
 		else if(fichaSeleccionada == 0)
 		{
 			fichaValida = ceroDefault;
@@ -231,7 +229,7 @@ void Jugador::tirarMolotov(Tablero* tablero)
  * Post: Le pone un escudo a una ficha y la protege del siguiente ataque directo (Misil o disparo o molotov).
  */
 void Jugador::ponerEscudo()
-{this->getFicha(this->elegirFicha("poner el escudo", false))->darEscudo();}
+{this->getFicha(this->elegirFicha("poner el escudo", false, true))->darEscudo();}
 
 /*
  * Pre: ---.
@@ -243,7 +241,7 @@ void Jugador::teletransportar(Tablero* tablero)
 	bool fichaValida = false;
 	do
 	{
-		fichaNumero = this->elegirFicha("teletransportar", false);
+		fichaNumero = this->elegirFicha("teletransportar", false, false);
 		if(fichaNumero != 0){
 			if(this->getFicha(fichaNumero)->getTipoFicha() == barco){
 				cout << "Los barcos son inamovibles, por favor seleccione otra ficha." << endl;

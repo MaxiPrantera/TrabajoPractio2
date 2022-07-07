@@ -36,7 +36,7 @@ public:
 	unsigned int getCantidadCartas();
 	Ficha* getFicha(unsigned int);
 	std::string getNombreCarta(unsigned int);
-	unsigned int elegirFicha(std::string, bool);
+	unsigned int elegirFicha(std::string, bool, bool);
 	void agregarFicha(TipoFicha, Tablero*);
 	void robarCarta(Cola<Carta>* mazo);
 	void tirarCarta(unsigned int, Tablero*);
